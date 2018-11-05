@@ -1,0 +1,26 @@
+{
+  "name": "bettersplit",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "fuse.js": "^3.3.0",
+    "next": "^7.0.2",
+    "pg": "^7.6.0",
+    "pg-hstore": "^2.3.2",
+    "react": "16.7.0-alpha.0",
+    "react-dom": "16.7.0-alpha.0",
+    "sequelize": "^4.41.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0"
+  }
+}
