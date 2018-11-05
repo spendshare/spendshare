@@ -1,3 +1,3 @@
 # spendshare
 
-![](./assets/screenshot.png)
+![](./screenshot.png)
