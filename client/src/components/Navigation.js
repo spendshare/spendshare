@@ -8,8 +8,16 @@ export default () => {
   const [name, setName] = useState(null)
 
   loadScript(
-    googleUser => {
-      setName(googleUser.getBasicProfile().getName())
+    async googleUser => {
+      const token = googleUser.getAuthResponse().id_token
+      const response = await fetch(`http://localhost:3000/api/v1/sign_in`, {
+        method: 'POST',
+        body: token,
+      })
+      const json = await response.json()
+      console.log(json)
+
+      // setName(googleUser.getBasicProfile().getName())
     },
     error => {
       console.error(JSON.stringify(error, undefined, 2))
