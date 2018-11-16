@@ -41,4 +41,14 @@ class GoogleAuthenticator
       picture: @payload['picture']
     }
   end
+
+  def generate_token
+    loop do
+      token = SecureRandom.hex(16)
+      break token if Token
+        .find_by(token: token)
+        .where('valid_until < GETDATETIME()')
+        .blank?
+    end
+  end
 end

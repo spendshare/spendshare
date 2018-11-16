@@ -5,6 +5,9 @@ class Api::V1::SessionsController < ApplicationController
     return error(401, 'Unauthorized OAuth2 issuer') unless ga.valid_domain?
     return error(401, 'Expired token') if ga.expired?
     return error(401, 'Fraudulent client ID') unless ga.correct_aud?
+
+    Token.new(ga.generate_token).save!
+
     ok(ga.data)
   end
 end

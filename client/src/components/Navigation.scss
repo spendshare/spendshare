@@ -8,4 +8,10 @@
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box;
+
+  .signed-in {
+    line-height: 32px;
+    height: 32px;
+    padding: 0 10px;
+  }
 }

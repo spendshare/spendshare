@@ -15,9 +15,8 @@ export default () => {
         body: token,
       })
       const json = await response.json()
-      console.log(json)
-
-      // setName(googleUser.getBasicProfile().getName())
+      // console.log(json)
+      setName(json.name)
     },
     error => {
       console.error(JSON.stringify(error, undefined, 2))
@@ -26,7 +25,14 @@ export default () => {
 
   return (
     <div className="navigation">
-      {name || <Button title="Sign in with Google" id="custom-btn" light />}
+      <Button
+        id="custom-btn"
+        light
+        title="Sign in with Google"
+        // Hack for not unregistering element too fast
+        style={name && { display: 'none' }}
+      />
+      {name && <div className="signed-in">{name}</div>}
     </div>
   )
 }
