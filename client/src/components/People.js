@@ -1,3 +1,5 @@
+import React from 'react'
+import './People.scss'
 import User from './User'
 
 const users = [{
@@ -30,11 +32,5 @@ const users = [{
 export default () => (
   <div className="people">
     {users.map(u => <User key={`user-${u.id}`} user={u} />)}
-    <style jsx>{`
-      .people {
-        padding: 60px 0 0 20px;
-        width: 250px;
-      }
-    `}</style>
   </div>
 )

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import './Bills.scss'
 import Button from './Button'
 import Bill from './Bill'
 import AddBill from './AddBill'
@@ -62,15 +63,6 @@ export default () => {
         <Button title="Add a bill" onClick={onClick} style={{ marginBottom: 20 }} />
       </div>
       {bills.map(bill => <Bill bill={bill} key={`bill-${bill.id}`} />)}
-      <style jsx>{`
-        .header {
-          display: flex;
-        }
-
-        .bills {
-          width: 550px;
-        }
-      `}</style>
     </div>
   )
 }

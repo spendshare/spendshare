@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import './BadgeSelector.scss'
 import Fuse from 'fuse.js'
 
 import { fontFamily } from '../config'
@@ -40,7 +41,7 @@ export default ({ suggested, selected, select, deselect }) => {
 
   return (
     <div className="badge-selector">
-      <span className="title">
+      <span className="badge-selector-title">
         With <span className="highlight">you</span> and:
       </span>
       <div className="selected-people">
@@ -76,50 +77,6 @@ export default ({ suggested, selected, select, deselect }) => {
           }
         </div>
       )}
-      <style jsx>{`
-        .badge-selector {
-          position: relative;
-          border-bottom: 1px solid #eee;
-          padding: 10px 20px 10px;
-        }
-
-        .title {
-          margin-bottom: 5px;
-          font-size: 14px;
-          color: #888;
-        }
-
-        .highlight {
-          color: #000;
-        }
-
-        .badge-input {
-          font-family: ${fontFamily}, sans-serif;
-          font-size: 14px;
-          border: none;
-          margin-top: 5px;
-        }
-
-        .badge-input:focus {
-          outline: none;
-        }
-
-        .selected-people {
-          display: flex;
-          flex-wrap: wrap;
-          padding: 5px 0 0 0;
-        }
-
-        .suggestions {
-          position: absolute;
-          z-index: 3;
-          left: 0;
-          width: 100%;
-          background-color: #fff;
-          border-bottom: 1px solid #eee;
-          margin-top: 11px;
-        }
-      `}</style>
     </div>
   )
 }

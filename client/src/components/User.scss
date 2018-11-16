@@ -1,0 +1,60 @@
+.user {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: default;
+  position: relative;
+
+  .tooltip-wrapper {
+    position: absolute;
+    z-index: 1;
+    left: -230px;
+    top: 10px;
+  }
+
+  .tooltip-wrapper {
+    display: none;
+  }
+
+  &:hover .tooltip-wrapper {
+    display: block;
+  }
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  .avatar {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    background-color: #ddd;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+  }
+
+  .name {
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .state {
+    color: #888;
+    font-size: 13px;
+  }
+}

@@ -1,4 +1,5 @@
-
+import React from 'react'
+import './Tooltip.scss'
 import { shortenWord } from '../utils'
 import { currency } from '../config'
 
@@ -31,34 +32,5 @@ export default () => (
       ))}
     </div>
     <div className="arrow"></div>
-    <style jsx>{`
-      .tooltip {
-        position: absolute;
-        display: flex;
-      }
-
-      .content {
-        background-color: #000;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 12px;
-        padding: 7px 10px;
-        border-radius: 5px;
-        line-height: 18px;
-        width: 200px;
-      }
-
-      .highlight {
-        color: #fff;
-      }
-
-      .arrow {
-        width: 0;
-        height: 0;
-        margin-top: 10px;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-left: 5px solid black;
-      }
-    `}</style>
   </div>
 )
