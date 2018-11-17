@@ -1,24 +1,29 @@
-# README
+# server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## CORS
 
-Things you may want to cover:
+CORS handling is defined in `routes.rb` via:
+```ruby
+match '*path',
+  controller: 'application',
+  action: 'options',
+  via: :options
+```
 
-* Ruby version
+and handled in `application_controller.rb` via:
 
-* System dependencies
+```ruby
+def options
+  response.set_header(
+    'Access-Control-Allow-Headers',
+    'Content-Type,Authorization'
+  )
+  response.set_header(
+    'Access-Control-Allow-Methods',
+    'GET,POST,DELETE'
+  )
+  render nothing: true, status: 200
+end
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+As you can see, all legal headers and methods are set there.
