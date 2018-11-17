@@ -10,12 +10,21 @@ class ApplicationController < ActionController::API
   end
 
   def set_cors
-    response.set_header('Access-Control-Allow-Origin', 'http://localhost:8000')
+    response.set_header(
+      'Access-Control-Allow-Origin',
+      'http://localhost:8000'
+    )
   end
 
   def options
-    response.set_header('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.set_header('Access-Control-Allow-Methods', 'GET,POST,DELETE')
+    response.set_header(
+      'Access-Control-Allow-Headers',
+      'Content-Type,Authorization'
+    )
+    response.set_header(
+      'Access-Control-Allow-Methods',
+      'GET,POST,DELETE'
+    )
     render nothing: true, status: 200
   end
 

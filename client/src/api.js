@@ -11,8 +11,9 @@ export default {
     const token = store.getState().session.token
     console.log(`-> ${method} ${path}`)
 
-    const config = { method }
-    if (token) config.Authorization = `bearer ${token}`
+    const config = { method, headers: {} }
+
+    if (token) config.headers.Authorization = `bearer ${token}`
     if (data) config.body = JSON.stringify(data)
 
     const response = await fetch(path, config)

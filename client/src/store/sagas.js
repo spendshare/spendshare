@@ -34,7 +34,7 @@ function* processSignIn() {
 
 function* processSignOut() {
   const response = yield call(api.fetch, api.endpoints.signOut())
-  if (!response.error) console.error(response.error)
+  if (response.error) console.error(response.error)
   yield put(actions.receiveSignOut())
 }
 
