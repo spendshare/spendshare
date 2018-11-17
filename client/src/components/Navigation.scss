@@ -7,11 +7,21 @@
   left: 0;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   box-sizing: border-box;
+  cursor: default;
 
-  .signed-in {
-    line-height: 32px;
-    height: 32px;
-    padding: 0 10px;
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-right: 10px;
+  }
+
+  .sign-out {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    cursor: pointer;
   }
 }

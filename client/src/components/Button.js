@@ -1,7 +1,6 @@
 import React from 'react'
 import './Button.scss'
 import { noop, optionalClass } from '../utils'
-import { primaryColor, dark } from '../config'
 
 export default ({
   border,

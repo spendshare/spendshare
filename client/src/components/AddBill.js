@@ -1,8 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react'
 import './AddBill.scss'
 import { sleep } from '../utils'
-import { currency, fontFamily, primaryColor, dark } from '../config'
-
+import { currency } from '../config'
 import BadgeSelector from './BadgeSelector'
 import Button from './Button'
 import DropdownSelector from './DropdownSelector'

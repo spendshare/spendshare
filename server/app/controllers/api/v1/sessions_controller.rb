@@ -12,4 +12,9 @@ class Api::V1::SessionsController < ApplicationController
     token.save!
     ok(token: token.token, email: user.email, name: user.name)
   end
+
+  def delete
+    Token.delete_all(token: recognize_token)
+    ok()
+  end
 end

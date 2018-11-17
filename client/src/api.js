@@ -21,13 +21,17 @@ export default {
       const json = await response.json()
       return json
     } catch (exception) {
-      return { error: 'JSON_PARSE' }
+      return { error: 'Could not parse JSON' }
     }
   },
   endpoints: {
-    signIn: {
+    signIn: () => ({
       path: url('sign_in'),
       method: 'POST',
-    },
+    }),
+    signOut: () => ({
+      path: url('sign_out'),
+      method: 'DELETE',
+    }),
   },
 }

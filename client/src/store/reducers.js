@@ -1,10 +1,15 @@
 import { combineReducers } from 'redux'
-import { saveToLocalStorage } from '../utils'
 import {
+  saveToLocalStorage,
+  deleteFromLocalStorage,
+} from '../utils'
+import {
+  LOAD_LOCAL_STORAGE,
   RECEIVE_SIGN_IN,
   REQUEST_SIGN_IN,
   REJECT_SIGN_IN,
-  LOAD_LOCAL_STORAGE,
+  REQUEST_SIGN_OUT,
+  RECEIVE_SIGN_OUT,
 } from './actions'
 
 const session = (state = {
@@ -42,6 +47,18 @@ const session = (state = {
       return {
         ...state,
         waiting: false,
+      }
+
+    case REQUEST_SIGN_OUT:
+      return { ...state }
+
+    case RECEIVE_SIGN_OUT:
+      deleteFromLocalStorage('token', 'email', 'name')
+      return {
+        ...state,
+        email: null,
+        name: null,
+        token: null,
       }
 
     default:

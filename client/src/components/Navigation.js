@@ -1,13 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { primaryColor } from '../config'
 import actions from '../store/actions'
 import Button from './Button'
 import './Navigation.scss'
+import { getAvatar } from '../utils'
 
-const Navigation = ({ session: { name } }) => (
+const Navigation = ({ session, dispatch }) => (
   <div className="navigation">
-    {name}
+    <img className="avatar" src={getAvatar(session)} />
+    <div className="right">
+      {session.name}<br />
+      <div
+        className="sign-out"
+        onClick={() => dispatch(actions.requestSignOut())}
+      >
+        Sign out
+      </div>
+    </div>
   </div>
 )
 
