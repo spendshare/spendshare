@@ -6,8 +6,11 @@ import { callSignIn } from '../GoogleAuth'
 function* processSignIn() {
   console.log('processSignIn')
   const googleResponse = yield call(callSignIn)
-  console.log(googleResponse)
-  const data = yield call(api.fetch, api.endpoints.signIn, '')
+  const data = yield call(
+    api.fetch,
+    api.endpoints.signIn,
+    googleResponse.Zi.id_token,
+  )
 
   if (data && !data.error) {
     yield put(actions.receiveSignIn(data))

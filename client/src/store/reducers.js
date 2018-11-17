@@ -18,6 +18,7 @@ const session = (state = {
 
     case RECEIVE_SIGN_IN:
       const { token, email, name } = action.session
+      console.log(`reducers: ${JSON.stringify(action.session, null, 4)}`)
       return {
         ...state,
         token,
