@@ -5,16 +5,11 @@ import actions from '../store/actions'
 import Button from './Button'
 import './Navigation.scss'
 
-class Navigation extends Component {
-  render() {
-    return (
-      <div className="navigation">
-        dupa123
-        {/* {name && <div className="signed-in">{name}</div>} */}
-      </div>
-    )
-  }
-}
+const Navigation = ({ session: { name } }) => (
+  <div className="navigation">
+    {name}
+  </div>
+)
 
 export default connect(
   ({ session }) => ({ session }),

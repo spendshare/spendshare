@@ -1,10 +1,15 @@
 import api from '../api'
-import { takeEvery, call, put } from 'redux-saga/effects'
+import {
+  call,
+  fork,
+  put,
+  takeEvery,
+} from 'redux-saga/effects'
 import actions, { REQUEST_SIGN_IN } from './actions'
 import { callSignIn } from '../GoogleAuth'
+import { getLocalStorage } from '../utils'
 
 function* processSignIn() {
-  console.log('processSignIn')
   const googleResponse = yield call(callSignIn)
   const data = yield call(
     api.fetch,
@@ -19,7 +24,12 @@ function* processSignIn() {
   }
 }
 
+function* loadLocalStorage() {
+  const session = getLocalStorage('token', 'email', 'name')
+  yield put(actions.loadLocalStorage(session))
+}
+
 export default function* () {
-  console.log('sagas!')
+  yield fork(loadLocalStorage)
   yield takeEvery(REQUEST_SIGN_IN, processSignIn)
 }

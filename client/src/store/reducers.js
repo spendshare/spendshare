@@ -1,29 +1,39 @@
 import { combineReducers } from 'redux'
+import { saveToLocalStorage } from '../utils'
 import {
   RECEIVE_SIGN_IN,
   REQUEST_SIGN_IN,
   REJECT_SIGN_IN,
+  LOAD_LOCAL_STORAGE,
 } from './actions'
 
 const session = (state = {
-  token: null,
-  name: null,
   email: null,
+  name: null,
+  token: null,
   waiting: false,
 }, action) => {
+
   console.log(action.type)
+
   switch (action.type) {
+    case LOAD_LOCAL_STORAGE:
+      return {
+        ...state,
+        ...action.session,
+      }
+
     case REQUEST_SIGN_IN:
       return { ...state, waiting: true }
 
     case RECEIVE_SIGN_IN:
       const { token, email, name } = action.session
-      console.log(`reducers: ${JSON.stringify(action.session, null, 4)}`)
+      saveToLocalStorage({ token, email, name })
       return {
         ...state,
-        token,
         email,
         name,
+        token,
         waiting: false,
       }
 
@@ -33,6 +43,7 @@ const session = (state = {
         ...state,
         waiting: false,
       }
+
     default:
       return state
   }

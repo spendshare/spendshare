@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Bill.scss'
-import { parseDate, optional } from '../utils'
+import { parseDate } from '../utils'
 import { currency } from '../config'
 
 export default ({ bill }) => {

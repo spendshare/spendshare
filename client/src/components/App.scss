@@ -7,9 +7,12 @@ div {
 .app {
   padding-top: 20px;
   margin: 50px auto;
-  display: flex;
   width: 800px;
   flex: 1;
+}
+
+.wrapper {
+  display: flex;
 }
 
 .center {

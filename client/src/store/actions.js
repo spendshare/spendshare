@@ -1,3 +1,4 @@
+export const LOAD_LOCAL_STORAGE = 'LOAD_LOCAL_STORAGE'
 export const REQUEST_SIGN_IN = 'REQUEST_SIGN_IN'
 export const RECEIVE_SIGN_IN = 'RECEIVE_SIGN_IN'
 export const REJECT_SIGN_IN = 'REJECT_SIGN_IN'
@@ -6,6 +7,7 @@ export const REQUEST_ADD_BILL = 'REQUEST_ADD_BILL'
 export const RECEIVE_ADD_BILL = 'RECEIVE_ADD_BILL'
 
 export default {
+  loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
   requestAddBill: () => ({ type: REQUEST_ADD_BILL }),
   receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
   requestSignIn: session => ({ type: REQUEST_SIGN_IN }),

@@ -14,17 +14,17 @@ loadScript()
 const App = ({ session, dispatch }) => (
   <div className="app">
     {session.token
-    ? <div>
+    ? <div className="wrapper">
         <Navigation />
           <Bills />
         <People />
       </div>
     : <div className="center">
         <Button
-          title="Sign in with Google"
-          onClick={() => dispatch(actions.requestSignIn())}
           light
           loading={session.waiting}
+          onClick={() => dispatch(actions.requestSignIn())}
+          title="Sign in with Google"
         />
       </div>}
   </div>
