@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_16_023300) do
+ActiveRecord::Schema.define(version: 2018_11_17_221345) do
+
+  create_table "bills", force: :cascade do |t|
+    t.string "title"
+    t.integer "added_by_id"
+    t.decimal "amount", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["added_by_id"], name: "index_bills_on_added_by_id"
+  end
 
   create_table "tokens", force: :cascade do |t|
     t.string "token"
