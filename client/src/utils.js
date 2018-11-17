@@ -53,6 +53,6 @@ export const hash = str => {
 export const saveToLocalStorage = items => Object.keys(items).forEach(k => localStorage.setItem(k, items[k]))
 export const optional = (condition, className) => condition ? ` ${className}` : ''
 export const shortenWord = word => `${word.charAt(0)}.`
-export const getAvatar = user => `https://api.adorable.io/avatars/${hash(user.email) % 5000}`
+export const getAvatar = user => `https://api.adorable.io/avatars/${(user.email ? hash(user.email) : 0) % 5000}`
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 export const noop = () => {}

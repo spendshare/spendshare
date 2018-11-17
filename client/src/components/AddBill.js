@@ -53,9 +53,11 @@ export default function({ hide }) {
   const suggested = [{
     id: 1,
     name: 'Aleksander Mikucki',
+    email: 'mikucki@gmail.com',
   }, {
     id: 2,
     name: 'Wojciech Kozyra',
+    email: 'kozyra@gmail.com',
   }]
 
   const select = person => {
