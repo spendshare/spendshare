@@ -13,7 +13,8 @@
     "react": "16.7.0-alpha.0",
     "react-dom": "16.7.0-alpha.0",
     "react-redux": "^5.1.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-saga": "^0.16.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
