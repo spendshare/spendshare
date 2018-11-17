@@ -17,7 +17,7 @@ export default ({
       onClick={loading ? noop : onClick}
       {...props}
     >
-      {title}
+      {loading ? '...' : title}
     </div>
   )
 }

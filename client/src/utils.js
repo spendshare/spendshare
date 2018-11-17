@@ -20,26 +20,6 @@ export const parseDate = date => {
   return `${number} ${name} ago`
 }
 
-export const loadScript = (onSuccess, onError) => {
-  const script = document.createElement('script')
-  script.src = 'https://apis.google.com/js/api:client.js'
-
-  script.onload = () => {
-    gapi.load('auth2', () => {
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      const auth2 = gapi.auth2.init({
-        client_id: '1001246833892-83a1a2g20n9jnm1ugdd3tf1o7msmsrd2.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      })
-      const element = document.getElementById('custom-btn')
-      auth2.attachClickHandler(element, {}, onSuccess, onError)
-    })
-  }
-  document.body.appendChild(script)
-}
-
 // Source: https://github.com/darkskyapp/string-hash
 export const hash = str => {
   let hash = 5381, i = str.length

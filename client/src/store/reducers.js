@@ -1,19 +1,36 @@
 import { combineReducers } from 'redux'
-import { SIGN_IN } from './actions';
+import {
+  RECEIVE_SIGN_IN,
+  REQUEST_SIGN_IN,
+  REJECT_SIGN_IN,
+} from './actions'
 
 const session = (state = {
   token: null,
   name: null,
   email: null,
+  waiting: false,
 }, action) => {
+  console.log(action.type)
   switch (action.type) {
-    case SIGN_IN:
+    case REQUEST_SIGN_IN:
+      return { ...state, waiting: true }
+
+    case RECEIVE_SIGN_IN:
       const { token, email, name } = action.session
       return {
         ...state,
         token,
         email,
         name,
+        waiting: false,
+      }
+
+    case REJECT_SIGN_IN:
+      console.log(action.error)
+      return {
+        ...state,
+        waiting: false,
       }
     default:
       return state

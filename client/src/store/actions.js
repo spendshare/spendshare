@@ -1,4 +1,6 @@
-export const SIGN_IN = 'SIGN_IN'
+export const REQUEST_SIGN_IN = 'REQUEST_SIGN_IN'
+export const RECEIVE_SIGN_IN = 'RECEIVE_SIGN_IN'
+export const REJECT_SIGN_IN = 'REJECT_SIGN_IN'
 export const SIGN_OUT = 'SIGN_OUT'
 export const REQUEST_ADD_BILL = 'REQUEST_ADD_BILL'
 export const RECEIVE_ADD_BILL = 'RECEIVE_ADD_BILL'
@@ -6,6 +8,8 @@ export const RECEIVE_ADD_BILL = 'RECEIVE_ADD_BILL'
 export default {
   requestAddBill: () => ({ type: REQUEST_ADD_BILL }),
   receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
-  signIn: session => ({ type: SIGN_IN, session }),
+  requestSignIn: session => ({ type: REQUEST_SIGN_IN }),
+  receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
+  rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
   signOut: () => ({ type: SIGN_OUT }),
 }
