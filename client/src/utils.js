@@ -40,9 +40,19 @@ export const loadScript = (onSuccess, onError) => {
   document.body.appendChild(script)
 }
 
+// Source: https://github.com/darkskyapp/string-hash
+export const hash = str => {
+  let hash = 5381, i = str.length
+  while(i) hash = (hash * 33) ^ str.charCodeAt(--i)
+  // JavaScript does bitwise operations (like XOR, above) on 32-bit signed
+  // integers. Since we want the results to be always positive, convert the
+  // signed int to an unsigned by doing an unsigned bitshift.
+  return hash >>> 0
+}
+
 export const saveToLocalStorage = items => Object.keys(items).forEach(k => localStorage.setItem(k, items[k]))
 export const optional = (condition, className) => condition ? ` ${className}` : ''
 export const shortenWord = word => `${word.charAt(0)}.`
-export const getAvatar = user => `https://api.adorable.io/avatars/${user.id % 5000}`
+export const getAvatar = user => `https://api.adorable.io/avatars/${hash(user.email) % 5000}`
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 export const noop = () => {}

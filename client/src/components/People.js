@@ -19,12 +19,12 @@ const users = [{
   name: 'Aleksander Mikucki',
 }, {
   balance: -500,
-  email: 'mikucki@gmail.com',
+  email: 'tomasz.sapeta@gmail.com',
   id: 1,
   name: 'Tomasz Sapeta',
 }, {
   balance: 57,
-  email: 'mikucki@gmail.com',
+  email: 'kswierad@gmail.com',
   id: 2,
   name: 'Kamil Świerad',
 }]
