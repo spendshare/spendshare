@@ -1,11 +1,20 @@
 import { combineReducers } from 'redux'
+import { SIGN_IN } from './actions';
 
 const session = (state = {
-  token: '',
-  name: '',
-  email: '',
+  token: null,
+  name: null,
+  email: null,
 }, action) => {
   switch (action.type) {
+    case SIGN_IN:
+      const { token, email, name } = action.session
+      return {
+        ...state,
+        token,
+        email,
+        name,
+      }
     default:
       return state
   }

@@ -6,6 +6,6 @@ export const RECEIVE_ADD_BILL = 'RECEIVE_ADD_BILL'
 export default {
   requestAddBill: () => ({ type: REQUEST_ADD_BILL }),
   receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
-  signIn: () => ({ type: SIGN_IN }),
+  signIn: session => ({ type: SIGN_IN, session }),
   signOut: () => ({ type: SIGN_OUT }),
 }
