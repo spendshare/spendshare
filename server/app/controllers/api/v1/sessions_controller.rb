@@ -1,13 +1,14 @@
 class Api::V1::SessionsController < ApplicationController
   def get
-    ga = GoogleAuthenticator.new(request.body.read)
-    return error(400, 'Parsing error') if ga.parsing_error?
-    return error(401, 'Unauthorized OAuth2 issuer') unless ga.valid_domain?
-    return error(401, 'Expired token') if ga.expired?
-    return error(401, 'Fraudulent client ID') unless ga.correct_aud?
+    google = GoogleAuthenticator.new(request.body.read)
 
-    Token.new(ga.generate_token).save!
+    return error(400, 'Parsing error') if google.parsing_error?
+    return error(401, 'Unauthorized OAuth2 issuer') unless google.valid_domain?
+    return error(401, 'Expired token') if google.expired?
+    return error(401, 'Fraudulent client ID') unless google.correct_aud?
 
-    ok(ga.data)
+    user = Accounts.get(google.data)
+    token = Token.new(user: user).save!
+    ok(token: token.token, email: user.email, name: user.name)
   end
 end

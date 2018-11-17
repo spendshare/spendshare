@@ -2,8 +2,8 @@ require 'base64'
 
 class GoogleAuthenticator
   def initialize(token)
-    @token = token
-    @header, @payload, _ = token.split('.')
+    @google_token = token
+    @header, @payload, _ = @google_token.split('.')
     @header = parse(@header)
     @payload = parse(@payload)
   end
@@ -40,15 +40,5 @@ class GoogleAuthenticator
       email: @payload['email'],
       picture: @payload['picture']
     }
-  end
-
-  def generate_token
-    loop do
-      token = SecureRandom.hex(16)
-      break token if Token
-        .find_by(token: token)
-        .where('valid_until < GETDATETIME()')
-        .blank?
-    end
   end
 end

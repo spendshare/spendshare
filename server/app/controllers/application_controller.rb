@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::API
   after_action :set_cors
 
-  def ok(data)
+  def ok(data = {})
     render json: data
   end
 
-  def error(status, message)
+  def error(status = 500, message = '')
     render status: status, json: { error: message }
   end
 

@@ -1,27 +1,31 @@
 import React, { useState } from 'react'
 import { primaryColor } from '../config'
-import { loadScript } from '../utils'
+import { loadScript, saveToLocalStorage } from '../utils'
 import './Navigation.scss'
 import Button from './Button'
 
 export default () => {
-  const [name, setName] = useState(null)
+  const [name, setName] = useState(localStorage.getItem('name'))
 
-  loadScript(
-    async googleUser => {
-      const token = googleUser.getAuthResponse().id_token
-      const response = await fetch(`http://localhost:3000/api/v1/sign_in`, {
-        method: 'POST',
-        body: token,
-      })
-      const json = await response.json()
-      // console.log(json)
-      setName(json.name)
-    },
-    error => {
-      console.error(JSON.stringify(error, undefined, 2))
-    },
-  )
+  const signIn = async googleUser => {
+    const idToken = googleUser.getAuthResponse().id_token
+    const response = await fetch(`http://localhost:3000/api/v1/sign_in`, {
+      method: 'POST',
+      body: idToken,
+    })
+    const json = await response.json()
+
+    const { token, name, email } = json
+    setName(name)
+    saveToLocalStorage({ token, name, email })
+  }
+
+  const handleError = error => {
+    console.error(JSON.stringify(error, undefined, 2))
+  }
+
+  const token = localStorage.getItem('token')
+  if (!token) loadScript(signIn, handleError)
 
   return (
     <div className="navigation">
