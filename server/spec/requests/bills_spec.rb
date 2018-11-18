@@ -21,12 +21,26 @@ describe 'bill request', type: :request do
         'data' => {
           'participants' => [{
             'id' => 'VXNlcjoy',
+            'name' => '...',
+            'email' => '...',
             'balance' => 100,
+            'owes' => [{
+              'amount' => 20,
+              'to' => {
+                'id' => 'VXNlcjoz',
+                'name' => 'Example User',
+                'email' => 'example@gmail.com',
+              },
+            }],
           }, {
             'id' => 'VXNlcjoz',
+            'name' => '...',
+            'email' => '...',
             'balance' => 100,
           }, {
             'id' => 'VXNlcjo0',
+            'name' => '...',
+            'email' => '...',
             'balance' => 100,
           }]
         }
