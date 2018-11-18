@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createRef } from 'react'
+import { connect } from 'react-redux'
 import './AddBill.scss'
-import { sleep } from '../utils'
+import { sleep, shortenName } from '../utils'
+import actions from '../store/actions'
 import { currency } from '../config'
 import BadgeSelector from './BadgeSelector'
 import Button from './Button'
@@ -19,12 +21,18 @@ const groups = [{
   name: 'Meksykanin',
 }]
 
-export default function({ hide }) {
-  const [loading, setLoading] = useState(false)
+const AddBill = ({ users, dispatch, hide }) => {
+  const [title, setTitle] = useState('')
+  const [amount, setAmount] = useState('')
   const [selected, setSelected] = useState([])
   const [payer, setPayer] = useState({ name: 'You' })
   const [group, setGroup] = useState(groups[0] || { name: 'No group' })
+
+  const handleChangeTitle = event => setTitle(event.target.value)
+  const handleChangeAmount = event => setAmount(event.target.value)
+
   let ref = createRef()
+
   // useEffect(() => {
   //   const handleClick = event => {
   //     if (ref && !ref.contains(event.target)) hide()
@@ -32,6 +40,7 @@ export default function({ hide }) {
   //   window.addEventListener('click', handleClick)
   //   return () => window.removeEventListener('click', handleClick)
   // })
+
   useEffect(() => {
     const handleKeyDown = ({ keyCode }) => {
       if (keyCode === 27) hide()
@@ -41,23 +50,15 @@ export default function({ hide }) {
   })
 
   const save = async () => {
-    setLoading(true)
-    await sleep(400)
-    setLoading(false)
+    dispatch(actions.requestAddBill({
+      group,
+      payer,
+      selected,
+    }))
     hide()
   }
 
   const splittingWay = 'equally'
-
-  const suggested = [{
-    id: 1,
-    name: 'Aleksander Mikucki',
-    email: 'mikucki@gmail.com',
-  }, {
-    id: 2,
-    name: 'Wojciech Kozyra',
-    email: 'kozyra@gmail.com',
-  }]
 
   const select = person => {
     setSelected([...selected, person])
@@ -81,7 +82,7 @@ export default function({ hide }) {
           Add a bill
         </div>
         <BadgeSelector
-          suggested={suggested}
+          suggested={users}
           selected={selected}
           select={select}
           deselect={deselect}
@@ -92,19 +93,23 @@ export default function({ hide }) {
               autoFocus
               className="input"
               label="Title"
+              onChange={handleChangeTitle}
               placeholder="Enter a description..."
+              value={title}
             />
             <Input
               biggerText
               className="input"
               label="Amount"
+              onChange={handleChangeAmount}
               placeholder="0.00"
               right={currency}
+              value={amount}
             />
             <div className="descriptive">
               Paid by{' '}
               <DropdownSelector
-                title={payer.name}
+                title={payer.name !== 'You' ? shortenName(payer.name) : 'You'}
                 options={[{ name: 'You' }, ...selected]}
                 renderOption={renderPerson}
                 select={selectPayer}
@@ -140,7 +145,6 @@ export default function({ hide }) {
             <Button
               title="Save"
               onClick={save}
-              loading={loading}
             />
           </div>
         </div>
@@ -148,3 +152,5 @@ export default function({ hide }) {
     </div>
   )
 }
+
+export default connect(({ users }) => ({ users }))(AddBill)

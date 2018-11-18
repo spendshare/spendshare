@@ -6,15 +6,18 @@ const version = 'v1'
 const url = endpoint => `${protocol}://${host}/api/${version}/${endpoint}`
 
 export default {
-  fetch: async (endpoint, data) => {
-    const { path, method } = endpoint
+  fetch: async (endpoint) => {
+    const { path, method, data } = endpoint
     const token = store.getState().session.token
     console.log(`-> ${method} ${path}`)
 
     const config = { method, headers: {} }
 
     if (token) config.headers.Authorization = `bearer ${token}`
-    if (data) config.body = JSON.stringify(data)
+    if (data) {
+      console.log('data: ', data)
+      config.body = JSON.stringify(data)
+    }
 
     const response = await fetch(path, config)
 
@@ -34,5 +37,10 @@ export default {
       path: url('sign_out'),
       method: 'DELETE',
     }),
+    addBill: params => ({
+      path: url('bill'),
+      method: 'POST',
+      data: params,
+    })
   },
 }

@@ -12,6 +12,33 @@ import {
   RECEIVE_SIGN_OUT,
 } from './actions'
 
+const mockUsers = [{
+  balance: -120,
+  email: 'tomek.czajecki@gmail.com',
+  id: 100,
+  name: 'Tomek Czajęcki',
+}, {
+  balance: 0,
+  email: 'supesetle@gmail.com',
+  id: 50,
+  name: 'Michał Osadnik',
+}, {
+  balance: 20,
+  email: 'mikucki@gmail.com',
+  id: 51,
+  name: 'Aleksander Mikucki',
+}, {
+  balance: -500,
+  email: 'tomasz.sapeta@gmail.com',
+  id: 1,
+  name: 'Tomasz Sapeta',
+}, {
+  balance: 57,
+  email: 'kswierad@gmail.com',
+  id: 2,
+  name: 'Kamil Świerad',
+}]
+
 const session = (state = {
   email: null,
   name: null,
@@ -43,7 +70,6 @@ const session = (state = {
       }
 
     case REJECT_SIGN_IN:
-      console.log(action.error)
       return {
         ...state,
         waiting: false,
@@ -66,7 +92,7 @@ const session = (state = {
   }
 }
 
-const users = (state = [], action) => {
+const users = (state = mockUsers, action) => {
   switch (action.type) {
     default:
       return state

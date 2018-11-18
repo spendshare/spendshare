@@ -1,6 +1,6 @@
 import React from 'react'
 import './Tooltip.scss'
-import { shortenWord } from '../utils'
+import { shortenName } from '../utils'
 import { currency } from '../config'
 
 const debts = [{
@@ -13,11 +13,6 @@ const debts = [{
   whom: 'Wojciech Kozyra',
   amount: 1.0,
 }]
-
-const shortenName = name => {
-  const [firstName, ...rest] = name.split(' ')
-  return `${firstName} ${shortenWord(rest.slice(-1)[0])}`
-}
 
 export default () => (
   <div className="tooltip">

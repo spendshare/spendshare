@@ -40,6 +40,11 @@ export const optionalClass = (condition, className) => condition ? ` ${className
 
 export const shortenWord = word => `${word.charAt(0)}.`
 
+export const shortenName = name => {
+  const [firstName, lastName] = name.split(' ')
+  return `${shortenWord(firstName[0])} ${lastName}`
+}
+
 export const getAvatar = user => `https://api.adorable.io/avatars/${(user.email ? hash(user.email) : 0) % 5000}`
 
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

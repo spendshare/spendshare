@@ -9,7 +9,7 @@ export const RECEIVE_ADD_BILL = 'RECEIVE_ADD_BILL'
 
 export default {
   loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
-  requestAddBill: () => ({ type: REQUEST_ADD_BILL }),
+  requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
   receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
   requestSignIn: session => ({ type: REQUEST_SIGN_IN }),
   receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),

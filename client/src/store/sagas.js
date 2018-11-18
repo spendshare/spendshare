@@ -8,6 +8,7 @@ import {
 import actions, {
   REQUEST_SIGN_IN,
   REQUEST_SIGN_OUT,
+  REQUEST_ADD_BILL,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
@@ -38,8 +39,14 @@ function* processSignOut() {
   yield put(actions.receiveSignOut())
 }
 
+function* processAddBill(action) {
+  const bill = yield call(api.fetch, api.endpoints.addBill(action.params))
+  yield put(actions.receiveAddBill(bill))
+}
+
 export default function* () {
   yield fork(loadLocalStorage)
   yield takeEvery(REQUEST_SIGN_IN, processSignIn)
   yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
+  yield takeEvery(REQUEST_ADD_BILL, processAddBill)
 }
