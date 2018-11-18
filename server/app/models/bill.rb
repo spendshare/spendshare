@@ -1,7 +1,10 @@
 class Bill < ApplicationRecord
   has_many :users
+  belongs_to :payer, class_name: 'User'
+  belongs_to :added_by, class_name: 'User'
   alias_attribute :participants, :users
-  validates :title, :added_by_id, :amount, presence: true
+
+  validates :title, :payer, :added_by, :amount, presence: true
   validate :global_ids_are_possible
 
   def create
@@ -27,6 +30,7 @@ class Bill < ApplicationRecord
   end
 
   def check_global_id(global_id)
+    return false if global_id == nil
     type, id = Base64.decode64(payer).split(':')
     return false if type != 'User'
     return false if (id =~ /^[0-9]+$/) == nil
