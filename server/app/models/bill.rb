@@ -1,6 +1,7 @@
 class Bill < ApplicationRecord
   has_many :users
   alias_attribute :participants, :users
+  validates :title, :added_by, :amount, presence: true
 
   def create
     @bill = Bill.new(bill_params)
