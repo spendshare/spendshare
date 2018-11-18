@@ -1,5 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Bill, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'does not allow instances with missing params' do
+  end
 end
