@@ -29,9 +29,10 @@ export default {
     }
   },
   endpoints: {
-    signIn: () => ({
+    signIn: token => ({
       path: url('sign_in'),
       method: 'POST',
+      data: token,
     }),
     signOut: () => ({
       path: url('sign_out'),

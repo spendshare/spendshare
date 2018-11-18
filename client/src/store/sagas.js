@@ -22,8 +22,7 @@ function* processSignIn() {
   const googleResponse = yield call(callSignIn)
   const data = yield call(
     api.fetch,
-    api.endpoints.signIn(),
-    googleResponse.Zi.id_token,
+    api.endpoints.signIn(googleResponse.Zi.id_token),
   )
 
   if (data && !data.error) {
