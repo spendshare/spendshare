@@ -53,4 +53,9 @@ class ApplicationController < ActionController::API
       return error(400, 'Unrecognized token')
     end
   end
+
+  def find_by_global_id(global_id)
+    type, id = Base64.decode64(global_id).split(':')
+    Object.const_get(type).find(id)
+  end
 end
