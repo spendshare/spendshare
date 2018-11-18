@@ -3,7 +3,7 @@ class Api::V1::BillsController < ApplicationController
 
     p params
 
-    ok()
+    ok('hi')
 
     # bill = Bill.new(params)
     # bill.save!

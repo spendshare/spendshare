@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :bill do
-    title { Faker::Name.name }
+    title { 'Za kebsa' }
     association :added_by, factory: :user
   end
 end
