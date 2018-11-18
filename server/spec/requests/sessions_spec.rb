@@ -81,7 +81,7 @@ describe 'session request', type: :request do
         end
       end
 
-      context 'invalid client ID' do
+      context 'invalid Google Auth client ID' do
         before do
           @id_token = id_token(@user, incorrect_aud: true)
           post '/api/v1/session', params: @id_token
