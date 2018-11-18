@@ -5,36 +5,31 @@ RSpec.describe User, type: :model do
     @user = build(:user)
   end
 
-  context 'must have' do
-    it 'unique email' do
-      email = 'email@gmail.com'
-      user1 = create(:user, email: email)
-      user2 = create(:user, email: email)
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:email) }
+  it { should validate_uniqueness_of(:email) }
 
-      expect(user1.email).to eq email
-      expect(user2.email).to eq email
+  context 'before saving' do
+    it 'has no id after creating' do
+      expect(@user.id).to eq nil
+    end
+
+    it 'has no global id after creating' do
+      expect(@user.global_id).to eq nil
     end
   end
 
-  it 'has no id after creating' do
-    expect(@user.id).to eq nil
-  end
-
-  it 'has no global id after creating' do
-    expect(@user.global_id).to eq nil
-  end
-
-  context do
+  context 'when saving' do
     before do
       @user.save!
     end
 
     it 'has an id after creating' do
-      expect(@user.id).to eq 5
+      expect(@user.id).to eq 6
     end
 
     it 'has a global id after creating' do
-      expect(@user.global_id).to eq Base64.strict_encode64("User:6")
+      expect(@user.global_id).to eq Base64.strict_encode64("User:7")
     end
   end
 end
