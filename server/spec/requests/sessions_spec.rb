@@ -176,7 +176,7 @@ describe 'session request', type: :request do
       end
 
       it 'has status 400' do
-        expect(response.status).to eq 200
+        expect(response.status).to eq 400
       end
     end
   end
