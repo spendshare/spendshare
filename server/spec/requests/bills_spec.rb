@@ -16,7 +16,21 @@ describe 'bill request', type: :request do
       post '/api/v1/bill', params: @params
     end
 
-    it 'returns result' do
+    it 'returns list of participants with updated balances' do
+      expect(JSON.parse(response.body)).to eq(
+        'data' => {
+          'participants' => [{
+            'id' => 'VXNlcjoy',
+            'balance' => 100,
+          }, {
+            'id' => 'VXNlcjoz',
+            'balance' => 100,
+          }, {
+            'id' => 'VXNlcjo0',
+            'balance' => 100,
+          }]
+        }
+      )
     end
 
     it 'has status 200' do
