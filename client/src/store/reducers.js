@@ -15,32 +15,33 @@ import {
 const mockUsers = [{
   balance: -120,
   email: 'tomek.czajecki@gmail.com',
-  id: 100,
+  id: 'VXNlcjox',
   name: 'Tomek Czajęcki',
 }, {
   balance: 0,
   email: 'supesetle@gmail.com',
-  id: 50,
+  id: 'VXNlcjoy',
   name: 'Michał Osadnik',
 }, {
   balance: 20,
   email: 'mikucki@gmail.com',
-  id: 51,
+  id: 'VXNlcjoz',
   name: 'Aleksander Mikucki',
 }, {
   balance: -500,
   email: 'tomasz.sapeta@gmail.com',
-  id: 1,
+  id: 'VXNlcjo0',
   name: 'Tomasz Sapeta',
 }, {
   balance: 57,
   email: 'kswierad@gmail.com',
-  id: 2,
+  id: 'VXNlcjo1',
   name: 'Kamil Świerad',
 }]
 
 const session = (state = {
   email: null,
+  id: null,
   name: null,
   token: null,
   waiting: false,
@@ -59,11 +60,12 @@ const session = (state = {
       return { ...state, waiting: true }
 
     case RECEIVE_SIGN_IN:
-      const { token, email, name } = action.session
-      saveToLocalStorage({ token, email, name })
+      const { email, id, name, token } = action.session
+      saveToLocalStorage({ email, id, name, token })
       return {
         ...state,
         email,
+        id,
         name,
         token,
         waiting: false,
@@ -79,10 +81,11 @@ const session = (state = {
       return { ...state }
 
     case RECEIVE_SIGN_OUT:
-      deleteFromLocalStorage('token', 'email', 'name')
+      deleteFromLocalStorage('token', 'id', 'email', 'name')
       return {
         ...state,
         email: null,
+        id: null,
         name: null,
         token: null,
       }

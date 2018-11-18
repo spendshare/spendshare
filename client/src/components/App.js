@@ -13,7 +13,7 @@ loadScript()
 
 const App = ({ session, dispatch }) => (
   <div className="app">
-    {session.token
+    {session.id
     ? <div className="wrapper">
         <Navigation />
           <Bills />

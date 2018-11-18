@@ -10,7 +10,12 @@ class Api::V1::SessionsController < ApplicationController
     user = Accounts.get(google.data)
     token = Token.new(user: user)
     token.save!
-    ok(token: token.token, email: user.email, name: user.name)
+    ok(
+      email: user.email,
+      id: user.global_id,
+      name: user.name,
+      token: token.token
+    )
   end
 
   def delete

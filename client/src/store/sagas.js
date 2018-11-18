@@ -14,7 +14,7 @@ import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
 
 function* loadLocalStorage() {
-  const session = getLocalStorage('token', 'email', 'name')
+  const session = getLocalStorage('token', 'email', 'id', 'name')
   yield put(actions.loadLocalStorage(session))
 }
 

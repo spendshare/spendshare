@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       post 'sign_in', to: 'sessions#get'
       delete 'sign_out', to: 'sessions#delete'
-      post 'add_bill', to: 'bills#create'
+      post 'bill', to: 'bills#create'
     end
   end
 end

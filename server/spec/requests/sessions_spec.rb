@@ -4,6 +4,7 @@ require 'spec_helper'
 describe 'session request', type: :request do
   before do
     @user = User.new(email: 'some.user@gmail.com', name: 'Some User')
+    @user.save!
     @token = '3025801d42273ab9dadf8833d26adfbb696cb87196a5f0c208996ea99216e99e'
     allow(Token).to receive(:generate_token).and_return(@token)
   end
@@ -17,6 +18,7 @@ describe 'session request', type: :request do
 
       it 'contains response' do
         expect(JSON.parse(response.body)).to eq(
+          'id' => @user.global_id,
           'token' => @token,
           'email' => @user.email,
           'name' => @user.name
