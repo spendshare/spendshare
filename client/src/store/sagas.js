@@ -40,7 +40,11 @@ function* processSignOut() {
 
 function* processAddBill(action) {
   const bill = yield call(api.fetch, api.endpoints.addBill(action.params))
-  yield put(actions.receiveAddBill(bill))
+  if (bill && !bill.error) {
+    yield put(actions.receiveAddBill(bill))
+  } else {
+    yield put(actions.rejectAddBill())
+  }
 }
 
 export default function* () {

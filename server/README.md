@@ -39,5 +39,6 @@ As you can see, all legal headers and methods are set there.
 
 ## TODO
 
-- permitted params in Bill
-- testing: `bill_spec.rb`
+- add permitted params in Bill
+- test `bill_spec.rb`
+- use shared tests in specs
