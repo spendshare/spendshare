@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :user do
     name { 'Some User' }
-    email { "#{name.split(' ').first}.#{name.split(' ').last}@gmail.com".downcase }
+    sequence :email do |n|
+      "#{name.split(' ').first}.#{name.split(' ').last}.#{n}@gmail.com".downcase
+    end
   end
 end
