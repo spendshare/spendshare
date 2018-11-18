@@ -14,10 +14,7 @@ export default {
     const config = { method, headers: {} }
 
     if (token) config.headers.Authorization = `bearer ${token}`
-    if (data) {
-      console.log('data: ', data)
-      config.body = JSON.stringify(data)
-    }
+    if (data) config.body = JSON.stringify(data)
 
     const response = await fetch(path, config)
 
