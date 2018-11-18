@@ -36,3 +36,8 @@ end
 ```
 
 As you can see, all legal headers and methods are set there.
+
+## TODO
+
+- permitted params in Bill
+- testing: `bill_spec.rb`

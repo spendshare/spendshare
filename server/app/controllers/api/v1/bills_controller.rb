@@ -1,9 +1,13 @@
 class Api::V1::BillsController < ApplicationController
   def create
 
-    bill = Bill.new(params)
-    bill.save!
+    p params
 
-    ok(bill.serialize)
+    ok()
+
+    # bill = Bill.new(params)
+    # bill.save!
+
+    # ok(bill.serialize)
   end
 end

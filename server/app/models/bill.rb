@@ -2,8 +2,9 @@ class Bill < ApplicationRecord
   has_many :users
   alias_attribute :participants, :users
 
-  # TODO @tczajecki:
-  # add strong parameters
+  def create
+    @bill = Bill.new(bill_params)
+  end
 
   def serialize
     {
@@ -15,5 +16,11 @@ class Bill < ApplicationRecord
         email: p.email
       } }
     }
+  end
+
+  private
+
+  def bill_params
+    params.require(:title, :added_by, :amount, :participants)
   end
 end

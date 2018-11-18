@@ -14,10 +14,10 @@ import TextSuggestion from './TextSuggestion'
 const url = 'http://localhost:3000/api/save/asd'
 
 const groups = [{
-  id: 1,
+  id: 'R3JvdXA6MQ==',
   name: 'Chińczyk',
 }, {
-  id: 2,
+  id: 'R3JvdXA6Mg==',
   name: 'Meksykanin',
 }]
 
