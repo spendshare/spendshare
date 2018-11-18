@@ -1,5 +1,3 @@
-require 'base64'
-
 class User < ApplicationRecord
   has_many :tokens
 

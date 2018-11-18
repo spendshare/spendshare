@@ -30,12 +30,12 @@ export default {
   },
   endpoints: {
     signIn: token => ({
-      path: url('sign_in'),
+      path: url('session'),
       method: 'POST',
       data: token,
     }),
     signOut: () => ({
-      path: url('sign_out'),
+      path: url('session'),
       method: 'DELETE',
     }),
     addBill: params => ({

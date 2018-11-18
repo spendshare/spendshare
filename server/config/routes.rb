@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      post 'sign_in', to: 'sessions#get'
-      delete 'sign_out', to: 'sessions#delete'
+      post 'session', to: 'sessions#get'
+      delete 'session', to: 'sessions#delete'
       post 'bill', to: 'bills#create'
       get 'users', to: 'users#all'
     end
