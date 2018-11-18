@@ -36,7 +36,7 @@ describe 'session request', type: :request do
           post '/api/v1/session', params: @id_token
         end
 
-        it 'contains response' do
+        it 'contains error' do
           expect(JSON.parse(response.body)).to eq(
             'error' => 'Could not parse provided Google ID token',
           )
@@ -53,7 +53,7 @@ describe 'session request', type: :request do
           post '/api/v1/session', params: @id_token
         end
 
-        it 'contains response' do
+        it 'contains error' do
           expect(JSON.parse(response.body)).to eq(
             'error' => 'Expired token',
           )
@@ -70,7 +70,7 @@ describe 'session request', type: :request do
           post '/api/v1/session', params: @id_token
         end
 
-        it 'contains response' do
+        it 'contains error' do
           expect(JSON.parse(response.body)).to eq(
             'error' => 'Unauthorized OAuth2 issuer',
           )
@@ -87,7 +87,7 @@ describe 'session request', type: :request do
           post '/api/v1/session', params: @id_token
         end
 
-        it 'contains response' do
+        it 'contains error' do
           expect(JSON.parse(response.body)).to eq(
             'error' => 'Fraudulent client ID',
           )
@@ -105,7 +105,7 @@ describe 'session request', type: :request do
         post '/api/v1/session'
       end
 
-      it 'contains response' do
+      it 'contains error' do
         expect(JSON.parse(response.body)).to eq(
           'error' => 'Could not parse provided Google ID token',
         )
@@ -154,7 +154,7 @@ describe 'session request', type: :request do
         delete '/api/v1/session', headers: { 'Authorization' => "#{@token}" }
       end
 
-      it 'contains no response' do
+      it 'contains error' do
         expect(JSON.parse(response.body)).to eq(
           'error' => 'Incorrect Authorization token. Did you prepend it with \'bearer \'?'
         )
@@ -170,7 +170,7 @@ describe 'session request', type: :request do
         delete '/api/v1/session'
       end
 
-      it 'contains no response' do
+      it 'contains error' do
         expect(JSON.parse(response.body)).to eq(
           'error' => 'No Authorization header present'
         )

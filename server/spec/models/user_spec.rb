@@ -25,11 +25,11 @@ RSpec.describe User, type: :model do
     end
 
     it 'has an id after creating' do
-      expect(@user.id).to eq 6
+      expect(@user.id).to eq 7
     end
 
     it 'has a global id after creating' do
-      expect(@user.global_id).to eq Base64.strict_encode64("User:7")
+      expect(@user.global_id).to eq Base64.strict_encode64("User:8")
     end
   end
 end
