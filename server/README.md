@@ -1,5 +1,14 @@
 # server
 
+## Install
+
+```bash
+gem install bundler
+bundle install
+rake db:create
+rake db:migrate
+```
+
 ## CORS
 
 CORS handling is defined in `routes.rb` via:
