@@ -45,6 +45,8 @@ export const shortenName = name => {
   return `${shortenWord(firstName[0])} ${lastName}`
 }
 
+export const arrayToHash = array => array.reduce((accumulator, element) => ({ ...accumulator, [element.id]: element }), {})
+
 export const getAvatar = user => `https://api.adorable.io/avatars/${(user.id ? hash(user.id) : 0) % 5000}`
 
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

@@ -5,7 +5,7 @@ import User from './User'
 
 const People = ({ users }) => (
   <div className="people">
-    {users.map(u => <User key={`user-${u.id}`} user={u} />)}
+    {users.list.map(u => <User key={`user-${u.id}`} user={u} />)}
   </div>
 )
 

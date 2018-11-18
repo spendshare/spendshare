@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import {
   saveToLocalStorage,
   deleteFromLocalStorage,
+  arrayToHash,
 } from '../utils'
 import {
   LOAD_LOCAL_STORAGE,
@@ -95,7 +96,10 @@ const session = (state = {
   }
 }
 
-const users = (state = mockUsers, action) => {
+const users = (state = {
+  list: mockUsers,
+  byId: arrayToHash(mockUsers),
+}, action) => {
   switch (action.type) {
     default:
       return state

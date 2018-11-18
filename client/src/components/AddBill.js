@@ -82,7 +82,7 @@ const AddBill = ({ users, dispatch, hide }) => {
           Add a bill
         </div>
         <BadgeSelector
-          suggested={users}
+          suggested={users.list}
           selected={selected}
           select={select}
           deselect={deselect}
