@@ -4,6 +4,6 @@ class User < ApplicationRecord
   has_many :tokens
 
   def global_id
-    Base64.encode64("User:#{id}")
+    Base64.strict_encode64("User:#{id}")
   end
 end

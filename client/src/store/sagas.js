@@ -20,13 +20,13 @@ function* loadLocalStorage() {
 
 function* processSignIn() {
   const googleResponse = yield call(callSignIn)
-  const data = yield call(
+  const response = yield call(
     api.fetch,
     api.endpoints.signIn(googleResponse.Zi.id_token),
   )
 
-  if (data && !data.error) {
-    yield put(actions.receiveSignIn(data))
+  if (response && !response.error) {
+    yield put(actions.receiveSignIn(response.data))
   } else {
     yield put(actions.rejectSignIn(data.error))
   }

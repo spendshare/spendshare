@@ -17,12 +17,12 @@ describe 'session request', type: :request do
       end
 
       it 'contains response' do
-        expect(JSON.parse(response.body)).to eq(
+        expect(JSON.parse(response.body)).to eq('data' => {
           'id' => @user.global_id,
           'token' => @token,
           'email' => @user.email,
           'name' => @user.name
-        )
+        })
       end
 
       it 'has status 200' do
@@ -128,7 +128,7 @@ describe 'session request', type: :request do
       end
 
       it 'contains no response' do
-        expect(JSON.parse(response.body)).to eq({})
+        expect(response.body).to eq(' ')
       end
 
       it 'has status 200' do
@@ -142,7 +142,7 @@ describe 'session request', type: :request do
       end
 
       it 'contains no response' do
-        expect(JSON.parse(response.body)).to eq({})
+        expect(response.body).to eq(' ')
       end
 
       it 'has status 200' do
@@ -185,7 +185,7 @@ describe 'session request', type: :request do
 end
 
 def encode(hash)
-  Base64.encode64(JSON.generate(hash))
+  Base64.strict_encode64(JSON.generate(hash))
 end
 
 def id_token(user, opts = {})

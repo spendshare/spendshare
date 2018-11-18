@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post 'sign_in', to: 'sessions#get'
       delete 'sign_out', to: 'sessions#delete'
       post 'bill', to: 'bills#create'
+      get 'users', to: 'users#all'
     end
   end
 end

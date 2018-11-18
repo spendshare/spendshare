@@ -1,8 +1,13 @@
 class ApplicationController < ActionController::API
   after_action :set_cors
 
-  def ok(data = {})
-    render json: data
+  def ok(data = nil)
+    if data.nil?
+      render nothing: true
+      return
+    end
+
+    render json: { data: data }
   end
 
   def error(status = 500, message = '')
