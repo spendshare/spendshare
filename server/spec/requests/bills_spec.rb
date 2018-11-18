@@ -2,12 +2,32 @@ require 'spec_helper'
 
 describe 'bill request', type: :request do
   before do
+    @users = create_list(:user, 3)
+
     @params = {
-      'payer' => 'VXNlcjox',
+      'payer' => @users.first.global_id,
       'title' => 'Za kebsa',
-      'amount' => 120,
-      'participants' => ['VXNlcjoy', 'VXNlcjoz', 'VXNlcjo0'],
+      'amount' => 60,
+      'participants' => @users.map(&:global_id),
     }
+
+    @result = {
+      'data' => {
+        'participants' => @users.map do |u|
+          {
+            'id' => u.global_id,
+            'name' => u.name,
+            'email' => u.email,
+            'balance' => u.balance,
+            'owes' => [{
+              'amount' => 20,
+              'to' => @users.first.global_id,
+            }]
+          }
+        end
+      }
+    }
+    @result['data']['participants'][0]['owes'] = []
   end
 
   context 'POST /api/v1/bill' do
@@ -16,34 +36,7 @@ describe 'bill request', type: :request do
     end
 
     # it 'returns list of participants with updated balances' do
-    #   expect(JSON.parse(response.body)).to eq(
-    #     'data' => {
-    #       'participants' => [{
-    #         'id' => 'VXNlcjoy',
-    #         'name' => '...',
-    #         'email' => '...',
-    #         'balance' => 100,
-    #         'owes' => [{
-    #           'amount' => 20,
-    #           'to' => {
-    #             'id' => 'VXNlcjoz',
-    #             'name' => 'Example User',
-    #             'email' => 'example@gmail.com',
-    #           },
-    #         }],
-    #       }, {
-    #         'id' => 'VXNlcjoz',
-    #         'name' => '...',
-    #         'email' => '...',
-    #         'balance' => 100,
-    #       }, {
-    #         'id' => 'VXNlcjo0',
-    #         'name' => '...',
-    #         'email' => '...',
-    #         'balance' => 100,
-    #       }]
-    #     }
-    #   )
+    #   expect(JSON.parse(response.body)).to eq(@result)
     # end
 
     # it 'has status 200' do
