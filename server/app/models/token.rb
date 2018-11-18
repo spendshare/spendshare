@@ -1,7 +1,7 @@
 class Token < ApplicationRecord
   belongs_to :user
-
   before_create :setup
+  validates_presence_of :user
 
   def setup
     self.token = Token.generate_token
