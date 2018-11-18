@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2018_11_17_221345) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bills", force: :cascade do |t|
     t.string "title"
-    t.integer "added_by_id"
+    t.bigint "added_by_id"
     t.decimal "amount", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -24,18 +27,21 @@ ActiveRecord::Schema.define(version: 2018_11_17_221345) do
   create_table "tokens", force: :cascade do |t|
     t.string "token"
     t.datetime "valid_until"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_tokens_on_token"
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["name"], name: "index_users_on_name"
   end
 
+  add_foreign_key "bills", "users", column: "added_by_id"
 end
