@@ -3,8 +3,7 @@ require 'spec_helper'
 
 describe 'session request', type: :request do
   before do
-    @user = User.new(email: 'some.user@gmail.com', name: 'Some User')
-    @user.save!
+    @user = create(:user)
     @token = '3025801d42273ab9dadf8833d26adfbb696cb87196a5f0c208996ea99216e99e'
     allow(Token).to receive(:generate_token).and_return(@token)
   end
