@@ -3,7 +3,6 @@ require 'spec_helper'
 describe 'bill request', type: :request do
   before do
     @params = {
-      'group' => 'R3JvdXA6MQ==',
       'payer' => 'VXNlcjox',
       'title' => 'Za kebsa',
       'amount' => 120,

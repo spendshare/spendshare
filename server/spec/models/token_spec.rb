@@ -8,6 +8,8 @@ RSpec.describe Token, type: :model do
     @token = Token.new(user: @user)
   end
 
+  it { should validate_presence_of(:user) }
+
   it 'has no token upon creating new model' do
     expect(@token.token).to eq nil
   end
