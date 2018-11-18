@@ -9,11 +9,11 @@ describe 'session request', type: :request do
     allow(Token).to receive(:generate_token).and_return(@token)
   end
 
-  context 'POST /api/v1/sign_in' do
+  context 'POST /api/v1/session' do
     context 'with correct ID token' do
       before do
         @id_token = id_token(@user)
-        post '/api/v1/sign_in', params: @id_token
+        post '/api/v1/session', params: @id_token
       end
 
       it 'contains response' do
@@ -34,7 +34,7 @@ describe 'session request', type: :request do
       context 'and invalid token' do
         before do
           @id_token = id_token(@user, incorrect_token: true)
-          post '/api/v1/sign_in', params: @id_token
+          post '/api/v1/session', params: @id_token
         end
 
         it 'contains response' do
@@ -51,7 +51,7 @@ describe 'session request', type: :request do
       context 'and expired token' do
         before do
           @id_token = id_token(@user, expired: true)
-          post '/api/v1/sign_in', params: @id_token
+          post '/api/v1/session', params: @id_token
         end
 
         it 'contains response' do
@@ -68,7 +68,7 @@ describe 'session request', type: :request do
       context 'and incorrect domain of token issuer' do
         before do
           @id_token = id_token(@user, invalid_domain: true)
-          post '/api/v1/sign_in', params: @id_token
+          post '/api/v1/session', params: @id_token
         end
 
         it 'contains response' do
@@ -85,7 +85,7 @@ describe 'session request', type: :request do
       context 'invalid client ID' do
         before do
           @id_token = id_token(@user, incorrect_aud: true)
-          post '/api/v1/sign_in', params: @id_token
+          post '/api/v1/session', params: @id_token
         end
 
         it 'contains response' do
@@ -103,7 +103,7 @@ describe 'session request', type: :request do
     context 'with missing ID token' do
       before do
         @id_token = id_token(@user, invalid_domain: true)
-        post '/api/v1/sign_in'
+        post '/api/v1/session'
       end
 
       it 'contains response' do
@@ -118,13 +118,13 @@ describe 'session request', type: :request do
     end
   end
 
-  context 'DELETE /api/v1/sign_out' do
+  context 'DELETE /api/v1/session' do
     context 'with existing session' do
       before do
         token = Token.new(user: @user)
         token.save!
 
-        delete '/api/v1/sign_out', headers: { 'Authorization' => "bearer #{token.token}" }
+        delete '/api/v1/session', headers: { 'Authorization' => "bearer #{token.token}" }
       end
 
       it 'contains no response' do
@@ -138,7 +138,7 @@ describe 'session request', type: :request do
 
     context 'without any session' do
       before do
-        delete '/api/v1/sign_out', headers: { 'Authorization' => "bearer #{@token}" }
+        delete '/api/v1/session', headers: { 'Authorization' => "bearer #{@token}" }
       end
 
       it 'contains no response' do
@@ -152,7 +152,7 @@ describe 'session request', type: :request do
 
     context 'with wrong Authorization header' do
       before do
-        delete '/api/v1/sign_out', headers: { 'Authorization' => "#{@token}" }
+        delete '/api/v1/session', headers: { 'Authorization' => "#{@token}" }
       end
 
       it 'contains no response' do
@@ -168,7 +168,7 @@ describe 'session request', type: :request do
 
     context 'with missing Authorization header' do
       before do
-        delete '/api/v1/sign_out'
+        delete '/api/v1/session'
       end
 
       it 'contains no response' do

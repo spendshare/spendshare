@@ -1,5 +1,3 @@
-require 'base64'
-
 class GoogleAuthenticator
   def initialize(token)
     @google_token = token
