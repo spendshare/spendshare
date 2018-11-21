@@ -14,143 +14,143 @@ import TextSuggestion from './TextSuggestion'
 const url = 'http://localhost:3000/api/save/asd'
 
 const groups = [{
-  id: 'R3JvdXA6MQ==',
-  name: 'Chińczyk',
+    id: 'R3JvdXA6MQ==',
+    name: 'Chińczyk',
 }, {
-  id: 'R3JvdXA6Mg==',
-  name: 'Meksykanin',
+    id: 'R3JvdXA6Mg==',
+    name: 'Meksykanin',
 }]
 
 const AddBill = ({ users, dispatch, hide }) => {
-  const [title, setTitle] = useState('')
-  const [amount, setAmount] = useState('')
-  const [selected, setSelected] = useState([])
-  const [payer, setPayer] = useState({ name: 'You' })
-  const [group, setGroup] = useState(groups[0] || { name: 'No group' })
+    const [title, setTitle] = useState('')
+    const [amount, setAmount] = useState('')
+    const [selected, setSelected] = useState([])
+    const [payer, setPayer] = useState({ name: 'You' })
+    const [group, setGroup] = useState(groups[0] || { name: 'No group' })
 
-  const handleChangeTitle = event => setTitle(event.target.value)
-  const handleChangeAmount = event => setAmount(event.target.value)
+    const handleChangeTitle = event => setTitle(event.target.value)
+    const handleChangeAmount = event => setAmount(event.target.value)
 
-  let ref = createRef()
+    let ref = createRef()
 
-  // useEffect(() => {
-  //   const handleClick = event => {
-  //     if (ref && !ref.contains(event.target)) hide()
-  //   }
-  //   window.addEventListener('click', handleClick)
-  //   return () => window.removeEventListener('click', handleClick)
-  // })
+    // useEffect(() => {
+    //   const handleClick = event => {
+    //     if (ref && !ref.contains(event.target)) hide()
+    //   }
+    //   window.addEventListener('click', handleClick)
+    //   return () => window.removeEventListener('click', handleClick)
+    // })
 
-  useEffect(() => {
-    const handleKeyDown = ({ keyCode }) => {
-      if (keyCode === 27) hide()
+    useEffect(() => {
+        const handleKeyDown = ({ keyCode }) => {
+            if (keyCode === 27) hide()
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    })
+
+    const save = async () => {
+        dispatch(actions.requestAddBill({
+            group,
+            payer,
+            selected,
+        }))
+        hide()
     }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  })
 
-  const save = async () => {
-    dispatch(actions.requestAddBill({
-      group,
-      payer,
-      selected,
-    }))
-    hide()
-  }
+    const splittingWay = 'equally'
 
-  const splittingWay = 'equally'
+    const select = person => {
+        setSelected([...selected, person])
+    }
 
-  const select = person => {
-    setSelected([...selected, person])
-  }
+    const deselect = person => {
+        setSelected(selected.filter(u => u.id !== person.id))
+    }
 
-  const deselect = person => {
-    setSelected(selected.filter(u => u.id !== person.id))
-  }
+    const renderPerson = option => <Suggestion user={option} />
+    const renderGroup = option => <TextSuggestion text={option.name} />
 
-  const renderPerson = option => <Suggestion user={option} />
-  const renderGroup = option => <TextSuggestion text={option.name} />
+    const selectPayer = option => setPayer(option)
+    const selectGroup = option => setGroup(option)
 
-  const selectPayer = option => setPayer(option)
-  const selectGroup = option => setGroup(option)
-
-  return (
-    <div className="add-bill">
-      <div className="box" ref={node => {ref = node}}>
-        <div className="cross" onClick={hide}>✕</div>
-        <div className="title">
+    return (
+        <div className="add-bill">
+            <div className="box" ref={node => {ref = node}}>
+                <div className="cross" onClick={hide}>✕</div>
+                <div className="title">
           Add a bill
-        </div>
-        <BadgeSelector
-          suggested={users.list}
-          selected={selected}
-          select={select}
-          deselect={deselect}
-        />
-        <div className="content">
-          <div className="column">
-            <Input
-              autoFocus
-              className="input"
-              label="Title"
-              onChange={handleChangeTitle}
-              placeholder="Enter a description..."
-              value={title}
-            />
-            <Input
-              biggerText
-              className="input"
-              label="Amount"
-              onChange={handleChangeAmount}
-              placeholder="0.00"
-              right={currency}
-              value={amount}
-            />
-            <div className="descriptive">
+                </div>
+                <BadgeSelector
+                    suggested={users.list}
+                    selected={selected}
+                    select={select}
+                    deselect={deselect}
+                />
+                <div className="content">
+                    <div className="column">
+                        <Input
+                            autoFocus
+                            className="input"
+                            label="Title"
+                            onChange={handleChangeTitle}
+                            placeholder="Enter a description..."
+                            value={title}
+                        />
+                        <Input
+                            biggerText
+                            className="input"
+                            label="Amount"
+                            onChange={handleChangeAmount}
+                            placeholder="0.00"
+                            right={currency}
+                            value={amount}
+                        />
+                        <div className="descriptive">
               Paid by{' '}
-              <DropdownSelector
-                title={payer.name !== 'You' ? shortenName(payer.name) : 'You'}
-                options={[{ name: 'You' }, ...selected]}
-                renderOption={renderPerson}
-                select={selectPayer}
-                searchKeys={['name']}
-              />
-              {' '}and split{' '}
+                            <DropdownSelector
+                                title={payer.name !== 'You' ? shortenName(payer.name) : 'You'}
+                                options={[{ name: 'You' }, ...selected]}
+                                renderOption={renderPerson}
+                                select={selectPayer}
+                                searchKeys={['name']}
+                            />
+                            {' '}and split{' '}
               equally
-              {/* <DropdownSelector
+                            {/* <DropdownSelector
                 title={splittingWay}
               /> */}
-            </div>
-            <div className="descriptive">
+                        </div>
+                        <div className="descriptive">
               in group{' '}
-              <DropdownSelector
-                title={group.name}
-                options={groups}
-                renderOption={renderGroup}
-                select={selectGroup}
-                searchKeys={['name']}
-              />
+                            <DropdownSelector
+                                title={group.name}
+                                options={groups}
+                                renderOption={renderGroup}
+                                select={selectGroup}
+                                searchKeys={['name']}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="buttons">
+                    <div>
+                        <Button
+                            title="Cancel"
+                            onClick={hide}
+                            light
+                        />
+                    </div>
+                    <div>
+                        <Button
+                            title="Save"
+                            onClick={save}
+                        />
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div className="buttons">
-          <div>
-            <Button
-              title="Cancel"
-              onClick={hide}
-              light
-            />
-          </div>
-          <div>
-            <Button
-              title="Save"
-              onClick={save}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default connect(({ users }) => ({ users }))(AddBill)

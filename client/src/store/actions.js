@@ -12,16 +12,16 @@ export const REQUEST_SIGN_OUT = 'REQUEST_SIGN_OUT'
 export const RECEIVE_SIGN_OUT = 'RECEIVE_SIGN_OUT'
 
 export default {
-  loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
+    loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
-  requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
-  receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
-  rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
+    requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
+    receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
+    rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
 
-  requestSignIn: session => ({ type: REQUEST_SIGN_IN }),
-  receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
-  rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
+    requestSignIn: session => ({ type: REQUEST_SIGN_IN }),
+    receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
+    rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
 
-  requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
-  receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
+    requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
+    receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
 }
