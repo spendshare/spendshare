@@ -50,7 +50,6 @@ const session = (state = {
 
     console.log(action.type)
 
-    const { email, id, name, token } = action.session
     switch (action.type) {
     case LOAD_LOCAL_STORAGE:
         return {
@@ -62,6 +61,8 @@ const session = (state = {
         return { ...state, waiting: true }
 
     case RECEIVE_SIGN_IN:
+    // eslint-disable-next-line no-case-declarations
+        const { email, id, name, token } = action.session
         saveToLocalStorage({ email, id, name, token })
         return {
             ...state,
