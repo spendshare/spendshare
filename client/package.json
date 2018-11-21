@@ -3,8 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+     "*.js": ["eslint --fix", "git add"]
+  },
   "scripts": {
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "lint": "./node_modules/.bin/eslint src",
+    "fix": "./node_modules/.bin/eslint src --fix"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +34,11 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.1",
+    "eslint": "^5.9.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "^0.0.0",
+    "husky": "^1.2.0",
+    "lint-staged": "^8.1.0",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
