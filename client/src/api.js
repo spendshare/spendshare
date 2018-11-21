@@ -13,6 +13,7 @@ export default {
         const config = { method, headers: {} }
 
         if (token) config.headers.Authorization = `bearer ${token}`
+        config.headers['Content-Type'] = 'application/json'
         if (data) config.body = JSON.stringify(data)
 
         const response = await fetch(path, config)
