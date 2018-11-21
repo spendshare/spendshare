@@ -31,16 +31,6 @@ const AddBill = ({ users, dispatch, hide }) => {
     const handleChangeTitle = event => setTitle(event.target.value)
     const handleChangeAmount = event => setAmount(event.target.value)
 
-    let ref = createRef()
-
-    // useEffect(() => {
-    //   const handleClick = event => {
-    //     if (ref && !ref.contains(event.target)) hide()
-    //   }
-    //   window.addEventListener('click', handleClick)
-    //   return () => window.removeEventListener('click', handleClick)
-    // })
-
     useEffect(() => {
         const handleKeyDown = ({ keyCode }) => {
             if (keyCode === 27) hide()
@@ -76,7 +66,7 @@ const AddBill = ({ users, dispatch, hide }) => {
 
     return (
         <div className="add-bill">
-            <div className="box" ref={node => {ref = node}}>
+            <div className="box">
                 <div className="cross" onClick={hide}>✕</div>
                 <div className="title">
           Add a bill
