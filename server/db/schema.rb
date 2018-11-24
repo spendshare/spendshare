@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_17_221345) do
+ActiveRecord::Schema.define(version: 2018_11_24_161043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,12 +18,19 @@ ActiveRecord::Schema.define(version: 2018_11_17_221345) do
   create_table "bills", force: :cascade do |t|
     t.string "title"
     t.bigint "added_by_id"
-    t.bigint "payer_id"
     t.decimal "amount", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "visible"
     t.index ["added_by_id"], name: "index_bills_on_added_by_id"
-    t.index ["payer_id"], name: "index_bills_on_payer_id"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "bill_id"
+    t.decimal "amount", precision: 8, scale: 2
+    t.index ["bill_id"], name: "index_participants_on_bill_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -46,5 +53,4 @@ ActiveRecord::Schema.define(version: 2018_11_17_221345) do
   end
 
   add_foreign_key "bills", "users", column: "added_by_id"
-  add_foreign_key "bills", "users", column: "payer_id"
 end
