@@ -11,10 +11,12 @@ class Bill < ApplicationRecord
       title: title,
       added_by: added_by,
       amount: amount,
-      participants: participants.map { |p| {
-        name: p.name,
-        email: p.email
-      } }
+      participants: participants.map do |p|
+        {
+            name: p.name,
+            email: p.email
+        }
+      end
     }
   end
 
