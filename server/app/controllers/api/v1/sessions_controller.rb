@@ -21,7 +21,8 @@ class Api::V1::SessionsController < ApplicationController
   def delete
     token = recognize_token
     return if performed?
+
     Token.where(token: token).delete_all
-    ok()
+    ok
   end
 end
