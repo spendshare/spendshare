@@ -16,12 +16,14 @@ describe 'session request', type: :request do
       end
 
       it 'contains response' do
-        expect(JSON.parse(response.body)).to eq('data' => {
-          'id' => @user.global_id,
-          'token' => @token,
-          'email' => @user.email,
-          'name' => @user.name
-        })
+        expect(JSON.parse(response.body)).to eq(
+          'data' => {
+            'id' => @user.global_id,
+            'token' => @token,
+            'email' => @user.email,
+            'name' => @user.name
+          }
+        )
       end
 
       it 'has status 200' do
