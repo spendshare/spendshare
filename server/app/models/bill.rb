@@ -7,10 +7,6 @@ class Bill < ApplicationRecord
   validates :title, :payer, :added_by, :amount, presence: true
   validate :global_ids_are_possible
 
-  def create
-    @bill = Bill.new(bill_params)
-  end
-
   def serialize
     {
       title: title,
@@ -31,6 +27,7 @@ class Bill < ApplicationRecord
 
   def check_global_id(global_id)
     return false if global_id == nil
+
     type, id = Base64.decode64(payer).split(':')
     return false if type != 'User'
     return false if (id =~ /^[0-9]+$/) == nil

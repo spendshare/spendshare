@@ -35,10 +35,10 @@ class ApplicationController < ActionController::API
 
   def recognize_token
     authorization = request.headers['Authorization']
-    return error(400, 'No Authorization header present') if !authorization
+    return error(400, 'No Authorization header present') unless authorization
 
     token = authorization[/(?<=bearer ).*/]
-    return error(400, 'Incorrect Authorization token. Did you prepend it with \'bearer \'?') if !token
+    return error(400, 'Incorrect Authorization token. Did you prepend it with \'bearer \'?') unless token
 
     token
   end
@@ -46,12 +46,10 @@ class ApplicationController < ActionController::API
   def authenticate
     present = Token.find_by(token: recognize_token)
 
-    if present
-      return error(400, 'Token expired') if present.valid_until < Time.now
-      return ok()
-    else
-      return error(400, 'Unrecognized token')
-    end
+    return error(400, 'Token expired') if present.&valid_until < Time.now
+    return ok if present
+
+    error(400, 'Unrecognized token')
   end
 
   def find_by_global_id(global_id)
