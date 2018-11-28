@@ -9,7 +9,10 @@
     }
   },
   "lint-staged": {
-     "*.js": ["eslint --fix", "git add"]
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "scripts": {
     "start": "webpack-dev-server --mode development",
@@ -35,6 +38,7 @@
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.1",
     "eslint": "^5.9.0",
+    "eslint-plugin-enforce-react-hooks": "osdnk/eslint-enforce-react-hooks",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-hooks": "^0.0.0",
     "husky": "^1.2.0",
