@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   match '*path',
-    controller: 'application',
-    action: 'options',
-    via: :options
+        controller: 'application',
+        action: 'options',
+        via: :options
 
   namespace 'api' do
     namespace 'v1' do
