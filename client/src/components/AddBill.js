@@ -40,7 +40,6 @@ const AddBill = ({ users, dispatch, hide }) => {
     })
 
     const save = async () => {
-        //participants = selected
         dispatch(actions.requestAddBill({
             group,
             payer,
