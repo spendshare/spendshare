@@ -13,33 +13,6 @@ import {
     RECEIVE_ALL_USERS
 } from './actions'
 
-const mockUsers = [{
-    balance: -120,
-    email: 'tomek.czajecki@gmail.com',
-    id: 'VXNlcjox',
-    name: 'Tomek Czajęcki',
-}, {
-    balance: 0,
-    email: 'supesetle@gmail.com',
-    id: 'VXNlcjoy',
-    name: 'Michał Osadnik',
-}, {
-    balance: 20,
-    email: 'mikucki@gmail.com',
-    id: 'VXNlcjoz',
-    name: 'Aleksander Mikucki',
-}, {
-    balance: -500,
-    email: 'tomasz.sapeta@gmail.com',
-    id: 'VXNlcjo0',
-    name: 'Tomasz Sapeta',
-}, {
-    balance: 57,
-    email: 'kswierad@gmail.com',
-    id: 'VXNlcjo1',
-    name: 'Kamil Świerad',
-}]
-
 const session = (state = {
     email: null,
     id: null,
@@ -98,7 +71,7 @@ const session = (state = {
 }
 
 const users = (state = {
-    list: mockUsers,
+    list: [],
 }, action) => {
     switch (action.type) {
     case RECEIVE_ALL_USERS:
