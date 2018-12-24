@@ -12,10 +12,12 @@ class Bill < ApplicationRecord
       title: title,
       added_by: added_by,
       amount: amount,
-      participants: participants.map { |p| {
-        name: p.name,
-        email: p.email
-      } }
+      participants: participants.map do |p|
+        {
+          name: p.name,
+          email: p.email
+        }
+      end
     }
   end
 
@@ -26,11 +28,11 @@ class Bill < ApplicationRecord
   end
 
   def check_global_id(global_id)
-    return false if global_id == nil
+    return false if global_id.nil?
 
     type, id = Base64.decode64(payer).split(':')
     return false if type != 'User'
-    return false if (id =~ /^[0-9]+$/) == nil
+    return false if (id =~ /^[0-9]+$/).nil?
   end
 
   def global_ids_are_possible
