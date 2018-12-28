@@ -13,16 +13,17 @@ module.exports = {
     },
     "plugins": [
         "react",
-        "react-hooks"
+        "react-hooks",
+        "enforce-react-hooks"
     ],
     "rules": {
         "indent": [
             "error",
             4
         ],
+        "enforce-react-hooks/enforce-react-hooks": 2,
         "no-unused-vars": 0,
         "react/jsx-uses-vars": 2,
-        "react/jsx-no-bind": ["warn", {"allowArrowFunctions": false, "allowBind": false}],
         "linebreak-style": [
             "error",
             "unix"
