@@ -40,6 +40,7 @@ const AddBill = ({ users, dispatch, hide }) => {
     })
 
     const save = async () => {
+        //participants = selected
         dispatch(actions.requestAddBill({
             group,
             payer,
@@ -107,9 +108,6 @@ const AddBill = ({ users, dispatch, hide }) => {
                             />
                             {' '}and split{' '}
               equally
-                            {/* <DropdownSelector
-                title={splittingWay}
-              /> */}
                         </div>
                         <div className="descriptive">
               in group{' '}

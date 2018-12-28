@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 import {
     saveToLocalStorage,
     deleteFromLocalStorage,
-    arrayToHash,
 } from '../utils'
 import {
     LOAD_LOCAL_STORAGE,
@@ -11,6 +10,7 @@ import {
     REJECT_SIGN_IN,
     REQUEST_SIGN_OUT,
     RECEIVE_SIGN_OUT,
+    RECEIVE_ALL_USERS
 } from './actions'
 
 const mockUsers = [{
@@ -99,9 +99,10 @@ const session = (state = {
 
 const users = (state = {
     list: mockUsers,
-    byId: arrayToHash(mockUsers),
 }, action) => {
     switch (action.type) {
+    case RECEIVE_ALL_USERS:
+        return { ...state, list: action.users }
     default:
         return state
     }
