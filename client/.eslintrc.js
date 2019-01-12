@@ -22,7 +22,8 @@ module.exports = {
             4
         ],
         "enforce-react-hooks/enforce-react-hooks": 2,
-        "no-unused-vars": 0,
+        "no-unused-vars": 1,
+        "react/jsx-no-bind": ["warn", {"allowArrowFunctions": false, "allowBind": false}],
         "react/jsx-uses-vars": 2,
         "linebreak-style": [
             "error",
