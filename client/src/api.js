@@ -35,9 +35,22 @@ export default {
       path: url('session'),
       method: 'DELETE',
     },
-    addBill: params => ({
-      path: url('bill'),
+    addBill: (params , group) => ({
+      path: url('1/bills'),
       method: 'POST',
+      data: params,
+    }),
+    allBills: group => ({
+      path: url('1/bills'),
+      method: 'GET',
+    }),
+    removeBill: id => ({
+      path: url(`1/bills/${id}`),
+      method: 'DELETE',
+    }),
+    updateBill: (params, id) => ({
+      path: url(`1/bills/${id}`),
+      method: 'PUT',
       data: params,
     }),
     allUsers: {

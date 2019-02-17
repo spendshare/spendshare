@@ -13,6 +13,8 @@ import TextSuggestion from './TextSuggestion'
 
 const url = 'http://localhost:3000/api/save/asd'
 
+const SPLIT_EQUALLY = 'equally'
+
 const groups = [{
   id: 'R3JvdXA6MQ==',
   name: 'Chińczyk',
@@ -39,16 +41,23 @@ const AddBill = ({ users, dispatch, hide }) => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   })
 
-  const save = async () => {
+  const save = () => {
+    const participations = []
+    if (splittingWay === SPLIT_EQUALLY) {
+      participations.push({ id: payer.id, amount })
+      for (let s in selected) {
+        participations.push({ id: s.id, amount: amount / selected.length })
+      }
+    }
     dispatch(actions.requestAddBill({
       group,
-      payer,
-      selected,
+      title,
+      participations
     }))
     hide()
   }
 
-  const splittingWay = 'equally'
+  const splittingWay = SPLIT_EQUALLY
 
   const select = person => {
     setSelected([...selected, person])
@@ -105,11 +114,10 @@ const AddBill = ({ users, dispatch, hide }) => {
                 select={selectPayer}
                 searchKeys={['name']}
               />
-              {' '}and split{' '}
-              equally
+              and split equally
             </div>
             <div className="descriptive">
-              in group{' '}
+              in group
               <DropdownSelector
                 title={group.name}
                 options={groups}
