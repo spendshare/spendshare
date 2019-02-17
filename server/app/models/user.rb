@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :tokens
+  has_many :members
   validates :name, :email, presence: true
   validates_uniqueness_of :email
 
