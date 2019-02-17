@@ -5,7 +5,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
 
   def global_id
-    return nil if id == nil
+    return nil if id.nil?
+
     Base64.strict_encode64("User:#{id}")
   end
 
