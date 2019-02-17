@@ -32,7 +32,6 @@ class Initialize < ActiveRecord::Migration[5.2]
       t.string :token, index: true
       t.datetime :valid_until
       t.belongs_to :user, index: true
-
       t.timestamps
     end
   end
