@@ -16,20 +16,20 @@ export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
 export const REJECT_ALL_USERS = 'REJECT_ALL_USERS'
 
 export default {
-    loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
+  loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
-    requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
-    receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
-    rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
+  requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
+  receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
+  rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
 
-    requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
-    receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),
-    rejectAllUsers:  ({ type: REJECT_ALL_USERS }),
+  requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
+  receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),
+  rejectAllUsers: () => ({ type: REJECT_ALL_USERS }),
 
-    requestSignIn: session => ({ type: REQUEST_SIGN_IN }),
-    receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
-    rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
+  requestSignIn: () => ({ type: REQUEST_SIGN_IN }),
+  receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
+  rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
 
-    requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
-    receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
+  requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
+  receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
 }

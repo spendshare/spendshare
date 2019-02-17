@@ -6,20 +6,20 @@ import './Navigation.scss'
 import { getAvatar } from '../utils'
 
 const Navigation = ({ session, dispatch }) => (
-    <div className="navigation">
-        <img className="avatar" src={getAvatar(session)} />
-        <div className="right">
-            {session.name}<br />
-            <div
-                className="sign-out"
-                onClick={() => dispatch(actions.requestSignOut())}
-            >
+  <div className="navigation">
+    <img className="avatar" src={getAvatar(session)} />
+    <div className="right">
+      {session.name}<br />
+      <div
+        className="sign-out"
+        onClick={() => dispatch(actions.requestSignOut())}
+      >
         Sign out
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 )
 
 export default connect(
-    ({ session }) => ({ session }),
+  ({ session }) => ({ session }),
 )(Navigation)

@@ -19,7 +19,7 @@ module.exports = {
     "rules": {
         "indent": [
             "error",
-            4
+            2,
         ],
         "enforce-react-hooks/enforce-react-hooks": 2,
         "no-unused-vars": 0,
@@ -38,6 +38,7 @@ module.exports = {
             "never"
         ],
         "no-console": 0,
-        "react-hooks/rules-of-hooks": "error"
+        "react-hooks/rules-of-hooks": "error",
+        "react/jsx-no-bind": 0,
     }
 };
