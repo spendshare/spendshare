@@ -15,12 +15,20 @@ export const REQUEST_ALL_USERS = 'REQUEST_ALL_USERS'
 export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
 export const REJECT_ALL_USERS = 'REJECT_ALL_USERS'
 
+export const REQUEST_REMOVE_BILL = 'REQUEST_REMOVE_BILL'
+export const RECEIVE_REMOVE_BILL = 'RECEIVE_REMOVE_BILL'
+export const REJECT_REMOVE_BILL = 'REJECT_REMOVE_BILL'
+
 export default {
   loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
   requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
   receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
   rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
+
+  requestRemoveBill: params => ({ type: REQUEST_REMOVE_BILL, params }),
+  receiveRemoveBill: bill => ({ type: RECEIVE_REMOVE_BILL, bill }),
+  rejectRemoveBill: () => ({ type: REJECT_REMOVE_BILL }),
 
   requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
   receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),

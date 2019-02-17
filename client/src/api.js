@@ -35,6 +35,7 @@ export default {
       path: url('session'),
       method: 'DELETE',
     },
+    // TODO @osdnk use gruop.id
     addBill: (params , group) => ({
       path: url('1/bills'),
       method: 'POST',

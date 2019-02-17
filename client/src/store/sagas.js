@@ -10,6 +10,7 @@ import actions, {
   REQUEST_SIGN_OUT,
   REQUEST_ADD_BILL,
   REQUEST_ALL_USERS,
+  REQUEST_REMOVE_BILL,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
@@ -49,6 +50,17 @@ function* processAddBill(action) {
   }
 }
 
+function* processRemoveBill(action) {
+  console.log('XXXXX')
+  const { id } = action.params
+  const bill = yield call(api.fetch, api.endpoints.removeBill(id))
+  if (bill && !bill.error) {
+    yield put(actions.receiveRemoveBill(bill))
+  } else {
+    yield put(actions.rejectRemoveBill())
+  }
+}
+
 function* processFetchAllUsers() {
   const users = yield call(api.fetch, api.endpoints.allUsers)
   if (users && !users.error) {
@@ -65,5 +77,6 @@ export default function* () {
   yield takeEvery(REQUEST_SIGN_IN, processSignIn)
   yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
   yield takeEvery(REQUEST_ADD_BILL, processAddBill)
+  yield takeEvery(REQUEST_REMOVE_BILL, processRemoveBill)
   yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
 }

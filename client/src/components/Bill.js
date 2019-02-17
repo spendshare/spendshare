@@ -2,11 +2,18 @@ import React, { useState } from 'react'
 import './Bill.scss'
 import { parseDate } from '../utils'
 import { currency } from '../config'
+import actions from '../store/actions'
+import { connect } from 'react-redux'
 
-export default ({ bill }) => {
+const Bill = ({ bill, removeBill }) => {
   const [expanded, setExpanded] = useState(false)
   const toggleExpanded = () => {
     setExpanded(!expanded)
+  }
+
+  const handleRemoveBill = (event) => {
+    event.stopPropagation()
+    removeBill(bill)
   }
 
   return (
@@ -23,6 +30,9 @@ export default ({ bill }) => {
             {' '}
             <span>{currency}</span>
           </div>
+          <div className="minor" onClick={handleRemoveBill}>
+            Remove
+          </div>
         </div>
       </div>
       {expanded && (
@@ -33,3 +43,10 @@ export default ({ bill }) => {
     </div>
   )
 }
+
+export default connect(
+  null,
+  dispatch => ({
+    removeBill: (bill) => dispatch(actions.requestRemoveBill(bill)),
+  })
+)(Bill)
