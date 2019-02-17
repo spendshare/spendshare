@@ -2,7 +2,7 @@ names = [
   'Jan Kowalski',
   'Stefan Nowak',
   'Borys Szyc',
-  'Tomasz Karolak',
+  'Tomasz Karolak'
 ]
 
 FactoryBot.define do

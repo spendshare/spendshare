@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   match '*path',
         controller: 'application',
         action: 'options',
@@ -9,8 +10,11 @@ Rails.application.routes.draw do
     namespace 'v1' do
       post 'session', to: 'sessions#get'
       delete 'session', to: 'sessions#delete'
-      post 'bill', to: 'bills#create'
-      get 'users', to: 'users#all'
+
+      get 'bills/:group_id', to: 'bills#all'
+      post 'bills/:group_id', to: 'bills#create'
+      put 'bills/:id', to: 'bills#update'
+      delete 'bills/:id', to: 'bills#delete'
     end
   end
 end

@@ -1,19 +1,27 @@
 class Api::V1::BillsController < ApplicationController
-  def create
-
-    p "XXXX"
-    p params.as_json
-
-    ok('hi')
-
-
-    # bill = Bill.new(params)
-    # bill.save!
-
-    # ok(bill.serialize)
-  end
-
   def all
     ok(Bill.all)
+  end
+
+  def create
+    params[:bill][:group_id] = params[:group_id].to_i
+    bill = Bill.new(bill_params)
+    bill.save!
+    ok('siema')
+  end
+
+  def update
+    group_id = params[:group_id].to_i
+    ok
+  end
+
+  def delete
+    ok
+  end
+
+  private
+
+  def bill_params
+    params.permit(:title, :group_id, :added_by_id, :deleted)
   end
 end

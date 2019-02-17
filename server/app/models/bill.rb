@@ -1,7 +1,9 @@
 class Bill < ApplicationRecord
   has_many :participations
+  belongs_to :added_by, class_name: 'Member'
+  belongs_to :group
 
-  validates_presence_of :title
+  validates_presence_of :title, :added_by, :group
 
   def serialize
     {

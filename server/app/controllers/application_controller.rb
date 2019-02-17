@@ -1,9 +1,15 @@
 class ApplicationController < ActionController::API
   after_action :set_cors
 
+  def invalid_record_error(error)
+    error(400, error.message)
+  end
+
+  rescue_from ActiveRecord::RecordInvalid, with: :invalid_record_error
+
   def ok(data = nil)
     if data.nil?
-      render nothing: true
+      render status: 200, json: {}
       return
     end
 

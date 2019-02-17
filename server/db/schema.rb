@@ -18,13 +18,16 @@ ActiveRecord::Schema.define(version: 2019_02_17_111902) do
   create_table "bills", force: :cascade do |t|
     t.string "title"
     t.bigint "added_by_id"
+    t.bigint "group_id"
     t.boolean "deleted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["added_by_id"], name: "index_bills_on_added_by_id"
+    t.index ["group_id"], name: "index_bills_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string "title"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,4 +68,5 @@ ActiveRecord::Schema.define(version: 2019_02_17_111902) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bills", "members", column: "added_by_id"
 end

@@ -10,32 +10,27 @@ import actions from '../store/actions'
 
 loadScript()
 
-const App = ({ session, signIn, fetchUsers }) => {
-  fetchUsers()
-  return (
-    <div className="app">
-      {session.id
-        ? <div className="wrapper">
-          <Navigation/>
-          <Bills/>
-          <People/>
-        </div>
-        : <div className="center">
-          <Button
-            light
-            loading={session.waiting}
-            onClick={signIn}
-            title="Sign in with Google"
-          />
-        </div>}
-    </div>
-  )
-}
+const App = ({ session, signIn }) =>
+  <div className="app">
+    {session.id
+      ? <div className="wrapper">
+        <Navigation/>
+        <Bills/>
+        <People/>
+      </div>
+      : <div className="center">
+        <Button
+          light
+          loading={session.waiting}
+          onClick={signIn}
+          title="Sign in with Google"
+        />
+      </div>}
+  </div>
 
 export default connect(
   ({ session }) => ({ session }),
   dispatch => ({
     signIn: () => dispatch(actions.requestSignIn()),
-    fetchUsers: () => dispatch(actions.requestAllUsers())
   })
 )(App)

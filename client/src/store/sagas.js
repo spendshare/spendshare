@@ -64,5 +64,5 @@ export default function* () {
   yield takeEvery(REQUEST_SIGN_IN, processSignIn)
   yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
   yield takeEvery(REQUEST_ADD_BILL, processAddBill)
-  yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
+//   yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
 }
