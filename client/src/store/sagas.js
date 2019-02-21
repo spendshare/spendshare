@@ -51,7 +51,6 @@ function* processAddBill(action) {
 }
 
 function* processRemoveBill(action) {
-  console.log('XXXXX')
   const { id } = action.params
   const bill = yield call(api.fetch, api.endpoints.removeBill(id))
   if (bill && !bill.error) {

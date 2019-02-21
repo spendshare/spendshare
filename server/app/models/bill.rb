@@ -1,5 +1,7 @@
 class Bill < ApplicationRecord
   has_many :participations
+  accepts_nested_attributes_for :participations
+
   belongs_to :added_by, class_name: 'Member'
   belongs_to :group
 

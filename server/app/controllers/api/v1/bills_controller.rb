@@ -3,11 +3,13 @@ class Api::V1::BillsController < ApplicationController
     ok(Bill.all)
   end
 
+  def new
+    @bill = Bill.participations.build
+  end
+
   def create
-    params[:bill][:group_id] = params[:group_id].to_i
-    bill = Bill.new(bill_params)
-    bill.save!
-    ok('siema')
+    @bill = Bill.participations.build(params[:bill])
+    ok
   end
 
   def update
@@ -22,6 +24,12 @@ class Api::V1::BillsController < ApplicationController
   private
 
   def bill_params
-    params.permit(:title, :group_id, :added_by_id, :deleted)
+    params.permit(
+      :title,
+      :group_id,
+      participations: %i[id amount]
+    )
   end
 end
+
+#:title, :participations, :group_id, :bill

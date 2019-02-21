@@ -35,22 +35,22 @@ export default {
       path: url('session'),
       method: 'DELETE',
     },
-    // TODO @osdnk use gruop.id
+    // TODO @osdnk use group.id
     addBill: (params , group) => ({
-      path: url('1/bills'),
+      path: url('bills/1'),
       method: 'POST',
       data: params,
     }),
     allBills: group => ({
-      path: url('1/bills'),
+      path: url('bills/1'),
       method: 'GET',
     }),
     removeBill: id => ({
-      path: url(`1/bills/${id}`),
+      path: url(`bills/${id}`),
       method: 'DELETE',
     }),
     updateBill: (params, id) => ({
-      path: url(`1/bills/${id}`),
+      path: url(`bills/${id}`),
       method: 'PUT',
       data: params,
     }),
