@@ -3,33 +3,43 @@ class Api::V1::BillsController < ApplicationController
     ok(Bill.all)
   end
 
-  def new
-    @bill = Bill.participations.build
-  end
 
   def create
-    @bill = Bill.participations.build(params[:bill])
+    puts "XXX"
+    puts params
+    puts bill_params
+    puts "YYY"
+
+    @bill = Bill.new(bill_params)
+    @bill.group_id = params[:group_id]
+    @bill.added_by = Member.find_by(group_id: params[:group_id],
+                               user_id: current_user.id)
+    @bill.save!
     ok
   end
 
+=begin
   def update
     group_id = params[:group_id].to_i
     ok
   end
+=end
 
+=begin
   def delete
     ok
   end
-
+=end
   private
 
   def bill_params
-    params.permit(
+    params.require(:bill).permit(
       :title,
       :group_id,
-      participations: %i[id amount]
+      participations: [:title, :amount]
     )
   end
+
 end
 
 #:title, :participations, :group_id, :bill

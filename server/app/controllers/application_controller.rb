@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
+  include ActionController::Helpers
   after_action :set_cors
+  helper_method :current_user
 
   def invalid_record_error(error)
     error(400, error.message)
@@ -61,5 +63,9 @@ class ApplicationController < ActionController::API
   def find_by_global_id(global_id)
     type, id = Base64.decode64(global_id).split(':')
     Object.const_get(type).find(id)
+  end
+
+  def current_user
+    Token.find_by(token: recognize_token).user
   end
 end
