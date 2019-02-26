@@ -3,7 +3,6 @@ class Api::V1::BillsController < ApplicationController
     ok(Bill.all)
   end
 
-
   def create
     puts "XXX"
     puts params
@@ -14,6 +13,11 @@ class Api::V1::BillsController < ApplicationController
     @bill.group_id = params[:group_id]
     @bill.added_by = Member.find_by(group_id: params[:group_id],
                                user_id: current_user.id)
+    params[:participations].map do |p|
+      @participation = Participation.new(participation_params(p))
+      @participation.bill = @bill
+      @participation.save!
+    end
     @bill.save!
     ok
   end
@@ -34,9 +38,13 @@ class Api::V1::BillsController < ApplicationController
 
   def bill_params
     params.require(:bill).permit(
-      :title,
-      :group_id,
-      participations: [:title, :amount]
+        :title
+    )
+  end
+
+  def participation_params(p)
+    p.permit(
+        :amount
     )
   end
 
