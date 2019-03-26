@@ -15,6 +15,8 @@ export const REQUEST_ALL_USERS = 'REQUEST_ALL_USERS'
 export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
 export const REJECT_ALL_USERS = 'REJECT_ALL_USERS'
 
+export const CREATE_NEW_GROUP = 'CREATE_NEW_GROUP'
+
 export default {
     loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
@@ -32,4 +34,6 @@ export default {
 
     requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
     receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
+
+    createNewGroup: name => ({ type: CREATE_NEW_GROUP, name })
 }

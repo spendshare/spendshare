@@ -9,7 +9,7 @@ import actions, {
     REQUEST_SIGN_IN,
     REQUEST_SIGN_OUT,
     REQUEST_ADD_BILL,
-    REQUEST_ALL_USERS,
+    REQUEST_ALL_USERS, CREATE_NEW_GROUP,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
@@ -59,10 +59,23 @@ function* processFetchAllUsers() {
     }
 }
 
+function* createNewGroup(name) {
+    console.log(name)
+    const users = yield call(api.fetch, api.endpoints.createGroup({ name }))
+    if (users && !users.error) {
+        // FIXME
+        // yield put(actions.receiveAllUsers(users.data.map(u => ({ ...u, balance: 0 }))))
+    } else {
+        //yield put(actions.rejectAllUsers)
+
+    }
+}
+
 export default function* () {
     yield fork(loadLocalStorage)
     yield takeEvery(REQUEST_SIGN_IN, processSignIn)
     yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
     yield takeEvery(REQUEST_ADD_BILL, processAddBill)
     yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
+    yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
 }

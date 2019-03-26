@@ -43,6 +43,11 @@ export default {
         allUsers: {
             path: url('users'),
             method: 'GET',
-        }
+        },
+        createGroup: params => ({
+            path: url('group/create'),
+            method: 'PUT',
+            data: params
+        })
     },
 }

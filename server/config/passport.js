@@ -5,7 +5,8 @@
  */
 
 const mongoose = require('mongoose');
-const local = require('./passport/local');
+//const local = require('./passport/local');
+const google = require('./passport/google');
 
 const User = mongoose.model('User');
 
@@ -19,5 +20,5 @@ module.exports = function(passport) {
   passport.deserializeUser((id, done) => User.findOne({ _id: id }, done));
 
   // use these strategies
-  passport.use(local);
+  passport.use('google', google);
 };
