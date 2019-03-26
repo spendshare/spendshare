@@ -14,6 +14,7 @@ export default {
 
         if (token) config.headers.Authorization = `bearer ${token}`
         config.headers['Content-Type'] = 'application/json'
+        config['credentials'] = 'include'
         if (data) config.body = JSON.stringify(data)
 
         const response = await fetch(path, config)

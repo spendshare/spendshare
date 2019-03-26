@@ -18,7 +18,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const config = require('./config');
-const cookieSession = require('cookie-session')
 
 const models = join(__dirname, 'app/models');
 const port = process.env.PORT || 3000;
@@ -40,18 +39,12 @@ fs.readdirSync(models)
   .filter(file => ~file.indexOf('.js'))
   .forEach(file => require(join(models, file)));
 
-// Bootstrap routes
+
 require('./config/passport')(passport);
 require('./config/express')(app, passport);
 require('./config/routes')(app, passport);
 
-app.use(
-  cookieSession({
-    name: 'session',
-    keys: ['123'],
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  })
-)
+
 
 connection
   .on('error', console.log)

@@ -1,23 +1,25 @@
 'use strict';
-const passport = require('passport');
 
-const home = require('../app/controllers/home');
+const passport = require('passport');
 
 const express = require('express');
 
 const router = express.Router();
 
-router.get('/', function(req, res) {
+
+
+router.put('/group/create', function(req, res) {
   res.json({ message: 'hooray! welcome to our api!' });
+  console.log(req.user)
+  console.log("XX")
 });
 
-router.put('/', function(req, res) {
-  res.json({ message: 'hooray! welcome to our api!' });
-});
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 
 module.exports = function(app) {
+
   app.get(
     '/auth/google',
     passport.authenticate('login', { scope: ['email', 'profile'] })
