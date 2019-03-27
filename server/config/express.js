@@ -2,23 +2,26 @@
  * Module dependencies.
  */
 
-const express = require('express');
-const session = require('express-session');
-const compression = require('compression');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
-const bodyParser = require('body-parser');
-const methodOverride = require('method-override');
-//const csrf = require('csurf');
-const helmet = require('helmet');
+import express from 'express';
 
-const mongoStore = require('connect-mongo')(session);
-const flash = require('connect-flash');
-const winston = require('winston');
-const helpers = require('view-helpers');
-const config = require('./');
-const pkg = require('../package.json');
+import session from 'express-session';
+import compression from 'compression';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import cookieSession from 'cookie-session';
+import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
+
+//const csrf = require('csurf');
+import helmet from 'helmet';
+
+import mongoStoreFactory from 'connect-mongo';
+const mongoStore = mongoStoreFactory(session);
+import flash from 'connect-flash';
+import winston from 'winston';
+import helpers from 'view-helpers';
+import config from './';
+import pkg from '../package.json';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -26,7 +29,7 @@ const env = process.env.NODE_ENV || 'development';
  * Expose
  */
 
-module.exports = function(app, passport) {
+export default function(app, passport) {
   app.use(helmet());
 
   // Compression middleware (should be placed before express.static)

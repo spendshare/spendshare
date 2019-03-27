@@ -4,21 +4,22 @@
  * Module dependencies.
  */
 
-const mongoose = require('mongoose');
-//const local = require('./passport/local');
-const google = require('./passport/google');
+import mongoose from 'mongoose';
 
-const User = mongoose.model('User');
+//const local = require('./passport/local');
+
 
 /**
  * Expose
  */
 
-module.exports = function(passport) {
+export default function(passport) {
   // serialize and deserialize sessions
   passport.serializeUser((user, done) => done(null, user.id));
+  const User = mongoose.model('User');
   passport.deserializeUser((id, done) => User.findOne({ _id: id }, done));
 
   // use these strategies
+  const google = require('./passport/google');
   passport.use('google', google);
 };

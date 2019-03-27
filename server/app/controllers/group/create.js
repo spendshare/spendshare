@@ -1,13 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const Group = mongoose.model('Group');
-
-module.exports = function(req, res) {
+export default function(req, res) {
+  const Group = mongoose.model('Group');
   const g = new Group({
     name: req.body.name
   });
 
-  console.warn(req.body.name);
   g.save(function(err) {
     if (err) console.log(err);
     // shrug

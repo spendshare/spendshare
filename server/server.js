@@ -12,13 +12,15 @@
 
 require('dotenv').config();
 
-const fs = require('fs');
-const join = require('path').join;
-const express = require('express');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const config = require('./config');
-
+import fs from 'fs';
+import { join } from 'path';
+import express from 'express';
+import mongoose from 'mongoose';
+import passport from 'passport';
+import config from './config';
+import expressConfig from './config/express'
+import passportConfig from './config/passport'
+import routesConfig from './config/routes'
 const models = join(__dirname, 'app/models');
 const port = process.env.PORT || 3000;
 
@@ -29,7 +31,7 @@ const connection = connect();
  * Expose
  */
 
-module.exports = {
+export default {
   app,
   connection
 };
@@ -39,9 +41,9 @@ fs.readdirSync(models)
   .filter(file => ~file.indexOf('.js'))
   .forEach(file => require(join(models, file)));
 
-require('./config/passport')(passport);
-require('./config/express')(app, passport);
-require('./config/routes')(app, passport);
+passportConfig(passport);
+expressConfig(app, passport);
+routesConfig(app, passport);
 
 connection
   .on('error', console.log)
@@ -55,7 +57,7 @@ function listen() {
 }
 
 function connect() {
-  var options = { keepAlive: 1, useNewUrlParser: true };
+  const options = { keepAlive: 1, useNewUrlParser: true };
   mongoose.connect(config.db, options);
   return mongoose.connection;
 }

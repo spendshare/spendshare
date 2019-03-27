@@ -2,10 +2,10 @@
  * Module dependencies.
  */
 
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+import mongoose from 'mongoose';
+
+import passport from 'passport';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -20,7 +20,7 @@ passport.use(
       callbackURL: 'http://localhost:3000/oauth'
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log(User);
+      const User = mongoose.model('User');
       User.findOne({ googleId: profile.id }, function(err, user) {
         if (err) {
           return done(err);

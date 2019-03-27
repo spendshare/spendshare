@@ -2,15 +2,14 @@
 
 import createUser from '../app/controllers/group/create';
 
-const passport = require('passport');
-
-const express = require('express');
+import passport from 'passport';
+import express from 'express';
 
 const router = express.Router();
 
 router.put('/group/create', createUser);
 
-module.exports = function(app) {
+export default function(app) {
   app.get(
     '/auth/google',
     passport.authenticate('login', { scope: ['email', 'profile'] })

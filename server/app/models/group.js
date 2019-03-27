@@ -7,9 +7,6 @@ const GroupSchema = new Schema({
 
 GroupSchema.method({});
 
-
-
 GroupSchema.static({});
-
 
 mongoose.model('Group', GroupSchema);
