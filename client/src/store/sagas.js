@@ -9,7 +9,8 @@ import actions, {
     REQUEST_SIGN_IN,
     REQUEST_SIGN_OUT,
     REQUEST_ADD_BILL,
-    REQUEST_ALL_USERS, CREATE_NEW_GROUP,
+    REQUEST_ALL_USERS,
+    CREATE_NEW_GROUP,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
