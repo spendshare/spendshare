@@ -1,15 +1,12 @@
-'use strict';
-
 import createUser from '../app/controllers/group/create';
-
 import passport from 'passport';
 import express from 'express';
 
-const router = express.Router();
-
-router.put('/group/create', createUser);
 
 export default function(app) {
+  const router = express.Router();
+  router.put('/group/create', createUser);
+
   app.get(
     '/auth/google',
     passport.authenticate('login', { scope: ['email', 'profile'] })

@@ -1,15 +1,3 @@
-'use strict';
-
-/*
- * nodejs-express-mongoose
- * Copyright(c) 2015 Madhusudhan Srinivasa <madhums8@gmail.com>
- * MIT Licensed
- */
-
-/**
- * Module dependencies
- */
-
 require('dotenv').config();
 
 import fs from 'fs';
@@ -26,10 +14,6 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 const connection = connect();
-
-/**
- * Expose
- */
 
 export default {
   app,
