@@ -2,7 +2,7 @@
  * Expose
  */
 
-module.exports = {
+export default {
   db: process.env.MONGODB_URL || 'mongodb://localhost/my_app_test',
   facebook: {
     clientID: 'APP_ID',
