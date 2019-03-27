@@ -10,7 +10,7 @@ import {
     REJECT_SIGN_IN,
     REQUEST_SIGN_OUT,
     RECEIVE_SIGN_OUT,
-    RECEIVE_ALL_USERS
+    RECEIVE_ALL_USERS,
 } from './actions'
 
 const session = (state = {
@@ -20,8 +20,6 @@ const session = (state = {
     token: null,
     waiting: false,
 }, action) => {
-
-    console.log(action.type)
 
     switch (action.type) {
     case LOAD_LOCAL_STORAGE:
