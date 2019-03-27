@@ -11,6 +11,12 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "16.0"
+        },
+    },
     "plugins": [
         "react",
         "react-hooks",
