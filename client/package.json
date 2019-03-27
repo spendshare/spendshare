@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -27,6 +22,7 @@
     "react": "16.7.0-alpha.0",
     "react-dom": "16.7.0-alpha.0",
     "react-redux": "^5.1.1",
+    "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2"
   },
@@ -39,7 +35,7 @@
     "css-loader": "^1.0.1",
     "eslint": "^5.9.0",
     "eslint-plugin-enforce-react-hooks": "osdnk/eslint-enforce-react-hooks",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^0.0.0",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",

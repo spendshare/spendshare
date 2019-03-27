@@ -1,44 +1,43 @@
-# server
+## Usage
+    $ mongod
 
-## Install
+And in new terminal:
 
-```bash
-gem install bundler
-bundle install
-rake db:create
-rake db:migrate
+    $ yarn
+    $ yarn start
+
+
+## Docker
+
+You can also use docker for development. Make sure you run npm install on your host machine so that code linting and everything works fine.
+
+```sh
+$ npm i
+$ cp .env.example .env
 ```
 
-## CORS
+Start the services
 
-CORS handling is defined in `routes.rb` via:
-```ruby
-match '*path',
-  controller: 'application',
-  action: 'options',
-  via: :options
+```sh
+$ docker-compose up -d
 ```
 
-and handled in `application_controller.rb` via:
+View the logs
 
-```ruby
-def options
-  response.set_header(
-    'Access-Control-Allow-Headers',
-    'Content-Type,Authorization'
-  )
-  response.set_header(
-    'Access-Control-Allow-Methods',
-    'GET,POST,DELETE'
-  )
-  render nothing: true, status: 200
-end
+```sh
+$ docker-compose logs -f
 ```
 
-As you can see, all legal headers and methods are set there.
+In case you install a npm module while developing, it should also be installed within docker container, to do this first install the module you want with simple `npm i module name`, then run it within docker container
 
-## TODO
+```sh
+$ docker-compose exec node npm i
+```
 
-- add permitted params in Bill
-- test `bill_spec.rb`
-- use shared tests in specs
+If you make any changes to the file, nodemon should automatically pick up and restart within docker (you can see this in the logs)
+
+To run tests
+
+```sh
+$ docker-compose exec -e MONGODB_URL=mongodb://mongo:27017/noobjs_test node npm test
+```
