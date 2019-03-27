@@ -59,7 +59,7 @@ function* processFetchAllUsers() {
     }
 }
 
-function* createNewGroup(name) {
+function* createNewGroup({ name }) {
     console.log(name)
     const users = yield call(api.fetch, api.endpoints.createGroup({ name }))
     if (users && !users.error) {

@@ -1,5 +1,7 @@
 'use strict';
 
+const createUser = require('../app/controllers/group/create')
+
 const passport = require('passport');
 
 const express = require('express');
@@ -8,11 +10,8 @@ const router = express.Router();
 
 
 
-router.put('/group/create', function(req, res) {
-  res.json({ message: 'hooray! welcome to our api!' });
-  console.log(req.user)
-  console.log("XX")
-});
+router.put('/group/create', createUser)
+
 
 
 // REGISTER OUR ROUTES -------------------------------
