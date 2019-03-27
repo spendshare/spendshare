@@ -1,6 +1,6 @@
 'use strict';
 
-const createUser = require('../app/controllers/group/create')
+import createUser from '../app/controllers/group/create';
 
 const passport = require('passport');
 
@@ -8,17 +8,9 @@ const express = require('express');
 
 const router = express.Router();
 
-
-
-router.put('/group/create', createUser)
-
-
-
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
+router.put('/group/create', createUser);
 
 module.exports = function(app) {
-
   app.get(
     '/auth/google',
     passport.authenticate('login', { scope: ['email', 'profile'] })

@@ -39,12 +39,9 @@ fs.readdirSync(models)
   .filter(file => ~file.indexOf('.js'))
   .forEach(file => require(join(models, file)));
 
-
 require('./config/passport')(passport);
 require('./config/express')(app, passport);
 require('./config/routes')(app, passport);
-
-
 
 connection
   .on('error', console.log)
