@@ -6,6 +6,7 @@ import actions, {
   REQUEST_ADD_BILL,
   REQUEST_ALL_USERS,
   CREATE_NEW_GROUP,
+  REQUEST_ALL_GROUPS,
   REQUEST_GROUP_MEMBERS,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
@@ -45,7 +46,7 @@ function* processAddBill(action) {
   }
 }
 
-function* processFetchAllUsers() {
+function* fetchAllUsers() {
   const users = yield call(api.fetch, api.endpoints.allUsers)
   if (users && !users.error) {
     // FIXME
@@ -57,8 +58,16 @@ function* processFetchAllUsers() {
   }
 }
 
+function* fetchAllGroups() {
+  const groups = yield call(api.fetch, api.endpoints.allGroups)
+  if (groups && !groups.error) {
+    yield put(actions.receiveAllGroups(groups))
+  } else {
+    yield put(actions.rejectAllGroups())
+  }
+}
+
 function* createNewGroup({ name }) {
-  console.log(name)
   const users = yield call(api.fetch, api.endpoints.createGroup({ name }))
   if (users && !users.error) {
     // FIXME
@@ -86,6 +95,7 @@ export default function*() {
   yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
   yield takeEvery(REQUEST_ADD_BILL, processAddBill)
   yield takeEvery(REQUEST_GROUP_MEMBERS, fetchGroupMembers)
-  yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
+  yield takeEvery(REQUEST_ALL_USERS, fetchAllUsers)
+  yield takeEvery(REQUEST_ALL_GROUPS, fetchAllGroups)
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
 }

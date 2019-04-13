@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400&subset=latin-ext');
+
+div {
+  font-family: Work Sans, sans-serif;
+}
+
+.app {
+  padding-top: 20px;
+  margin: 50px auto;
+  width: 800px;
+  flex: 1;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.create-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.group-label {
+  padding: 10px;
+  margin: 4px;
+  background-color: #dddddd;
+}
+
+.input {
+  border: 0;
+}
