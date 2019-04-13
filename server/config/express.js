@@ -1,7 +1,3 @@
-/**
- * Module dependencies.
- */
-
 import express from 'express'
 
 import session from 'express-session'
@@ -24,10 +20,6 @@ import config from './'
 import pkg from '../package.json'
 
 const env = process.env.NODE_ENV || 'development'
-
-/**
- * Expose
- */
 
 export default function(app, passport) {
   app.use(helmet())

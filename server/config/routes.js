@@ -1,10 +1,20 @@
 import createUser from '../app/controllers/group/create'
+import member from '../app/controllers/member'
 import passport from 'passport'
 import express from 'express'
 
+const crud = (app, object, name) => {
+  app.post(`/api/v1/${name}/:id`, object.create)
+  app.get(`/api/v1/${name}/:id`, object.read)
+  app.update(`/api/v1/${name}/:id`, object.update)
+  app.delete(`/api/v1/${name}/:id`, object.destroy)
+}
+
 export default app => {
   const router = express.Router()
-  router.put('/group/create', createUser)
+  crud(app, member, 'member')
+
+  app.post('/api/v1/group/create', createUser)
 
   app.get(
     '/auth/google',

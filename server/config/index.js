@@ -1,7 +1,3 @@
-/**
- * Module dependencies.
- */
-
 import path from 'path'
 
 import development from './env/development'
@@ -10,10 +6,6 @@ import production from './env/production'
 const defaults = {
   root: path.normalize(__dirname + '/..'),
 }
-
-/**
- * Expose
- */
 
 export default {
   development: Object.assign({}, development, defaults),
