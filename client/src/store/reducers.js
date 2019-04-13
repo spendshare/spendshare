@@ -66,7 +66,7 @@ const session = (
 
 const users = (
   state = {
-    list: [],
+    all: {},
     currentUser: null,
   },
   action
@@ -75,7 +75,7 @@ const users = (
     case RECEIVE_SIGN_OUT:
       return {
         ...state,
-        currentUser: null
+        currentUser: null,
       }
     case RECEIVE_CURRENT_USER:
       return {
@@ -87,7 +87,23 @@ const users = (
         ...state,
       }
     case RECEIVE_ALL_USERS:
-      return { ...state, list: action.users }
+      const all = {}
+      action.users.forEach(user => (all[user._id] = user))
+      return { ...state, all }
+
+    default:
+      return state
+  }
+}
+
+const members = (state = [], action) => {
+  switch (action.type) {
+    case RECEIVE_GROUP_MEMBERS:
+      if (action.members.length === 0) return state
+      return state
+        .filter(existing => existing.groupId !== action.members[0])
+        .concat(action.members)
+
     default:
       return state
   }
@@ -109,22 +125,35 @@ const groups = (state = {}, action) => {
       })
       return receivedGroups
 
-      case RECEIVE_NEW_GROUP:
-          state[action.group._id] = action.group
-          return {
-            ...state
-        }
+    case RECEIVE_NEW_GROUP:
+      state[action.group._id] = action.group
+      return {
+        ...state,
+      }
 
     case REQUEST_GROUP_MEMBERS:
-      state[action.id] = { loading: true }
+      if (state[action.id]) {
+        state[action.id].loading = true
+      } else {
+        state[action.id] = { loading: true }
+      }
       return { ...state }
 
     case RECEIVE_GROUP_MEMBERS:
-      state[action.id] = { loading: false, members: action.members }
+      if (state[action.id]) {
+        state[action.id].loading = false
+      } else {
+        state[action.id] = { loading: false }
+      }
       return { ...state }
 
     case REJECT_GROUP_MEMBERS:
-      state[action.id] = { loading: false, error: true }
+      if (state[action.id]) {
+        state[action.id].loading = false
+        state[action.id].error = true
+      } else {
+        state[action.id] = { loading: false, error: true }
+      }
       return { ...state }
 
     default:
@@ -136,5 +165,6 @@ export default combineReducers({
   session,
   users,
   bills,
+  members,
   groups,
 })
