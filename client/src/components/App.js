@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styles from './App.module.scss'
+import actions from '../store/actions'
 import Navigation from './Navigation'
 import Bills from './Bills'
 import People from './People'
 import Button from './Button'
-import actions from '../store/actions'
+import ShowGroup from './ShowGroup'
 import Input from './Input'
 
 function Index() {
@@ -72,6 +73,7 @@ const App = ({ session, signIn, fetchUsers }) => {
 
         <Route path="/" exact component={Index} />
         <Route path="/login" component={EnhancedGroupSelect} />
+        <Route path="/group/:name" component={ShowGroup} />
       </div>
     </Router>
   )
