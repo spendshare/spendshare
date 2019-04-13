@@ -65,4 +65,7 @@ export default {
 
   createNewGroup: name => ({ type: CREATE_NEW_GROUP, name }),
   receiveNewGroup: group => ({ type: RECEIVE_NEW_GROUP, group }),
+
+  requestCurrentUser: () => ({ type: REQUEST_CURRENT_USER }),
+  receiveCurrentUser: user => ({ type: RECEIVE_CURRENT_USER, user }),
 }

@@ -68,7 +68,6 @@ const users = (
   state = {
     list: [],
     currentUser: null,
-    isLoadedCurrentUser: false,
   },
   action
 ) => {
@@ -82,12 +81,10 @@ const users = (
       return {
         ...state,
         currentUser: action.user,
-        isLoadedCurrentUser: false,
       }
     case REQUEST_CURRENT_USER:
       return {
         ...state,
-        isLoadedCurrentUser: true,
       }
     case RECEIVE_ALL_USERS:
       return { ...state, list: action.users }
