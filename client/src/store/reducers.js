@@ -8,6 +8,9 @@ import {
   REQUEST_SIGN_OUT,
   RECEIVE_SIGN_OUT,
   RECEIVE_ALL_USERS,
+  REQUEST_GROUP_MEMBERS,
+  RECEIVE_GROUP_MEMBERS,
+  REJECT_GROUP_MEMBERS,
 } from './actions'
 
 const session = (
@@ -111,4 +114,5 @@ export default combineReducers({
   session,
   users,
   bills,
+  groups,
 })
