@@ -8,5 +8,13 @@ const MemberSchema = new Schema({
 })
 
 MemberSchema.method({})
-MemberSchema.static({})
+MemberSchema.static({
+  findByUser: async me => {
+    const Member = mongoose.model('Member')
+    return await Member.find({
+      userId: me,
+    })
+  },
+})
+
 mongoose.model('Member', MemberSchema)
