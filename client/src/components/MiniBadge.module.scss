@@ -10,26 +10,26 @@
   margin: 0 5px 5px 0;
   position: relative;
 
-  .avatar {
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    width: 22px;
-    height: 22px;
-    border-radius: 13px;
-    background-color: #aaa;
-  }
-
   img {
     width: 22px;
     height: 22px;
     border-radius: 100%;
   }
+}
 
-  .name {
-    max-width: 100px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.avatar {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 13px;
+  background-color: #aaa;
+}
+
+.name {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react'
 import { connect } from 'react-redux'
-import './AddBill.scss'
-import { sleep, shortenName } from '../utils'
+import styles from './AddBill.module.scss'
+import { shortenName } from '../utils'
 import actions from '../store/actions'
 import { currency } from '../config'
 import BadgeSelector from './BadgeSelector'
@@ -71,22 +71,22 @@ const AddBill = ({ users, dispatch, hide }) => {
 
   return (
     <div className="add-bill">
-      <div className="box">
-        <div className="cross" onClick={hide}>
+      <div className={styles.box}>
+        <div className={styles.cross} onClick={hide}>
           ✕
         </div>
-        <div className="title">Add a bill</div>
+        <div className={styles.title}>Add a bill</div>
         <BadgeSelector
           suggested={users.list}
           selected={selected}
           select={select}
           deselect={deselect}
         />
-        <div className="content">
-          <div className="column">
+        <div className={styles.content}>
+          <div className={styles.column}>
             <Input
               autoFocus
-              className="input"
+              className={styles.input}
               label="Title"
               onChange={handleChangeTitle}
               placeholder="Enter a description..."
@@ -94,14 +94,14 @@ const AddBill = ({ users, dispatch, hide }) => {
             />
             <Input
               biggerText
-              className="input"
+              className={styles.input}
               label="Amount"
               onChange={handleChangeAmount}
               placeholder="0.00"
               right={currency}
               value={amount}
             />
-            <div className="descriptive">
+            <div className={styles.descriptive}>
               Paid by{' '}
               <DropdownSelector
                 title={payer.name !== 'You' ? shortenName(payer.name) : 'You'}
@@ -112,7 +112,7 @@ const AddBill = ({ users, dispatch, hide }) => {
               />{' '}
               and split equally
             </div>
-            <div className="descriptive">
+            <div className={styles.descriptive}>
               in group{' '}
               <DropdownSelector
                 title={group.name}
@@ -124,7 +124,7 @@ const AddBill = ({ users, dispatch, hide }) => {
             </div>
           </div>
         </div>
-        <div className="buttons">
+        <div className={styles.buttons}>
           <div>
             <Button title="Cancel" onClick={hide} light />
           </div>

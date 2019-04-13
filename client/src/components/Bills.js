@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Bills.scss'
+import styles from './Bills.module.scss'
 import Button from './Button'
 import Bill from './Bill'
 import AddBill from './AddBill'
@@ -63,8 +63,8 @@ export default () => {
   const hide = () => setShowAdd(false)
 
   return (
-    <div className="bills">
-      <div className="header">
+    <div className={styles.bills}>
+      <div className={styles.header}>
         {showAdd && <AddBill hide={hide} />}
         <Button
           title="Add a bill"

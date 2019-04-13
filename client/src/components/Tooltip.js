@@ -1,5 +1,5 @@
 import React from 'react'
-import './Tooltip.scss'
+import styles from './Tooltip.module.scss'
 import { shortenName } from '../utils'
 import { currency } from '../config'
 
@@ -19,18 +19,18 @@ const debts = [
 ]
 
 export default () => (
-  <div className="tooltip">
-    <div className="content">
+  <div className={styles.tooltip}>
+    <div className={styles.content}>
       {debts.map(d => (
         <div key={`${d.whom}_${d.amount}`}>
           {d.amount < 0 ? 'gets back' : 'owes'}{' '}
-          <span className="highlight">
+          <span className={styles.highlight}>
             {d.amount} {currency}
           </span>{' '}
           {d.amount < 0 ? 'from' : 'to'} {shortenName(d.whom)}
         </div>
       ))}
     </div>
-    <div className="arrow" />
+    <div className={styles.arrow} />
   </div>
 )

@@ -1,12 +1,12 @@
 import React from 'react'
-import './Suggestion.scss'
+import styles from './Suggestion.module.scss'
 import { getAvatar } from '../utils'
 
 export default ({ user, onClick }) => (
-  <div className="suggestion" onClick={onClick}>
-    <div className="avatar">
+  <div className={styles.suggestion} onClick={onClick}>
+    <div className={styles.avatar}>
       <img src={getAvatar(user)} />
     </div>
-    <span className="name">{user.name}</span>
+    <span className={styles.name}>{user.name}</span>
   </div>
 )

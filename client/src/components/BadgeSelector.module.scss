@@ -1,0 +1,42 @@
+.badge-selector {
+  position: relative;
+  border-bottom: 1px solid #eee;
+  padding: 10px 20px 10px;
+}
+
+.badge-selector-title {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #888;
+}
+
+.highlight {
+  color: #000;
+}
+
+.badge-input {
+  font-family: Work Sans, sans-serif;
+  font-size: 14px;
+  border: none;
+  margin-top: 5px;
+}
+
+.badge-input:focus {
+  outline: none;
+}
+
+.selected-people {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 0 0 0;
+}
+
+.suggestions {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  margin-top: 11px;
+}

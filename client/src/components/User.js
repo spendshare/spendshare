@@ -1,5 +1,5 @@
 import React from 'react'
-import './User.scss'
+import styles from './User.module.scss'
 import { currency } from '../config'
 import { getAvatar } from '../utils'
 import Tooltip from './Tooltip'
@@ -15,15 +15,15 @@ const phraseBalance = balance => {
 }
 
 export default ({ user }) => (
-  <div className="user">
-    <div className="avatar">
+  <div className={styles.user}>
+    <div className={styles.avatar}>
       <img src={getAvatar(user)} />
     </div>
-    <div className="content">
-      <div className="name">{user.name}</div>
-      <div className="state">{phraseBalance(user.balance)}</div>
+    <div className={styles.content}>
+      <div className={styles.name}>{user.name}</div>
+      <div className={styles.state}>{phraseBalance(user.balance)}</div>
     </div>
-    <div className="tooltip-wrapper">
+    <div className={styles['tooltip-wrapper']}>
       <Tooltip debts={user.debts} />
     </div>
   </div>

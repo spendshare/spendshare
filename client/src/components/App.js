@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import './App.scss'
+import styles from './App.module.scss'
 import Navigation from './Navigation'
 import Bills from './Bills'
 import People from './People'
@@ -11,7 +11,7 @@ import Input from './Input'
 
 function Index() {
   return (
-    <div className="center">
+    <div className={styles.center}>
       <Button
         light
         onClick={() =>
@@ -26,10 +26,10 @@ function Index() {
 function GroupSelect({ createNewGroup }) {
   const [newGroupName, setNewGroupName] = useState('')
   return (
-    <div className="center">
+    <div className={styles.center}>
       <Input
         autoFocus
-        className="input"
+        className={styles.input}
         label="Create new group"
         onChange={({ target: { value } }) => setNewGroupName(value)}
         placeholder="Enter a name..."
@@ -54,7 +54,7 @@ const EnhancedGroupSelect = connect(
 const App = ({ session, signIn, fetchUsers }) => {
   return (
     <Router>
-      <div className="app">
+      <div className={styles.app}>
         {/*{session.id
                 ? <div className="wrapper">
                     <Navigation/>

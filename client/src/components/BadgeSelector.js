@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import './BadgeSelector.scss'
+import styles from './BadgeSelector.module.scss'
 import Fuse from 'fuse.js'
-
-import { fontFamily } from '../config'
 
 import MiniBadge from './MiniBadge'
 import Suggestion from './Suggestion'
@@ -40,11 +38,11 @@ export default ({ suggested, selected, select, deselect }) => {
     .slice(0, sizeOfList)
 
   return (
-    <div className="badge-selector">
-      <span className="badge-selector-title">
-        With <span className="highlight">you</span> and:
+    <div className={styles['badge-selector']}>
+      <span className={styles['badge-selector-title']}>
+        With <span className={styles.highlight}>you</span> and:
       </span>
-      <div className="selected-people">
+      <div className={styles['selected-people']}>
         {selected.map(s => (
           <MiniBadge
             user={s}
@@ -54,13 +52,13 @@ export default ({ suggested, selected, select, deselect }) => {
         ))}
       </div>
       <input
-        className="badge-input"
+        className={styles['badge-input']}
         placeholder="Enter a name..."
         value={value}
         onChange={handleChange}
       />
       {showSuggestions && (
-        <div className="suggestions">
+        <div className={styles.suggestions}>
           {filteredSuggestions.length > 0 ? (
             filteredSuggestions.map(s => (
               <Suggestion

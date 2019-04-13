@@ -1,8 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react'
-import './DropdownSelector.scss'
+import styles from './DropdownSelector.module.scss'
 import Fuse from 'fuse.js'
 
-import { fontFamily } from '../config'
 import TextSuggestion from './TextSuggestion'
 
 export default ({ options, renderOption, select, searchKeys, title }) => {
@@ -63,11 +62,11 @@ export default ({ options, renderOption, select, searchKeys, title }) => {
   }
 
   return (
-    <div className="dropdown-selector" onClick={handleClick}>
-      <div className="dropdown-selector-title">{title}</div>
+    <div className={styles['dropdown-selector']} onClick={handleClick}>
+      <div className={styles['dropdown-selector-title']}>{title}</div>
       {showDropdown && (
         <div
-          className="dropdown"
+          className={styles.dropdown}
           ref={node => {
             ref = node
           }}
@@ -78,7 +77,7 @@ export default ({ options, renderOption, select, searchKeys, title }) => {
             placeholder="Enter a name..."
             value={value}
           />
-          <div className="options">{renderOptions()}</div>
+          <div className={styles.options}>{renderOptions()}</div>
         </div>
       )}
     </div>
