@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -17,29 +17,29 @@ export default passport =>
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:3000/oauth'
+        callbackURL: 'http://localhost:3000/oauth',
       },
       function(accessToken, refreshToken, profile, done) {
-        const User = mongoose.model('User');
+        const User = mongoose.model('User')
         User.findOne({ googleId: profile.id }, function(err, user) {
           if (err) {
-            return done(err);
+            return done(err)
           }
           if (!user) {
             user = new User({
               name: profile.displayName,
               email: profile.emails[0].value,
-              googleId: profile.id
-            });
+              googleId: profile.id,
+            })
             user.save(function(err) {
-              if (err) console.log(err);
-              return done(err, user);
-            });
+              if (err) console.log(err)
+              return done(err, user)
+            })
           } else {
             //found user. Return
-            return done(err, user);
+            return done(err, user)
           }
-        });
+        })
       }
     )
-  );
+  )
