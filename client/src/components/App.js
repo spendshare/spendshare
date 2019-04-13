@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styles from './App.module.scss'
-import actions from '../store/actions'
-import Navigation from './Navigation'
-import Bills from './Bills'
-import People from './People'
 import Button from './Button'
-import ShowGroup from './ShowGroup'
-import Input from './Input'
+import actions from '../store/actions'
+import GroupSelect from './GroupSelect'
 
 function Index() {
   return (
@@ -24,55 +20,13 @@ function Index() {
   )
 }
 
-function GroupSelect({ createNewGroup }) {
-  const [newGroupName, setNewGroupName] = useState('')
-  return (
-    <div className={styles.center}>
-      <Input
-        autoFocus
-        className={styles.input}
-        label="Create new group"
-        onChange={({ target: { value } }) => setNewGroupName(value)}
-        placeholder="Enter a name..."
-        value={newGroupName}
-      />
-      <Button
-        title="Create"
-        onClick={() => createNewGroup(newGroupName)}
-        light
-      />
-    </div>
-  )
-}
 
-const EnhancedGroupSelect = connect(
-  ({ session }) => ({ session }),
-  dispatch => ({
-    createNewGroup: name => dispatch(actions.createNewGroup(name)),
-  })
-)(GroupSelect)
-
-const App = ({ session, signIn, fetchUsers }) => {
+const App = () => {
   return (
     <Router>
       <div className={styles.app}>
-        {/*{session.id
-                ? <div className="wrapper">
-                    <Navigation/>
-                    <Bills/>
-                    <People/>
-                </div>
-                : <div className="center">
-                    <Button
-                        light
-                        loading={session.waiting}
-                        onClick={signIn}
-                        title="Sign in with Google"
-                    />
-                </div>}*/}
-
         <Route path="/" exact component={Index} />
-        <Route path="/login" component={EnhancedGroupSelect} />
+        <Route path="/login" component={GroupSelect} />
         <Route path="/group/:name" component={ShowGroup} />
       </div>
     </Router>
