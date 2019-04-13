@@ -17,23 +17,35 @@ export const REJECT_ALL_USERS = 'REJECT_ALL_USERS'
 
 export const CREATE_NEW_GROUP = 'CREATE_NEW_GROUP'
 
+export const REQUEST_GROUP_MEMBERS = 'REQUEST_GROUP_MEMBERS'
+export const RECEIVE_GROUP_MEMBERS = 'RECEIVE_GROUP_MEMBERS'
+export const REJECT_GROUP_MEMBERS = 'REJECT_GROUP_MEMBERS'
+
 export default {
-    loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
+  loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
-    requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
-    receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
-    rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
+  requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
+  receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
+  rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
 
-    requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
-    receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),
-    rejectAllUsers:  ({ type: REJECT_ALL_USERS }),
+  requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
+  receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),
+  rejectAllUsers: { type: REJECT_ALL_USERS },
 
-    requestSignIn: session => ({ type: REQUEST_SIGN_IN }),
-    receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
-    rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
+  requestSignIn: () => ({ type: REQUEST_SIGN_IN }),
+  receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
+  rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
 
-    requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
-    receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
+  requestGroupMembers: name => ({ type: REQUEST_GROUP_MEMBERS, name }),
+  receiveGroupMembers: (name, members) => ({
+    type: RECEIVE_GROUP_MEMBERS,
+    name,
+    members,
+  }),
+  rejectGroupMembers: error => ({ type: REJECT_GROUP_MEMBERS, error }),
 
-    createNewGroup: name => ({ type: CREATE_NEW_GROUP, name })
+  requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
+  receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
+
+  createNewGroup: name => ({ type: CREATE_NEW_GROUP, name }),
 }
