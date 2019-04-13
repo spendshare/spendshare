@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 import styles from './App.module.scss'
 import Button from './Button'
 import actions from '../store/actions'
 import GroupSelect from './GroupSelect'
 import ShowGroup from './ShowGroup'
+import CurrentUserHandler from './CurrentUserHandler'
 
-function Index() {
+const Index = ({ currentUser }) => {
   return (
     <div className={styles.center}>
+      {currentUser  && <Redirect to="/login"/>}
       <Button
         light
         onClick={() => {
@@ -21,11 +23,17 @@ function Index() {
   )
 }
 
-const App = () => {
+const EnhancedLogin = connect(
+  ({ users: { currentUser } }) => ({ currentUser }),
+)(Index)
+
+const App = ({ fetchCurrentUser }) => {
+  useEffect(fetchCurrentUser, [])
   return (
     <Router>
       <div className={styles.app}>
-        <Route path="/" exact component={Index} />
+        <CurrentUserHandler />
+        <Route path="/" exact component={EnhancedLogin} />
         <Route path="/login" component={GroupSelect} />
         <Route path="/group/:id" component={ShowGroup} />
       </div>
@@ -34,9 +42,8 @@ const App = () => {
 }
 
 export default connect(
-  ({ session }) => ({ session }),
+  ({ users: { currentUser } }) => ({ currentUser }),
   dispatch => ({
-    signIn: () => dispatch(actions.requestSignIn()),
-    fetchUsers: () => dispatch(actions.requestAllUsers()),
+    fetchCurrentUser: () => dispatch(actions.requestCurrentUser()),
   })
 )(App)

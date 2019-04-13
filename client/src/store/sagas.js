@@ -8,9 +8,16 @@ import actions, {
   CREATE_NEW_GROUP,
   REQUEST_ALL_GROUPS,
   REQUEST_GROUP_MEMBERS,
+  REQUEST_CURRENT_USER,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
+
+function redirectToMainPageIfNeeded() {
+  if (window.location.href !== 'http://localhost:8000/') {
+    window.location.href = 'http://localhost:8000/'
+  }
+}
 
 function* loadLocalStorage() {
   const session = getLocalStorage('token', 'email', 'id', 'name')
@@ -35,6 +42,7 @@ function* processSignOut() {
   const response = yield call(api.fetch, api.endpoints.signOut)
   if (response.error) console.error(response.error)
   yield put(actions.receiveSignOut())
+  redirectToMainPageIfNeeded()
 }
 
 function* processAddBill(action) {
@@ -88,6 +96,18 @@ function* fetchGroupMembers({ id }) {
   }
 }
 
+function* fetchCurrentUser() {
+  const data = yield call(
+    api.fetch,
+    api.endpoints.fetchCurrentUser()
+  )
+  if (data && !data.error) {
+    yield put(actions.receiveCurrentUser(data.user))
+  } else {
+    redirectToMainPageIfNeeded()
+  }
+}
+
 export default function*() {
   yield fork(loadLocalStorage)
   yield takeEvery(REQUEST_SIGN_IN, processSignIn)
@@ -97,4 +117,5 @@ export default function*() {
   yield takeEvery(REQUEST_ALL_USERS, fetchAllUsers)
   yield takeEvery(REQUEST_ALL_GROUPS, fetchAllGroups)
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
+  yield takeEvery(REQUEST_CURRENT_USER, fetchCurrentUser)
 }

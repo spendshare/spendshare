@@ -13,6 +13,8 @@ import {
   RECEIVE_GROUP_MEMBERS,
   REJECT_GROUP_MEMBERS,
   RECEIVE_NEW_GROUP,
+  RECEIVE_CURRENT_USER,
+  REQUEST_CURRENT_USER,
 } from './actions'
 
 const session = (
@@ -57,16 +59,6 @@ const session = (
     case REQUEST_SIGN_OUT:
       return { ...state }
 
-    case RECEIVE_SIGN_OUT:
-      deleteFromLocalStorage('token', 'id', 'email', 'name')
-      return {
-        ...state,
-        email: null,
-        id: null,
-        name: null,
-        token: null,
-      }
-
     default:
       return state
   }
@@ -75,10 +67,25 @@ const session = (
 const users = (
   state = {
     list: [],
+    currentUser: null,
   },
   action
 ) => {
   switch (action.type) {
+    case RECEIVE_SIGN_OUT:
+      return {
+        ...state,
+        currentUser: null
+      }
+    case RECEIVE_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.user,
+      }
+    case REQUEST_CURRENT_USER:
+      return {
+        ...state,
+      }
     case RECEIVE_ALL_USERS:
       return { ...state, list: action.users }
     default:
@@ -100,7 +107,6 @@ const groups = (state = {}, action) => {
       action.groups.forEach(group => {
         receivedGroups[group._id] = group
       })
-      console.table(action.groups)
       return receivedGroups
 
       case RECEIVE_NEW_GROUP:

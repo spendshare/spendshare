@@ -44,7 +44,6 @@ export default function(app, passport) {
     )
     if ('OPTIONS' === req.method) {
       //respond with 200
-      console.warn('XXX')
       res.sendStatus(200)
     } else {
       //move on
