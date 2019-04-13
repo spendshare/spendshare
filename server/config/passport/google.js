@@ -19,9 +19,9 @@ export default passport =>
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: 'http://localhost:3000/oauth',
       },
-      function(accessToken, refreshToken, profile, done) {
+      (accessToken, refreshToken, profile, done) => {
         const User = mongoose.model('User')
-        User.findOne({ googleId: profile.id }, function(err, user) {
+        User.findOne({ googleId: profile.id }, (err, user) => {
           if (err) {
             return done(err)
           }

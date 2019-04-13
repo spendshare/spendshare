@@ -69,7 +69,16 @@ function* createNewGroup({ name }) {
     } else {
         //yield put(actions.rejectAllUsers)
 
-    }
+function* fetchGroupMembers({ name }) {
+  const { data, error } = yield call(
+    api.fetch,
+    api.endpoints.fetchGroupMembers(name)
+  )
+  if (!error) {
+    yield put(actions.receiveGroupMembers(name, data))
+  } else {
+    yield put(actions.rejectGroupMembers(name, error))
+  }
 }
 
 export default function* () {
