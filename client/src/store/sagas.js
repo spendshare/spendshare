@@ -77,15 +77,15 @@ function* createNewGroup({ name }) {
   }
 }
 
-function* fetchGroupMembers({ name }) {
+function* fetchGroupMembers({ id }) {
   const { data, error } = yield call(
     api.fetch,
-    api.endpoints.fetchGroupMembers(name)
+    api.endpoints.fetchGroupMembers(id)
   )
   if (!error) {
-    yield put(actions.receiveGroupMembers(name, data))
+    yield put(actions.receiveGroupMembers(id, data))
   } else {
-    yield put(actions.rejectGroupMembers(name, error))
+    yield put(actions.rejectGroupMembers(id, error))
   }
 }
 
