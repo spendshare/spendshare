@@ -11,6 +11,7 @@ import {
     REQUEST_SIGN_OUT,
     RECEIVE_SIGN_OUT,
     RECEIVE_ALL_USERS,
+    RECEIVE_ALL_GROUPS,
 } from './actions'
 
 const session = (state = {
@@ -19,6 +20,7 @@ const session = (state = {
     name: null,
     token: null,
     waiting: false,
+    groups: []
 }, action) => {
 
     switch (action.type) {
@@ -81,13 +83,26 @@ const users = (state = {
 
 const bills = (state = [], action) => {
     switch (action.type) {
-    default:
-        return state
+        default:
+            return state
     }
 }
+
+const groups = (state = [], action) => {
+    switch (action.type) {
+        case RECEIVE_ALL_GROUPS:
+            return  action.groups
+
+        default:
+            return state
+    }
+}
+
+
 
 export default combineReducers({
     session,
     users,
     bills,
+    groups,
 })

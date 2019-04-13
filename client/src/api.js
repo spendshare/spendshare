@@ -41,8 +41,8 @@ export default {
       method: 'POST',
       data: params,
     }),
-    allUsers: {
-      path: url('users'),
+    allGroups: {
+      path: url('group/all'),
       method: 'GET',
     },
     createGroup: params => ({

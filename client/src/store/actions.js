@@ -17,6 +17,10 @@ export const REJECT_ALL_USERS = 'REJECT_ALL_USERS'
 
 export const CREATE_NEW_GROUP = 'CREATE_NEW_GROUP'
 
+export const REQUEST_ALL_GROUPS = 'REQUEST_ALL_GROUPS'
+export const RECEIVE_ALL_GROUPS = 'RECEIVE_ALL_GROUPS'
+export const REJECT_ALL_GROUPS = 'REJECT_ALL_GROUPS'
+
 export default {
     loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
@@ -31,6 +35,10 @@ export default {
     requestSignIn: session => ({ type: REQUEST_SIGN_IN }),
     receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
     rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
+
+    requestAllGroups: () => ({ type: REQUEST_ALL_GROUPS }),
+    receiveAllGroups: groups => ({ type: RECEIVE_ALL_GROUPS, groups }),
+    rejectAllGroups: () => ({ type: REJECT_ALL_GROUPS }),
 
     requestSignOut: () => ({ type: REQUEST_SIGN_OUT }),
     receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),

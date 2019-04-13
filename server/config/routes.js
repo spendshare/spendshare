@@ -1,10 +1,12 @@
 import createUser from '../app/controllers/group/create'
+import fetchGroups from '../app/controllers/group/all'
 import passport from 'passport'
 import express from 'express'
 
 export default function(app) {
   const router = express.Router()
   router.put('/group/create', createUser)
+  router.get('/group/all', fetchGroups)
 
   app.get(
     '/auth/google',

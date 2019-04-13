@@ -11,6 +11,7 @@ import actions, {
     REQUEST_ADD_BILL,
     REQUEST_ALL_USERS,
     CREATE_NEW_GROUP,
+    REQUEST_ALL_GROUPS,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
@@ -60,8 +61,16 @@ function* processFetchAllUsers() {
     }
 }
 
+function* processFetchAllGroups() {
+    const groups = yield call(api.fetch, api.endpoints.allGroups)
+    if (groups && !groups.error) {
+        yield put(actions.receiveAllGroups(groups))
+    } else {
+        yield put(actions.rejectAllGroups())
+    }
+}
+
 function* createNewGroup({ name }) {
-    console.log(name)
     const users = yield call(api.fetch, api.endpoints.createGroup({ name }))
     if (users && !users.error) {
         // FIXME
@@ -79,4 +88,5 @@ export default function* () {
     yield takeEvery(REQUEST_ADD_BILL, processAddBill)
     yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
     yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
+    yield takeEvery(REQUEST_ALL_GROUPS, processFetchAllGroups)
 }
