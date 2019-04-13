@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose'
+const Schema = mongoose.Schema
 
 const GroupSchema = new Schema({
-  name: { type: String, default: '' }
-});
+  name: { type: String, default: '' },
+})
 
-GroupSchema.method({});
+GroupSchema.method({})
 
-GroupSchema.static({});
+GroupSchema.static({})
 
-mongoose.model('Group', GroupSchema);
+mongoose.model('Group', GroupSchema)
