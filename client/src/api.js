@@ -2,9 +2,11 @@ import 'whatwg-fetch'
 import store from './store/store'
 
 const protocol = 'http'
-const host = 'localhost:3000'
+const host = 'localhost'
+const port = 3000
 const version = 'v1'
-const url = endpoint => `${protocol}://${host}/api/${version}/${endpoint}`
+const url = endpoint =>
+  `${protocol}://${host}:${port}/api/${version}/${endpoint}`
 
 export default {
   fetch: async endpoint => {
@@ -18,10 +20,12 @@ export default {
     config['credentials'] = 'include'
     if (data) config.body = JSON.stringify(data)
 
+    console.log(`-> ${path}`)
     let response, json
     try {
-      response = await fetch(path, config)
+      response = await window.fetch(path, config)
     } catch (exception) {
+      debugger
       return { error: exception }
     }
 
@@ -56,8 +60,8 @@ export default {
       method: 'PUT',
       data: params,
     }),
-    fetchGroupMembers: params => ({
-      path: url(`group/${params.name}`),
+    fetchGroupMembers: id => ({
+      path: url(`group/${id}`),
       method: 'GET',
     }),
   },

@@ -2,11 +2,9 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const GroupSchema = new Schema({
-  name: { type: String, default: '' },
+  name: String,
 })
 
 GroupSchema.method({})
-
 GroupSchema.static({})
-
 mongoose.model('Group', GroupSchema)

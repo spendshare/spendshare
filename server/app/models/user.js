@@ -3,13 +3,11 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
-  name: { type: String, default: '' },
-  email: { type: String, default: '' },
-  googleId: { type: String, default: null },
+  name: String,
+  email: String,
+  googleId: String,
 })
 
 UserSchema.method({})
-
 UserSchema.static({})
-
 mongoose.model('User', UserSchema)

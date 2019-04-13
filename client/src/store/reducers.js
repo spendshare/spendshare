@@ -92,25 +92,25 @@ const bills = (state = [], action) => {
   }
 }
 
-const groups = (state = [], action) => {
+const groups = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_ALL_GROUPS:
       const receivedGroups = {}
       action.groups.forEach(group => {
-        receivedGroups[group.name] = group
+        receivedGroups[group._id] = group
       })
       return receivedGroups
 
     case REQUEST_GROUP_MEMBERS:
-      state[action.name] = { loading: true }
+      state[action.id] = { loading: true }
       return { ...state }
 
     case RECEIVE_GROUP_MEMBERS:
-      state[action.name] = { loading: false, members: action.members }
+      state[action.id] = { loading: false, members: action.members }
       return { ...state }
 
     case REJECT_GROUP_MEMBERS:
-      state[action.name] = { loading: false, error: true }
+      state[action.id] = { loading: false, error: true }
       return { ...state }
 
     default:
