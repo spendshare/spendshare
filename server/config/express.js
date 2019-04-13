@@ -39,7 +39,7 @@ export default function(app, passport) {
     })
   )
 
-  app.use(function(req, res, next) {
+  app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:8000')
     res.header(
       'Access-Control-Allow-Headers',
@@ -84,7 +84,7 @@ export default function(app, passport) {
   app.set('view engine', 'pug')
 
   // expose package.json to views
-  app.use(function(req, res, next) {
+  app.use((_req, res, next) => {
     res.locals.pkg = pkg
     res.locals.env = env
     next()
@@ -98,7 +98,7 @@ export default function(app, passport) {
   )
   app.use(bodyParser.json())
   app.use(
-    methodOverride(function(req) {
+    methodOverride(req => {
       if (req.body && typeof req.body === 'object' && '_method' in req.body) {
         // look in urlencoded POST bodies and delete it
         const method = req.body._method
@@ -139,7 +139,7 @@ export default function(app, passport) {
     //app.use(csrf());
 
     // This could be moved to view-helpers :-)
-    app.use(function(req, res, next) {
+    app.use((_req, _res, next) => {
       // res.locals.csrf_token = req.csrfToken();
       next()
     })
