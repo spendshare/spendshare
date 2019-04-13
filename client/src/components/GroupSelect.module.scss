@@ -29,6 +29,9 @@ div {
 }
 
 .group-label {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
   padding: 10px;
   margin: 4px;
   background-color: #dddddd;
