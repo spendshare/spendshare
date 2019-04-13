@@ -30,6 +30,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'no-console': 0,
+    'no-case-declarations': 0,
     'react-hooks/rules-of-hooks': 'error',
   },
 }
