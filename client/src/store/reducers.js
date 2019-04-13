@@ -8,6 +8,7 @@ import {
   REQUEST_SIGN_OUT,
   RECEIVE_SIGN_OUT,
   RECEIVE_ALL_USERS,
+  RECEIVE_ALL_GROUPS,
   REQUEST_GROUP_MEMBERS,
   RECEIVE_GROUP_MEMBERS,
   REJECT_GROUP_MEMBERS,
@@ -85,15 +86,18 @@ const users = (
 }
 
 const bills = (state = [], action) => {
-  switch (action.type) {
-    default:
-      return state
-  }
+    switch (action.type) {
+        default:
+            return state
+    }
 }
 
-const groups = (state = {}, action) => {
-  switch (action.type) {
-    case REQUEST_GROUP_MEMBERS:
+const groups = (state = [], action) => {
+    switch (action.type) {
+        case RECEIVE_ALL_GROUPS:
+            return  action.groups
+
+        case REQUEST_GROUP_MEMBERS:
       state[action.name] = { loading: true }
       return { ...state }
 
@@ -104,15 +108,17 @@ const groups = (state = {}, action) => {
     case REJECT_GROUP_MEMBERS:
       state[action.name] = { loading: false, error: true }
       return { ...state }
-
-    default:
-      return state
-  }
+        
+        default:
+            return state
+    }
 }
 
+
+
 export default combineReducers({
-  session,
-  users,
-  bills,
-  groups,
+    session,
+    users,
+    bills,
+    groups,
 })

@@ -1,6 +1,12 @@
 import api from '../api'
 import { call, fork, put, takeEvery } from 'redux-saga/effects'
 import actions, {
+    REQUEST_SIGN_IN,
+    REQUEST_SIGN_OUT,
+    REQUEST_ADD_BILL,
+    REQUEST_ALL_USERS,
+    CREATE_NEW_GROUP,
+    REQUEST_ALL_GROUPS,
   REQUEST_SIGN_IN,
   REQUEST_SIGN_OUT,
   REQUEST_ADD_BILL,
@@ -57,15 +63,23 @@ function* processFetchAllUsers() {
   }
 }
 
+function* processFetchAllGroups() {
+    const groups = yield call(api.fetch, api.endpoints.allGroups)
+    if (groups && !groups.error) {
+        yield put(actions.receiveAllGroups(groups))
+    } else {
+        yield put(actions.rejectAllGroups())
+    }
+}
+
 function* createNewGroup({ name }) {
-  console.log(name)
-  const users = yield call(api.fetch, api.endpoints.createGroup({ name }))
-  if (users && !users.error) {
-    // FIXME
-    // yield put(actions.receiveAllUsers(users.data.map(u => ({ ...u, balance: 0 }))))
-  } else {
-    //yield put(actions.rejectAllUsers)
-  }
+    const users = yield call(api.fetch, api.endpoints.createGroup({ name }))
+    if (users && !users.error) {
+        // FIXME
+        // yield put(actions.receiveAllUsers(users.data.map(u => ({ ...u, balance: 0 }))))
+    } else {
+        //yield put(actions.rejectAllUsers)
+    }
 }
 
 function* fetchGroupMembers({ name }) {
@@ -80,12 +94,13 @@ function* fetchGroupMembers({ name }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield fork(loadLocalStorage)
   yield takeEvery(REQUEST_SIGN_IN, processSignIn)
   yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
   yield takeEvery(REQUEST_ADD_BILL, processAddBill)
   yield takeEvery(REQUEST_GROUP_MEMBERS, fetchGroupMembers)
   yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
+  yield takeEvery(REQUEST_ALL_GROUPS, processFetchAllGroups)
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
 }

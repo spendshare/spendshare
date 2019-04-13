@@ -30,12 +30,16 @@ export default {
 
   requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
   receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),
-  rejectAllUsers: { type: REJECT_ALL_USERS },
+  rejectAllUsers: () => ({ type: REJECT_ALL_USERS }),
 
   requestSignIn: () => ({ type: REQUEST_SIGN_IN }),
   receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
   rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
 
+  requestAllGroups: () => ({ type: REQUEST_ALL_GROUPS }),
+  receiveAllGroups: groups => ({ type: RECEIVE_ALL_GROUPS, groups }),
+  rejectAllGroups: () => ({ type: REJECT_ALL_GROUPS }),
+      
   requestGroupMembers: name => ({ type: REQUEST_GROUP_MEMBERS, name }),
   receiveGroupMembers: (name, members) => ({
     type: RECEIVE_GROUP_MEMBERS,
