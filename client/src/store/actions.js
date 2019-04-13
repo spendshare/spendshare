@@ -20,6 +20,7 @@ export const RECEIVE_ALL_GROUPS = 'RECEIVE_ALL_GROUPS'
 export const REJECT_ALL_GROUPS = 'REJECT_ALL_GROUPS'
 
 export const CREATE_NEW_GROUP = 'CREATE_NEW_GROUP'
+export const RECEIVE_NEW_GROUP = 'RECEIVE_NEW_GROUP'
 
 export const REQUEST_GROUP_MEMBERS = 'REQUEST_GROUP_MEMBERS'
 export const RECEIVE_GROUP_MEMBERS = 'RECEIVE_GROUP_MEMBERS'
@@ -60,4 +61,5 @@ export default {
   receiveSignOut: () => ({ type: RECEIVE_SIGN_OUT }),
 
   createNewGroup: name => ({ type: CREATE_NEW_GROUP, name }),
+  receiveNewGroup: group => ({ type: RECEIVE_NEW_GROUP, group }),
 }
