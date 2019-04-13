@@ -44,15 +44,15 @@ export default {
   receiveAllGroups: groups => ({ type: RECEIVE_ALL_GROUPS, groups }),
   rejectAllGroups: () => ({ type: REJECT_ALL_GROUPS }),
 
-  requestGroupMembers: name => ({ type: REQUEST_GROUP_MEMBERS, name }),
-  receiveGroupMembers: (name, members) => ({
+  requestGroupMembers: id => ({ type: REQUEST_GROUP_MEMBERS, id }),
+  receiveGroupMembers: (id, members) => ({
     type: RECEIVE_GROUP_MEMBERS,
-    name,
+    id,
     members,
   }),
-  rejectGroupMembers: (name, error) => ({
+  rejectGroupMembers: (id, error) => ({
     type: REJECT_GROUP_MEMBERS,
-    name,
+    id,
     error,
   }),
 
