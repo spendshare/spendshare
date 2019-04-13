@@ -10,7 +10,6 @@ import expressConfig from './config/express'
 import passportConfig from './config/passport'
 import routesConfig from './config/routes'
 import seeds from './app/seeds'
-
 const models = join(__dirname, 'app/models')
 const port = process.env.PORT || 3000
 
