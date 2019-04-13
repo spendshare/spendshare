@@ -1,5 +1,7 @@
 import group from '../app/controllers/group'
 import member from '../app/controllers/member'
+import bill from '../app/controllers/bill'
+
 import passport from 'passport'
 import express from 'express'
 
@@ -17,6 +19,7 @@ export default app => {
   const router = express.Router()
   crud(app, member, 'member')
   crud(app, group, 'group')
+  crud(app, bill, 'bill')
 
   app.get(
     '/auth/google',

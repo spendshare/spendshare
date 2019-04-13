@@ -20,17 +20,31 @@ const read = async (req, res) => {
     const member = await Member.findById(req.params.id)
     res.status(200).json({ member })
   } catch (error) {
-    console.log(error)
     res.status(500).json({ error: error })
   }
 }
 
 const update = async (req, res) => {
-  res.status(200).json({})
+  const Member = mongoose.model('Member')
+  try {
+    const member = await Member.findByIdAndUpdate(req.params.id, {
+      userId: req.body.userId,
+      groupId: req.body.groupId,
+    })
+    res.status(200).json({ member })
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
 }
 
 const destroy = async (req, res) => {
-  res.status(200).json({})
+  const Member = mongoose.model('Member')
+  try {
+    await Member.findByIdAndRemove(req.params.id)
+    res.status(200).json({})
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
 }
 
 export default {

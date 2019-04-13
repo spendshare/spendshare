@@ -27,7 +27,7 @@ const App = () => {
       <div className={styles.app}>
         <Route path="/" exact component={Index} />
         <Route path="/login" component={GroupSelect} />
-        <Route path="/group/:name" component={ShowGroup} />
+        <Route path="/group/:id" component={ShowGroup} />
       </div>
     </Router>
   )
