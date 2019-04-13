@@ -68,10 +68,9 @@ function* fetchAllGroups() {
 }
 
 function* createNewGroup({ name }) {
-  const users = yield call(api.fetch, api.endpoints.createGroup({ name }))
-  if (users && !users.error) {
-    // FIXME
-    // yield put(actions.receiveAllUsers(users.data.map(u => ({ ...u, balance: 0 }))))
+  const group = yield call(api.fetch, api.endpoints.createGroup({ name }))
+  if (group && !group.error) {
+     yield put(actions.receiveNewGroup(group.group))
   } else {
     //yield put(actions.rejectAllUsers)
   }

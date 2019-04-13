@@ -12,6 +12,7 @@ import {
   REQUEST_GROUP_MEMBERS,
   RECEIVE_GROUP_MEMBERS,
   REJECT_GROUP_MEMBERS,
+  RECEIVE_NEW_GROUP,
 } from './actions'
 
 const session = (
@@ -100,6 +101,12 @@ const groups = (state = {}, action) => {
         receivedGroups[group._id] = group
       })
       return receivedGroups
+
+      case RECEIVE_NEW_GROUP:
+          state[action.group._id] = action.group
+          return {
+            ...state
+        }
 
     case REQUEST_GROUP_MEMBERS:
       state[action.id] = { loading: true }

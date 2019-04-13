@@ -57,7 +57,7 @@ export default {
     },
     createGroup: params => ({
       path: url('group/create'),
-      method: 'PUT',
+      method: 'POST',
       data: params,
     }),
     fetchGroupMembers: id => ({
