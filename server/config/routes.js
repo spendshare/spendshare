@@ -33,7 +33,7 @@ export default app => {
     }),
     (req, res) => {
       req.session.token = req.user.token
-      res.redirect('http://localhost:8000/login')
+      res.redirect('http://localhost:8000/groups')
     }
   )
 
