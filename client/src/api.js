@@ -25,7 +25,6 @@ export default {
     try {
       response = await window.fetch(path, config)
     } catch (exception) {
-      debugger
       return { error: exception }
     }
 
