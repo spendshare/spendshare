@@ -100,6 +100,7 @@ const groups = (state = {}, action) => {
       action.groups.forEach(group => {
         receivedGroups[group._id] = group
       })
+      console.table(action.groups)
       return receivedGroups
 
       case RECEIVE_NEW_GROUP:

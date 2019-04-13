@@ -5,6 +5,7 @@ import Button from './Button'
 import connect from 'react-redux/es/connect/connect'
 import actions from '../store/actions'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const mapStateToProps = ({ groups }) => ({ groups })
 const mapDispatchToProps = dispatch => ({
@@ -36,6 +37,9 @@ function GroupSelect({ createNewGroup, fetchAllGroups, groups }) {
         {Object.values(groups).reverse().map(({ name, _id }) => (
           <div className={styles['group-label']} key={`id${_id}`}>
             {name}
+              <Link to={`/group/${_id}`}>
+                  Get in
+              </Link>
           </div>
         ))}
       </div>
