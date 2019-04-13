@@ -8,7 +8,6 @@ export default (req, res) => {
 
   g.save(err => {
     if (err) console.log(err)
-    // shrug
   })
 
   res.sendStatus(200)

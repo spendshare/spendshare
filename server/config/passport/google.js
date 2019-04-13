@@ -1,7 +1,3 @@
-/**
- * Module dependencies.
- */
-
 import mongoose from 'mongoose'
 
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
@@ -19,7 +15,7 @@ export default passport =>
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: 'http://localhost:3000/oauth',
       },
-      (accessToken, refreshToken, profile, done) => {
+      (_accessToken, _refreshToken, profile, done) => {
         const User = mongoose.model('User')
         User.findOne({ googleId: profile.id }, (err, user) => {
           if (err) {
@@ -36,7 +32,7 @@ export default passport =>
               return done(err, user)
             })
           } else {
-            //found user. Return
+            // found user -> return
             return done(err, user)
           }
         })
