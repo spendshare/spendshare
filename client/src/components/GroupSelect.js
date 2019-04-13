@@ -7,13 +7,14 @@ import actions from '../store/actions'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const mapStateToProps = ({ groups }) => ({ groups })
+const mapStateToProps = ({ groups, users: { myGroups } }) => ({ groups, myGroups })
 const mapDispatchToProps = dispatch => ({
   createNewGroup: name => dispatch(actions.createNewGroup(name)),
   fetchAllGroups: () => dispatch(actions.requestAllGroups()),
+  signUpToGroup: groupId => dispatch(actions.requestSignUpToGroup(groupId)),
 })
 
-function GroupSelect({ createNewGroup, fetchAllGroups, groups }) {
+function GroupSelect({ createNewGroup, fetchAllGroups, groups, myGroups, signUpToGroup }) {
   const [newGroupName, setNewGroupName] = useState('')
   useEffect(fetchAllGroups, [])
   return (
@@ -37,9 +38,15 @@ function GroupSelect({ createNewGroup, fetchAllGroups, groups }) {
         {Object.values(groups).reverse().map(({ name, _id }) => (
           <div className={styles['group-label']} key={`id${_id}`}>
             {name}
+            {myGroups.includes(_id) ?
               <Link to={`/group/${_id}`}>
-                  Get in
-              </Link>
+                Get in
+              </Link> :
+              <Button
+                onClick={() => signUpToGroup(_id)}
+                light
+                title="Sign for group"
+              />}
           </div>
         ))}
       </div>

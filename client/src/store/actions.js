@@ -29,6 +29,10 @@ export const REJECT_GROUP_MEMBERS = 'REJECT_GROUP_MEMBERS'
 export const REQUEST_CURRENT_USER = 'REQUEST_CURRENT_USER'
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER'
 
+export const REQUEST_SIGN_UP_TO_GROUP = 'REQUEST_SIGN_UP_TO_GROUP'
+export const RECEIVE_SIGN_UP_TO_GROUP = 'RECEIVE_SIGN_UP_TO_GROUP'
+export const REJECT_SIGN_UP_TO_GROUP = 'REJECT_SIGN_UP_TO_GROUP'
+
 export default {
   loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
@@ -47,6 +51,10 @@ export default {
   requestAllGroups: () => ({ type: REQUEST_ALL_GROUPS }),
   receiveAllGroups: groups => ({ type: RECEIVE_ALL_GROUPS, groups }),
   rejectAllGroups: () => ({ type: REJECT_ALL_GROUPS }),
+
+  requestSignUpToGroup: group => ({ type: REQUEST_SIGN_UP_TO_GROUP, group }),
+  receiveSignUpToGroup: group => ({ type: RECEIVE_SIGN_UP_TO_GROUP, group }),
+  rejectSignUpToGroup: group => ({ type: REJECT_SIGN_UP_TO_GROUP, group }),
 
   requestGroupMembers: id => ({ type: REQUEST_GROUP_MEMBERS, id }),
   receiveGroupMembers: (id, members) => ({
@@ -67,5 +75,5 @@ export default {
   receiveNewGroup: group => ({ type: RECEIVE_NEW_GROUP, group }),
 
   requestCurrentUser: () => ({ type: REQUEST_CURRENT_USER }),
-  receiveCurrentUser: user => ({ type: RECEIVE_CURRENT_USER, user }),
+  receiveCurrentUser: (user, groups) => ({ type: RECEIVE_CURRENT_USER, user, groups }),
 }

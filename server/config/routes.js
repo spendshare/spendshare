@@ -4,6 +4,7 @@ import bill from '../app/controllers/bill'
 
 import passport from 'passport'
 import express from 'express'
+import me from "../app/controllers/me";
 
 const crud = (app, object, name) => {
   if (typeof object.all === 'function') {
@@ -20,14 +21,9 @@ export default app => {
   crud(app, member, 'member')
   crud(app, group, 'group')
   crud(app, bill, 'bill')
-  app.get('/api/v1/me', (req, res) => {
-    if (req.user && req.user.name) {
-      res.status(200).json({ user: req.user.name })
-    } else {
-      // positive coz this path is used for checking if user is logged in
-      res.status(200).json({ error: 'not logged' })
-    }
-  })
+  app.get('/api/v1/me', me)
+
+  app.post('/api/v1/group/:id/join', member.createWithGroup)
 
   app.get('/api/v1/sign-out', (req, res) => {
     // Destroy the session if any
