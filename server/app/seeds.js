@@ -7,17 +7,17 @@ export default () => {
   const Member = mongoose.model('Member')
 
   const kowalski = {
-    name: 'Jan Kowalski',
+    name: 'Marian Kowalski',
     email: 'kowalski15@gmail.com',
     googleId: '--placeholder--',
   }
 
-  const nowak = {
-    name: 'Stefan Nowak',
-    email: 'nowak16@gmail.com',
+  const bubak = {
+    name: 'Stefan Bubak',
+    email: 'bubak16@gmail.com',
     googleId: '--placeholder--',
   }
 
-  User.findOneAndUpdate({ name: 'Jan Kowalski' }, kowalski, { upsert: true })
-  User.findOneAndUpdate({ name: 'Stefan Nowak' }, nowak, { upsert: true })
+  User.findOneAndUpdate({ name: 'Marian Kowalski' }, kowalski, { upsert: true })
+  User.findOneAndUpdate({ name: 'Stefan Bubak' }, bubak, { upsert: true })
 }
