@@ -70,7 +70,7 @@ const AddBill = ({ users, dispatch, hide }) => {
   const selectGroup = option => setGroup(option)
 
   return (
-    <div className="add-bill">
+    <div className={styles['add-bill']}>
       <div className={styles.box}>
         <div className={styles.cross} onClick={hide}>
           ✕

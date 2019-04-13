@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styles from './ShowGroup.module.scss'
 import actions from '../store/actions'
+import Navigation from './Navigation'
+import People from './People'
+import Bills from './Bills'
 
 const mapStateToProps = ({ groups }) => ({ groups })
 
@@ -19,7 +22,13 @@ const ShowGroup = ({ match, requestGroupMembers, groups }) => {
   if (!group || group.loading) return <div>loading...</div>
   if (group.error) return <div>error</div>
 
-  return <div>oto grupka o id: {JSON.stringify(group, null, 2)}</div>
+  return (
+    <div>
+      <Navigation />
+      <Bills />
+      <People />
+    </div>
+  )
 }
 
 export default connect(
