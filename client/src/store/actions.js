@@ -26,6 +26,9 @@ export const REQUEST_GROUP_MEMBERS = 'REQUEST_GROUP_MEMBERS'
 export const RECEIVE_GROUP_MEMBERS = 'RECEIVE_GROUP_MEMBERS'
 export const REJECT_GROUP_MEMBERS = 'REJECT_GROUP_MEMBERS'
 
+export const REQUEST_CURRENT_USER = 'REQUEST_CURRENT_USER'
+export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER'
+
 export default {
   loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 

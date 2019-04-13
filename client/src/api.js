@@ -42,8 +42,8 @@ export default {
       data: token,
     }),
     signOut: {
-      path: url('session'),
-      method: 'DELETE',
+      path: url('sign-out'),
+      method: 'GET',
     },
     addBill: params => ({
       path: url('bill'),
@@ -61,6 +61,10 @@ export default {
     }),
     fetchGroupMembers: id => ({
       path: url(`group/${id}`),
+      method: 'GET',
+    }),
+    fetchCurrentUser: () => ({
+      path: url('me'),
       method: 'GET',
     }),
   },
