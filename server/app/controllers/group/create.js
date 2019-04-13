@@ -10,5 +10,6 @@ export default (req, res) => {
     if (err) console.log(err)
     // shrug
   })
+
   res.sendStatus(200)
 }
