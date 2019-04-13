@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styles from './ShowGroup.module.scss'
 import actions from '../store/actions'
-import Navigation from './Navigation'
 import People from './People'
 import Bills from './Bills'
 
@@ -24,7 +23,6 @@ const ShowGroup = ({ match, requestGroupMembers, groups }) => {
 
   return (
     <div>
-      <Navigation />
       <Bills />
       <People />
     </div>
