@@ -16,13 +16,10 @@ const ShowGroup = ({ match, requestGroupMembers, groups }) => {
     requestGroupMembers(match.params.id)
   }, [])
 
-  console.log('groups', groups)
   const group = groups[match.params.id]
 
   if (!group || group.loading) return <div>loading...</div>
   if (group.error) return <div>error</div>
-
-  console.log('g', group)
 
   return (
     <div className={styles.container}>
