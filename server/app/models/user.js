@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   name: { type: String, default: '' },
   email: { type: String, default: '' },
-  googleId: { type: String, default: '' },
+  googleId: { type: String, default: null },
 })
 
 UserSchema.method({})

@@ -12,6 +12,18 @@ import routesConfig from './config/routes'
 const models = join(__dirname, 'app/models')
 const port = process.env.PORT || 3000
 
+const listen = () => {
+  if (app.get('env') === 'test') return
+  app.listen(port)
+  console.log('Express app started on port ' + port)
+}
+
+const connect = () => {
+  const options = { keepAlive: 1, useNewUrlParser: true }
+  mongoose.connect(config.db, options)
+  return mongoose.connection
+}
+
 const app = express()
 const connection = connect()
 
@@ -33,15 +45,3 @@ connection
   .on('error', console.log)
   .on('disconnected', connect)
   .once('open', listen)
-
-const listen = () => {
-  if (app.get('env') === 'test') return
-  app.listen(port)
-  console.log('Express app started on port ' + port)
-}
-
-const connect = () => {
-  const options = { keepAlive: 1, useNewUrlParser: true }
-  mongoose.connect(config.db, options)
-  return mongoose.connection
-}
