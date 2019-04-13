@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import store from './store/store'
 
 const protocol = 'http'
@@ -17,10 +18,15 @@ export default {
     config['credentials'] = 'include'
     if (data) config.body = JSON.stringify(data)
 
-    const response = await fetch(path, config)
+    let response, json
+    try {
+      response = await fetch(path, config)
+    } catch (exception) {
+      return { error: exception }
+    }
 
     try {
-      const json = await response.json()
+      json = await response.json()
       return json
     } catch (exception) {
       return { error: 'Could not parse JSON' }
@@ -49,6 +55,10 @@ export default {
       path: url('group/create'),
       method: 'PUT',
       data: params,
+    }),
+    fetchGroupMembers: params => ({
+      path: url(`group/${params.name}`),
+      method: 'GET',
     }),
   },
 }

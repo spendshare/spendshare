@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styles from './App.module.scss'
 import Button from './Button'
 import actions from '../store/actions'
@@ -27,6 +27,7 @@ const App = () => {
       <div className={styles.app}>
         <Route path="/" exact component={Index} />
         <Route path="/login" component={GroupSelect} />
+        <Route path="/group/:name" component={ShowGroup} />
       </div>
     </Router>
   )

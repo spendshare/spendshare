@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+const webpack = require('webpack')
 const path = require('path')
 
 const sassRegex = /\.(scss|sass)$/
@@ -44,6 +45,9 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            sourceMap: true,
+          },
         },
       },
       {
@@ -74,4 +78,9 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/',
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      fetch: 'whatwg-fetch',
+    }),
+  ],
 }

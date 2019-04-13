@@ -3,7 +3,7 @@ import fetchGroups from '../app/controllers/group/all'
 import passport from 'passport'
 import express from 'express'
 
-export default function(app) {
+export default app => {
   const router = express.Router()
   router.put('/group/create', createUser)
   router.get('/group/all', fetchGroups)
@@ -25,7 +25,7 @@ export default function(app) {
   )
 
   app.use('/api/v1', router),
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
       // treat as 404
       if (
         err.message &&
@@ -39,11 +39,7 @@ export default function(app) {
       res.status(500).render('500', { error: err.stack })
     })
 
-  // assume 404 since no middleware responded
-  app.use(function(req, res) {
-    res.status(404).render('404', {
-      url: req.originalUrl,
-      error: 'Not found',
-    })
+  app.use((_req, res) => {
+    res.status(404).json({ error: 'Not found' })
   })
 }
