@@ -1,20 +1,22 @@
-import createUser from '../app/controllers/group/create'
+import group from '../app/controllers/group'
 import member from '../app/controllers/member'
 import passport from 'passport'
 import express from 'express'
 
 const crud = (app, object, name) => {
+  if (typeof object.all === 'function') {
+    app.get(`/api/v1/${name}/all`, object.all)
+  }
   app.post(`/api/v1/${name}/:id`, object.create)
   app.get(`/api/v1/${name}/:id`, object.read)
-  app.update(`/api/v1/${name}/:id`, object.update)
+  app.put(`/api/v1/${name}/:id`, object.update)
   app.delete(`/api/v1/${name}/:id`, object.destroy)
 }
 
 export default app => {
   const router = express.Router()
   crud(app, member, 'member')
-
-  app.post('/api/v1/group/create', createUser)
+  crud(app, group, 'group')
 
   app.get(
     '/auth/google',

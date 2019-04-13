@@ -8,6 +8,7 @@ import {
   REQUEST_SIGN_OUT,
   RECEIVE_SIGN_OUT,
   RECEIVE_ALL_USERS,
+  RECEIVE_ALL_GROUPS,
   REQUEST_GROUP_MEMBERS,
   RECEIVE_GROUP_MEMBERS,
   REJECT_GROUP_MEMBERS,
@@ -91,8 +92,15 @@ const bills = (state = [], action) => {
   }
 }
 
-const groups = (state = {}, action) => {
+const groups = (state = [], action) => {
   switch (action.type) {
+    case RECEIVE_ALL_GROUPS:
+      const receivedGroups = {}
+      action.groups.forEach(group => {
+        receivedGroups[group.name] = group
+      })
+      return receivedGroups
+
     case REQUEST_GROUP_MEMBERS:
       state[action.name] = { loading: true }
       return { ...state }

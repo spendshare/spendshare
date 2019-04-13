@@ -1,13 +1,18 @@
 import mongoose from 'mongoose'
 
+const all = async (req, res) => {
+  const Group = mongoose.model('Group')
+  const groups = await Group.find({})
+  res.json(groups)
+}
+
 const create = (req, res) => {
-  const Member = mongoose.model('Member')
-  const member = new Member({
-    userId: req.body.userId,
-    groupId: req.body.groupId,
+  const Group = mongoose.model('Group')
+  const group = new Group({
+    name: req.body.name,
   })
 
-  member.save(err => {
+  group.save(err => {
     if (err) console.log(err)
   })
 
@@ -15,9 +20,9 @@ const create = (req, res) => {
 }
 
 const read = async (req, res) => {
-  const Member = mongoose.model('Member')
+  const Group = mongoose.model('Group')
   try {
-    const member = await Member.findById(req.params.id)
+    const member = await Group.findById(req.params.id)
     res.status(200).json({ member })
   } catch (error) {
     console.log(error)
@@ -34,6 +39,7 @@ const destroy = async (req, res) => {
 }
 
 export default {
+  all,
   create,
   read,
   update,
