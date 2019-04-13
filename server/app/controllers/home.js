@@ -4,6 +4,6 @@
 
 export const index = function(req, res) {
   res.render('home/index', {
-    title: 'Node Express Mongoose Boilerplate'
-  });
-};
+    title: 'Node Express Mongoose Boilerplate',
+  })
+}
