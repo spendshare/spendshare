@@ -34,7 +34,7 @@ const App = ({ fetchCurrentUser }) => {
       <div className={styles.app}>
         <CurrentUserHandler />
         <Route path="/" exact component={EnhancedLogin} />
-        <Route path="/login" component={GroupSelect} />
+        <Route path="/groups" component={GroupSelect} />
         <Route path="/group/:id" component={ShowGroup} />
       </div>
     </Router>
