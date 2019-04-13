@@ -11,7 +11,7 @@ import CurrentUserHandler from './CurrentUserHandler'
 const Index = ({ currentUser }) => {
   return (
     <div className={styles.center}>
-      {currentUser  && <Redirect to="/login"/>}
+      {currentUser  && <Redirect to="/groups"/>}
       <Button
         light
         onClick={() => {
