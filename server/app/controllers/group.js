@@ -16,7 +16,7 @@ const create = (req, res) => {
     if (err) console.log(err)
   })
 
-  res.status(200).json({})
+  res.status(200).json({ group })
 }
 
 const read = async (req, res) => {

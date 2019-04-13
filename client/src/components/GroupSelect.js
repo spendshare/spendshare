@@ -33,8 +33,8 @@ function GroupSelect({ createNewGroup, fetchAllGroups, groups }) {
         />
       </div>
       <div>
-        {Object.values(groups).map(({ name }) => (
-          <div className={styles['group-label']} key={`name${name}`}>
+        {Object.values(groups).reverse().map(({ name, _id }) => (
+          <div className={styles['group-label']} key={`id${_id}`}>
             {name}
           </div>
         ))}
