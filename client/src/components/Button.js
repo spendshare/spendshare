@@ -1,22 +1,21 @@
 import React from 'react'
-import './Button.scss'
-import { noop, optionalClass } from '../utils'
+import classNames from 'classnames'
+import styles from './Button.module.scss'
+import { noop } from '../utils'
 
-export default ({
-    border,
-    title,
-    loading,
-    light,
-    onClick,
-    ...props
-}) => {
-    return (
-        <div
-            className={`button${optionalClass(loading, 'loading')}${optionalClass(light, 'light')}${optionalClass(border, 'border')}`}
-            onClick={loading ? noop : onClick}
-            {...props}
-        >
-            {loading ? '...' : title}
-        </div>
-    )
+export default ({ border, title, loading, light, onClick, ...props }) => {
+  return (
+    <div
+      className={classNames(
+        styles.button,
+        loading && styles.loading,
+        light && styles.light,
+        border && styles.border
+      )}
+      onClick={loading ? noop : onClick}
+      {...props}
+    >
+      {loading ? '...' : title}
+    </div>
+  )
 }

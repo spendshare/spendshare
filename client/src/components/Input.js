@@ -1,25 +1,18 @@
 import React, { useState } from 'react'
-import './Input.scss'
-import { fontFamily } from '../config'
-import { optionalClass} from '../utils'
+import classNames from 'classnames'
+import styles from './Input.module.scss'
 
-export default ({
-    biggerText,
-    label,
-    onChange,
-    right,
-    value,
-    ...props
-}) => {
-    return (
-        <div className={`input-wrapper${optionalClass(biggerText, 'bigger')}`}>
-            {right && <div className="right">{right}</div>}
-            {label && <span className="label">{label}</span>}
-            <input
-                value={value}
-                onChange={onChange}
-                {...props}
-            />
-        </div>
-    )
+export default ({ biggerText, label, onChange, right, value, ...props }) => {
+  return (
+    <div
+      className={classNames(
+        styles['input-wrapper'],
+        biggerText && styles.bigger
+      )}
+    >
+      {right && <div className={styles.right}>{right}</div>}
+      {label && <span className={styles.label}>{label}</span>}
+      <input value={value} onChange={onChange} {...props} />
+    </div>
+  )
 }

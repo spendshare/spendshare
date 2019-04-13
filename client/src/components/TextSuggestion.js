@@ -1,9 +1,14 @@
 import React from 'react'
-import './TextSuggestion.scss'
-import { optionalClass } from '../utils'
+import styles from './TextSuggestion.module.scss'
+import classNames from 'classnames'
 
 export default ({ text, noHover }) => (
-    <div className={`text-suggestion${optionalClass(noHover, 'no-hover')}`}>
-        {text}
-    </div>
+  <div
+    className={classNames(
+      styles['text-suggestion'],
+      noHover && styles['no-hover']
+    )}
+  >
+    {text}
+  </div>
 )

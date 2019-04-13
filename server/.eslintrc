@@ -7,9 +7,12 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "prettier/prettier": ["error", {
-      "singleQuote": true
-    }],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ],
     "no-console": "off"
   }
 }
