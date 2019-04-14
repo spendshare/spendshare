@@ -9,27 +9,24 @@ import Button from './Button'
 import DropdownSelector from './DropdownSelector'
 import Input from './Input'
 import Suggestion from './Suggestion'
-import TextSuggestion from './TextSuggestion'
+import { getGroupUsers } from '../store/selectors'
 
-const url = 'http://localhost:3000/api/save/asd'
+const mapStateToProps = (state, props) => ({
+  users: getGroupUsers(state, props.groupId).filter(
+    user => user.id !== state.users.currentUser.id
+  ),
+  currentUser: state.users.currentUser,
+})
 
-const groups = [
-  {
-    id: 'R3JvdXA6MQ==',
-    name: 'Chińczyk',
-  },
-  {
-    id: 'R3JvdXA6Mg==',
-    name: 'Meksykanin',
-  },
-]
+const mapDispatchToProps = dispatch => ({
+  requestAddBill: params => dispatch(actions.requestAddBill(params)),
+})
 
-const AddBill = ({ users, dispatch, hide }) => {
+const AddBill = ({ users, requestAddBill, currentUser, hide, groupId }) => {
   const [title, setTitle] = useState('')
   const [amount, setAmount] = useState('')
   const [selected, setSelected] = useState([])
-  const [payer, setPayer] = useState({ name: 'You' })
-  const [group, setGroup] = useState(groups[0] || { name: 'No group' })
+  const [payer, setPayer] = useState({ id: currentUser.id, name: 'You' })
 
   const handleChangeTitle = event => setTitle(event.target.value)
   const handleChangeAmount = event => setAmount(event.target.value)
@@ -43,13 +40,18 @@ const AddBill = ({ users, dispatch, hide }) => {
   })
 
   const save = async () => {
-    dispatch(
-      actions.requestAddBill({
-        group,
-        payer,
-        selected,
-      })
-    )
+    requestAddBill({
+      date: new Date(),
+      title,
+      paid: {
+        amount: Number(amount),
+        userId: payer.id,
+      },
+      addedBy: currentUser.id,
+      groupId: groupId,
+      participants: [...selected, currentUser].map(user => user.id),
+    })
+
     hide()
   }
 
@@ -64,10 +66,8 @@ const AddBill = ({ users, dispatch, hide }) => {
   }
 
   const renderPerson = option => <Suggestion user={option} />
-  const renderGroup = option => <TextSuggestion text={option.name} />
 
   const selectPayer = option => setPayer(option)
-  const selectGroup = option => setGroup(option)
 
   return (
     <div className={styles['add-bill']}>
@@ -77,7 +77,7 @@ const AddBill = ({ users, dispatch, hide }) => {
         </div>
         <div className={styles.title}>Add a bill</div>
         <BadgeSelector
-          suggested={users.list}
+          suggested={users}
           selected={selected}
           select={select}
           deselect={deselect}
@@ -112,16 +112,6 @@ const AddBill = ({ users, dispatch, hide }) => {
               />{' '}
               and split equally
             </div>
-            <div className={styles.descriptive}>
-              in group{' '}
-              <DropdownSelector
-                title={group.name}
-                options={groups}
-                renderOption={renderGroup}
-                select={selectGroup}
-                searchKeys={['name']}
-              />
-            </div>
           </div>
         </div>
         <div className={styles.buttons}>
@@ -137,4 +127,7 @@ const AddBill = ({ users, dispatch, hide }) => {
   )
 }
 
-export default connect(({ users }) => ({ users }))(AddBill)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddBill)

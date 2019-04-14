@@ -9,19 +9,21 @@ const CurrentUserHandler = ({ currentUser, dispatch }) => {
   return (
     <div className={styles.navigation}>
       <div className={styles.right}>
-        {currentUser}
-        <br/>
-        {currentUser &&
+        {currentUser && currentUser.name}
+        <br />
+        {currentUser && (
           <div
             className={styles['sign-out']}
             onClick={() => dispatch(actions.requestSignOut())}
           >
             Sign out
           </div>
-        }
+        )}
       </div>
     </div>
   )
 }
 
-export default connect(({ users: { currentUser } }) => ({ currentUser }))(CurrentUserHandler)
+export default connect(({ users: { currentUser } }) => ({ currentUser }))(
+  CurrentUserHandler
+)

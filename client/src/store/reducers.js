@@ -83,12 +83,14 @@ const users = (
       }
 
     case RECEIVE_USER:
+      action.user.id = action.user._id
       state.all[action.user._id] = action.user
       return {
         ...state,
       }
 
     case RECEIVE_CURRENT_USER:
+      action.user.id = action.user._id
       return {
         ...state,
         myGroups: action.groups,

@@ -10,7 +10,7 @@ const mapStateToProps = (state, props) => ({
   bills: getGroupBills(state, props.groupId),
 })
 
-const Bills = ({ bills }) => {
+const Bills = ({ bills, groupId }) => {
   const [showAdd, setShowAdd] = useState(false)
   const onClick = () => setShowAdd(true)
   const hide = () => setShowAdd(false)
@@ -18,7 +18,7 @@ const Bills = ({ bills }) => {
   return (
     <div className={styles.bills}>
       <div className={styles.header}>
-        {showAdd && <AddBill hide={hide} />}
+        {showAdd && <AddBill groupId={groupId} hide={hide} />}
         <Button
           title="Add a bill"
           onClick={onClick}
