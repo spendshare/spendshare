@@ -18,6 +18,7 @@ import {
   RECEIVE_USER,
   RECEIVE_SIGN_UP_TO_GROUP,
   RECEIVE_GROUP_BILLS,
+  RECEIVE_ADD_BILL,
 } from './actions'
 
 const session = (
@@ -140,6 +141,10 @@ const bills = (state = {}, action) => {
       })
       return { ...state }
 
+    case RECEIVE_ADD_BILL:
+      state[action.bill._id] = action.bill
+      action.bill.id = action.bill._id
+      return { ...state }
     default:
       return state
   }
