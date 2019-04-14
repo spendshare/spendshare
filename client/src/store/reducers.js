@@ -15,6 +15,7 @@ import {
   RECEIVE_NEW_GROUP,
   RECEIVE_CURRENT_USER,
   REQUEST_CURRENT_USER,
+  RECEIVE_USER,
 } from './actions'
 
 const session = (
@@ -77,15 +78,24 @@ const users = (
         ...state,
         currentUser: null,
       }
+
+    case RECEIVE_USER:
+      state.all[action.user._id] = action.user
+      return {
+        ...state,
+      }
+
     case RECEIVE_CURRENT_USER:
       return {
         ...state,
         currentUser: action.user,
       }
+
     case REQUEST_CURRENT_USER:
       return {
         ...state,
       }
+
     case RECEIVE_ALL_USERS:
       const all = {}
       action.users.forEach(user => (all[user._id] = user))

@@ -41,23 +41,23 @@ export default {
       method: 'POST',
       data: token,
     }),
-    signOut: {
+    signOut: () => ({
       path: url('sign-out'),
       method: 'GET',
-    },
+    }),
     addBill: params => ({
       path: url('bill'),
       method: 'POST',
       data: params,
     }),
-    allGroups: {
+    allGroups: () => ({
       path: url('group/all'),
       method: 'GET',
-    },
-    allUsers: {
+    }),
+    allUsers: () => ({
       path: url('user/all'),
       method: 'GET',
-    },
+    }),
     createGroup: params => ({
       path: url('group/create'),
       method: 'POST',
@@ -69,6 +69,10 @@ export default {
     }),
     fetchCurrentUser: () => ({
       path: url('me'),
+      method: 'GET',
+    }),
+    fetchUser: id => ({
+      path: url(`user/${id}`),
       method: 'GET',
     }),
   },

@@ -40,7 +40,7 @@ function* processSignIn() {
 }
 
 function* processSignOut() {
-  const response = yield call(api.fetch, api.endpoints.signOut)
+  const response = yield call(api.fetch, api.endpoints.signOut())
   if (response.error) console.error(response.error)
   yield put(actions.receiveSignOut())
   redirectToMainPageIfNeeded()
@@ -59,17 +59,25 @@ function* processAddBill(action) {
 }
 
 function* fetchAllUsers() {
-  const { data, error } = yield call(api.fetch, api.endpoints.allUsers)
+  const { data, error } = yield call(api.fetch, api.endpoints.allUsers())
   if (!error) {
-    // FIXME
-    yield put(actions.receiveAllUsers(data.map(u => ({ ...u, balance: 0 }))))
+    yield put(actions.receiveAllUsers(data))
   } else {
     yield put(actions.rejectAllUsers(error))
   }
 }
 
+function* fetchUser(id) {
+  const { data, error } = yield call(api.fetch, api.endpoints.fetchUser(id))
+  if (!error) {
+    yield put(actions.receiveUser(data))
+  } else {
+    yield put(actions.rejectUser(error))
+  }
+}
+
 function* fetchAllGroups() {
-  const { data, error } = yield call(api.fetch, api.endpoints.allGroups)
+  const { data, error } = yield call(api.fetch, api.endpoints.allGroups())
   if (!error) {
     yield put(actions.receiveAllGroups(data))
   } else {
@@ -78,23 +86,26 @@ function* fetchAllGroups() {
 }
 
 function* createNewGroup({ name }) {
-  const group = yield call(api.fetch, api.endpoints.createGroup({ name }))
-  if (group && !group.error) {
-    yield put(actions.receiveNewGroup(group.group))
+  const { data, error } = yield call(
+    api.fetch,
+    api.endpoints.createGroup({ name })
+  )
+  if (!error) {
+    yield put(actions.receiveNewGroup(data))
   } else {
-    //yield put(actions.rejectAllUsers)
+    yield put(actions.rejectAllUsers(error))
   }
 }
 
 function* fetchGroupMembers({ id }) {
-  yield fork(fetchAllUsers)
-  yield take(RECEIVE_ALL_USERS)
-
   const { data, error } = yield call(
     api.fetch,
     api.endpoints.fetchGroupMembers(id)
   )
   if (!error) {
+    for (let i = 0; i < data.length; i++) {
+      yield fetchUser(data[i].userId)
+    }
     yield put(actions.receiveGroupMembers(id, data))
   } else {
     yield put(actions.rejectGroupMembers(id, error))
