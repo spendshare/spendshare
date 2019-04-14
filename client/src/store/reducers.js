@@ -70,7 +70,7 @@ const users = (
   state = {
     all: {},
     currentUser: null,
-    myGroups: []
+    myGroups: [],
   },
   action
 ) => {
@@ -94,10 +94,10 @@ const users = (
         currentUser: action.user,
       }
 
-    case  RECEIVE_SIGN_UP_TO_GROUP:
+    case RECEIVE_SIGN_UP_TO_GROUP:
       return {
         ...state,
-        myGroups: [...state.myGroups, action.group]
+        myGroups: [...state.myGroups, action.group],
       }
 
     case REQUEST_CURRENT_USER:
@@ -120,7 +120,7 @@ const members = (state = [], action) => {
     case RECEIVE_GROUP_MEMBERS:
       if (action.members.length === 0) return state
       return state
-        .filter(existing => existing.groupId !== action.members[0])
+        .filter(existing => existing.groupId !== action.members[0].groupId)
         .concat(action.members)
 
     default:
