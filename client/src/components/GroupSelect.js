@@ -7,16 +7,26 @@ import actions from '../store/actions'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const mapStateToProps = ({ groups, users: { myGroups } }) => ({ groups, myGroups })
+const mapStateToProps = ({ groups, users: { myGroups } }) => ({
+  groups,
+  myGroups,
+})
 const mapDispatchToProps = dispatch => ({
   createNewGroup: name => dispatch(actions.createNewGroup(name)),
   fetchAllGroups: () => dispatch(actions.requestAllGroups()),
   signUpToGroup: groupId => dispatch(actions.requestSignUpToGroup(groupId)),
 })
 
-function GroupSelect({ createNewGroup, fetchAllGroups, groups, myGroups, signUpToGroup }) {
+function GroupSelect({
+  createNewGroup,
+  fetchAllGroups,
+  groups,
+  myGroups,
+  signUpToGroup,
+}) {
   const [newGroupName, setNewGroupName] = useState('')
   useEffect(fetchAllGroups, [])
+
   return (
     <div className={styles.center}>
       <div className={styles['create-group']}>
@@ -30,25 +40,30 @@ function GroupSelect({ createNewGroup, fetchAllGroups, groups, myGroups, signUpT
         />
         <Button
           title="Create"
+          className={styles.button}
           onClick={() => createNewGroup(newGroupName)}
           light
         />
       </div>
-      <div>
-        {Object.values(groups).reverse().map(({ name, _id }) => (
-          <div className={styles['group-label']} key={`id${_id}`}>
-            {name}
-            {myGroups.includes(_id) ?
-              <Link to={`/group/${_id}`}>
-                Get in
-              </Link> :
-              <Button
-                onClick={() => signUpToGroup(_id)}
-                light
-                title="Sign for group"
-              />}
-          </div>
-        ))}
+      <div className={styles['groups-box']}>
+        {Object.values(groups)
+          .reverse()
+          .map(({ name, _id }) => (
+            <div className={styles['group-label']} key={`id${_id}`}>
+              <div className={styles['group-name']}>{name}</div>
+              {myGroups.includes(_id) ? (
+                <Link className={styles['join-link']} to={`/group/${_id}`}>
+                  Get in
+                </Link>
+              ) : (
+                <Button
+                  onClick={() => signUpToGroup(_id)}
+                  light
+                  title="Sign for group"
+                />
+              )}
+            </div>
+          ))}
       </div>
     </div>
   )
