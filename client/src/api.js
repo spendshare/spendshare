@@ -75,5 +75,9 @@ export default {
       path: url(`user/${id}`),
       method: 'GET',
     }),
+    fetchSignUpToGroup: group => ({
+      path: url(`group/${group}/join`),
+      method: 'POST',
+    }),
   },
 }

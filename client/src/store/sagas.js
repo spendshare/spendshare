@@ -10,6 +10,7 @@ import actions, {
   REQUEST_GROUP_MEMBERS,
   REQUEST_CURRENT_USER,
   RECEIVE_ALL_USERS,
+  REQUEST_SIGN_UP_TO_GROUP,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
@@ -115,9 +116,21 @@ function* fetchGroupMembers({ id }) {
 function* fetchCurrentUser() {
   const data = yield call(api.fetch, api.endpoints.fetchCurrentUser())
   if (data && !data.error) {
-    yield put(actions.receiveCurrentUser(data.user))
+    yield put(actions.receiveCurrentUser(data.user, data.groups))
   } else {
     redirectToMainPageIfNeeded()
+  }
+}
+
+function* fetchSignUpToGroup({ group }) {
+  const data = yield call(
+    api.fetch,
+    api.endpoints.fetchSignUpToGroup(group)
+  )
+  if (data && !data.error) {
+    yield put(actions.receiveSignUpToGroup(group))
+  } else {
+    actions.rejectSignUpToGroup(group)
   }
 }
 
@@ -131,4 +144,5 @@ export default function*() {
   yield takeEvery(REQUEST_ALL_GROUPS, fetchAllGroups)
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
   yield takeEvery(REQUEST_CURRENT_USER, fetchCurrentUser)
+  yield takeEvery(REQUEST_SIGN_UP_TO_GROUP, fetchSignUpToGroup)
 }

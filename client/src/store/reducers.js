@@ -16,6 +16,7 @@ import {
   RECEIVE_CURRENT_USER,
   REQUEST_CURRENT_USER,
   RECEIVE_USER,
+  RECEIVE_SIGN_UP_TO_GROUP,
 } from './actions'
 
 const session = (
@@ -69,6 +70,7 @@ const users = (
   state = {
     all: {},
     currentUser: null,
+    myGroups: []
   },
   action
 ) => {
@@ -88,7 +90,14 @@ const users = (
     case RECEIVE_CURRENT_USER:
       return {
         ...state,
+        myGroups: action.groups,
         currentUser: action.user,
+      }
+
+    case  RECEIVE_SIGN_UP_TO_GROUP:
+      return {
+        ...state,
+        myGroups: [...state.myGroups, action.group]
       }
 
     case REQUEST_CURRENT_USER:

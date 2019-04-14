@@ -54,9 +54,20 @@ const destroy = async (req, res) => {
   }
 }
 
+const createWithGroup = async (req, res) => {
+  const Member = mongoose.model('Member')
+  const member = new Member({
+    userId: req.user._id,
+    groupId: req.params.id,
+  })
+  await member.save()
+  res.status(200).json({})
+}
+
 export default {
   all,
   create,
+  createWithGroup,
   read,
   update,
   destroy,
