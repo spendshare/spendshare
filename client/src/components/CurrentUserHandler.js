@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import actions from '../store/actions'
-import Button from './Button'
 import styles from './CurrentUserHandler.module.scss'
 import { getAvatar } from '../utils'
 
 const CurrentUserHandler = ({ currentUser, dispatch }) => {
+  if (!currentUser) return null
   return (
     <div className={styles.navigation}>
+      <div className={styles.avatar}>
+        <img src={getAvatar(currentUser)} />
+      </div>
       <div className={styles.right}>
-        {currentUser && currentUser.name}
+        {currentUser.name}
         <br />
-        {currentUser && (
-          <div
-            className={styles['sign-out']}
-            onClick={() => dispatch(actions.requestSignOut())}
-          >
-            Sign out
-          </div>
-        )}
+        <div
+          className={styles['sign-out']}
+          onClick={() => dispatch(actions.requestSignOut())}
+        >
+          Sign out
+        </div>
       </div>
     </div>
   )
