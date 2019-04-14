@@ -11,6 +11,7 @@ export default async (req, res) => {
       ),
     })
   } else {
+    // positive coz this path is used for checking if user is logged in
     res.status(200).json({ error: 'not logged' })
   }
 }
