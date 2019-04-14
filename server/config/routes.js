@@ -5,34 +5,23 @@ import user from '../app/controllers/user'
 
 import passport from 'passport'
 import express from 'express'
-import me from "../app/controllers/me";
+import me from '../app/controllers/me'
 
-const crud = (app, object, name) => {
-  if (typeof object.all === 'function') {
-    app.get(`/api/v1/${name}/all`, object.all)
-  }
-  app.post(`/api/v1/${name}/:id`, object.create)
-  app.get(`/api/v1/${name}/:id`, object.read)
-  app.put(`/api/v1/${name}/:id`, object.update)
-  app.delete(`/api/v1/${name}/:id`, object.destroy)
+const crud = (app, endpoints) => {
+  endpoints.forEach(endpoint => {
+    app[endpoint.method](endpoint.path, endpoint.callback)
+  })
 }
 
 export default app => {
   const router = express.Router()
-  crud(app, group, 'group')
-  crud(app, user, 'user')
-  crud(app, bill, 'bill')
+  crud(app, group)
+  crud(app, user)
+  crud(app, bill)
+  crud(app, member)
 
-  app.get(`/api/v1/member/:groupId/all`, member.all)
-  app.post(`/api/v1/member/:groupId/:id`, member.create)
-  app.get(`/api/v1/member/:groupId/:id`, member.read)
-  app.put(`/api/v1/member/:groupId/:id`, member.update)
-  app.delete(`/api/v1/member/:groupId/:id`, member.destroy)
   app.get('/api/v1/me', me)
-  app.post('/api/v1/group/:id/join', member.createWithGroup)
-
   app.get('/api/v1/sign-out', (req, res) => {
-    // Destroy the session if any
     req.logout()
     res.status(200).json({})
   })

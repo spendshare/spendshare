@@ -23,6 +23,10 @@ export const REQUEST_ALL_GROUPS = 'REQUEST_ALL_GROUPS'
 export const RECEIVE_ALL_GROUPS = 'RECEIVE_ALL_GROUPS'
 export const REJECT_ALL_GROUPS = 'REJECT_ALL_GROUPS'
 
+export const REQUEST_GROUP_BILLS = 'REQUEST_GROUP_BILLS'
+export const RECEIVE_GROUP_BILLS = 'RECEIVE_GROUP_BILLS'
+export const REJECT_GROUP_BILLS = 'REJECT_GROUP_BILLS'
+
 export const CREATE_NEW_GROUP = 'CREATE_NEW_GROUP'
 export const RECEIVE_NEW_GROUP = 'RECEIVE_NEW_GROUP'
 
@@ -42,15 +46,15 @@ export default {
 
   requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
   receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
-  rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
+  rejectAddBill: error => ({ type: REJECT_ADD_BILL, error }),
 
   requestUser: () => ({ type: REQUEST_USER }),
   receiveUser: user => ({ type: RECEIVE_USER, user }),
-  rejectUser: () => ({ type: REJECT_USER }),
+  rejectUser: error => ({ type: REJECT_USER, error }),
 
   requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
   receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),
-  rejectAllUsers: () => ({ type: REJECT_ALL_USERS }),
+  rejectAllUsers: error => ({ type: REJECT_ALL_USERS, error }),
 
   requestSignIn: () => ({ type: REQUEST_SIGN_IN }),
   receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
@@ -58,7 +62,11 @@ export default {
 
   requestAllGroups: () => ({ type: REQUEST_ALL_GROUPS }),
   receiveAllGroups: groups => ({ type: RECEIVE_ALL_GROUPS, groups }),
-  rejectAllGroups: () => ({ type: REJECT_ALL_GROUPS }),
+  rejectAllGroups: error => ({ type: REJECT_ALL_GROUPS, error }),
+
+  requestGroupBills: id => ({ type: REQUEST_GROUP_BILLS, id }),
+  receiveGroupBills: bills => ({ type: RECEIVE_GROUP_BILLS, bills }),
+  rejectGroupBills: error => ({ type: REJECT_GROUP_BILLS, error }),
 
   requestSignUpToGroup: group => ({ type: REQUEST_SIGN_UP_TO_GROUP, group }),
   receiveSignUpToGroup: group => ({ type: RECEIVE_SIGN_UP_TO_GROUP, group }),
@@ -83,5 +91,9 @@ export default {
   receiveNewGroup: group => ({ type: RECEIVE_NEW_GROUP, group }),
 
   requestCurrentUser: () => ({ type: REQUEST_CURRENT_USER }),
-  receiveCurrentUser: (user, groups) => ({ type: RECEIVE_CURRENT_USER, user, groups }),
+  receiveCurrentUser: (user, groups) => ({
+    type: RECEIVE_CURRENT_USER,
+    user,
+    groups,
+  }),
 }

@@ -17,6 +17,7 @@ import {
   REQUEST_CURRENT_USER,
   RECEIVE_USER,
   RECEIVE_SIGN_UP_TO_GROUP,
+  RECEIVE_GROUP_BILLS,
 } from './actions'
 
 const session = (
@@ -128,8 +129,15 @@ const members = (state = [], action) => {
   }
 }
 
-const bills = (state = [], action) => {
+const bills = (state = {}, action) => {
   switch (action.type) {
+    case RECEIVE_GROUP_BILLS:
+      action.bills.forEach(bill => {
+        bill.id = bill._id
+        state[bill._id] = bill
+      })
+      return { ...state }
+
     default:
       return state
   }
