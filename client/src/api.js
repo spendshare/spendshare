@@ -67,6 +67,10 @@ export default {
       path: url(`member/${groupId}/all`),
       method: 'GET',
     }),
+    fetchGroupBills: groupId => ({
+      path: url(`group/${groupId}/bill/all`),
+      method: 'GET',
+    }),
     fetchCurrentUser: () => ({
       path: url('me'),
       method: 'GET',

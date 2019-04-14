@@ -1,0 +1,19 @@
+$bezier: cubic-bezier(0.4, 0.15, 0.6, 0.85);
+
+.loader {
+  font-size: 10px;
+  position: relative;
+  border: solid;
+  transform: translateZ(0);
+  animation: load-animation 0.85s $bezier infinite normal;
+  border-radius: 50%;
+}
+
+@keyframes load-animation {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(450deg);
+  }
+}
