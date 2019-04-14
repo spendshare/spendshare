@@ -4,21 +4,6 @@ import { shortenName } from '../utils'
 import { currency } from '../config'
 import { connect } from 'react-redux'
 
-const debts = [
-  {
-    whom: 'Krzysztof Magiera',
-    amount: 100.0,
-  },
-  {
-    whom: 'Michał Osadnik',
-    amount: 40.0,
-  },
-  {
-    whom: 'Wojciech Kozyra',
-    amount: 1.0,
-  },
-]
-
 const getDebts = (user, users, groupId) => {
   const debts = {}
   user.bills
