@@ -51,10 +51,30 @@ const destroy = async (req, res) => {
   }
 }
 
-export default {
-  all,
-  create,
-  read,
-  update,
-  destroy,
-}
+export default [
+  {
+    path: '/api/v1/group/all',
+    method: 'get',
+    callback: all,
+  },
+  {
+    path: '/api/v1/group/new',
+    method: 'post',
+    callback: create,
+  },
+  {
+    path: '/api/v1/group/:id',
+    method: 'get',
+    callback: read,
+  },
+  {
+    path: '/api/v1/group/:id',
+    method: 'put',
+    callback: update,
+  },
+  {
+    path: '/api/v1/group/:id',
+    method: 'delete',
+    callback: destroy,
+  },
+]
