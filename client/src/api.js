@@ -41,30 +41,38 @@ export default {
       method: 'POST',
       data: token,
     }),
-    signOut: {
+    signOut: () => ({
       path: url('sign-out'),
       method: 'GET',
-    },
+    }),
     addBill: params => ({
       path: url('bill'),
       method: 'POST',
       data: params,
     }),
-    allGroups: {
+    allGroups: () => ({
       path: url('group/all'),
       method: 'GET',
-    },
+    }),
+    allUsers: () => ({
+      path: url('user/all'),
+      method: 'GET',
+    }),
     createGroup: params => ({
       path: url('group/create'),
       method: 'POST',
       data: params,
     }),
-    fetchGroupMembers: id => ({
-      path: url(`group/${id}`),
+    fetchGroupMembers: groupId => ({
+      path: url(`member/${groupId}/all`),
       method: 'GET',
     }),
     fetchCurrentUser: () => ({
       path: url('me'),
+      method: 'GET',
+    }),
+    fetchUser: id => ({
+      path: url(`user/${id}`),
       method: 'GET',
     }),
     fetchSignUpToGroup: group => ({

@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const all = async (req, res) => {
   const Group = mongoose.model('Group')
   const groups = await Group.find({})
-  res.json(groups)
+  res.json({ data: groups })
 }
 
 const create = (req, res) => {
@@ -16,14 +16,14 @@ const create = (req, res) => {
     if (err) console.log(err)
   })
 
-  res.status(200).json({ group })
+  res.status(200).json({ data: group })
 }
 
 const read = async (req, res) => {
   const Group = mongoose.model('Group')
   try {
-    const member = await Group.findById(req.params.id)
-    res.status(200).json({ member })
+    const group = await Group.findById(req.params.id)
+    res.status(200).json({ data: group })
   } catch (error) {
     res.status(500).json({ error: error })
   }
@@ -32,10 +32,10 @@ const read = async (req, res) => {
 const update = async (req, res) => {
   const Group = mongoose.model('Group')
   try {
-    const member = await Group.findByIdAndUpdate(req.params.id, {
+    const group = await Group.findByIdAndUpdate(req.params.id, {
       name: req.body.name,
     })
-    res.status(200).json({ member })
+    res.status(200).json({ data: group })
   } catch (error) {
     res.status(500).json({ error: error })
   }

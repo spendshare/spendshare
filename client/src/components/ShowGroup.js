@@ -22,9 +22,9 @@ const ShowGroup = ({ match, requestGroupMembers, groups }) => {
   if (group.error) return <div>error</div>
 
   return (
-    <div>
+    <div className={styles.container}>
       <Bills />
-      <People />
+      <People groupId={match.params.id} />
     </div>
   )
 }
