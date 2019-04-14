@@ -81,7 +81,7 @@ const Bills = ({ bills }) => {
         />
       </div>
       {bills.map(bill => (
-        <Bill bill={bill} key={`bill-${bill.id}`} />
+        <Bill bill={bill} key={bill.id} />
       ))}
     </div>
   )

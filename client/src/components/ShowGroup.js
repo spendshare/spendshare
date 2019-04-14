@@ -13,9 +13,15 @@ const mapDispatchToProps = dispatch => ({
   requestGroupBills: id => dispatch(actions.requestGroupBills(id)),
 })
 
-const ShowGroup = ({ match, requestGroupMembers, groups }) => {
+const ShowGroup = ({
+  match,
+  requestGroupMembers,
+  requestGroupBills,
+  groups,
+}) => {
   useEffect(() => {
     requestGroupMembers(match.params.id)
+    requestGroupBills(match.params.id)
   }, [])
 
   const group = groups[match.params.id]

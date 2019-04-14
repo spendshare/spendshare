@@ -64,7 +64,7 @@ export default {
   receiveAllGroups: groups => ({ type: RECEIVE_ALL_GROUPS, groups }),
   rejectAllGroups: error => ({ type: REJECT_ALL_GROUPS, error }),
 
-  requestGroupBills: id => ({ type: REQUEST_GROUP_BILLS }),
+  requestGroupBills: id => ({ type: REQUEST_GROUP_BILLS, id }),
   receiveGroupBills: bills => ({ type: RECEIVE_GROUP_BILLS, bills }),
   rejectGroupBills: error => ({ type: REJECT_GROUP_BILLS, error }),
 

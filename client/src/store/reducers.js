@@ -133,6 +133,7 @@ const bills = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_GROUP_BILLS:
       action.bills.forEach(bill => {
+        bill.id = bill._id
         state[bill._id] = bill
       })
       return { ...state }
