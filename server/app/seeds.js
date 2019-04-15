@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export default () => {
+export default async () => {
   const User = mongoose.model('User')
   const Bill = mongoose.model('Bill')
   const Group = mongoose.model('Group')
@@ -18,6 +18,36 @@ export default () => {
     googleId: '--placeholder--',
   }
 
-  User.findOneAndUpdate({ name: 'Marian Kowalski' }, kowalski, { upsert: true })
-  User.findOneAndUpdate({ name: 'Stefan Bubak' }, bubak, { upsert: true })
+  const options = { upsert: true, new: true }
+
+  const u1 = await User.findOneAndUpdate(
+    { name: 'Marian Kowalski' },
+    kowalski,
+    options
+  )
+
+  const u2 = await User.findOneAndUpdate(
+    { name: 'Stefan Bubak' },
+    bubak,
+    options
+  )
+
+  const chinczyk = { name: 'Chińczyk' }
+  const g = await Group.findOneAndUpdate(chinczyk, chinczyk, options)
+
+  const m1 = { userId: u1._id, groupId: g._id }
+  await Member.findOneAndUpdate(m1, m1, options)
+
+  const m2 = { userId: u2._id, groupId: g._id }
+  await Member.findOneAndUpdate(m2, m2, options)
+
+  const b = await Bill.findOneAndUpdate(
+    {
+      title: 'Za piwo',
+      amount: 5,
+      addedBy: u1._id,
+      participants: [u1._id, u2._id],
+    },
+    options
+  )
 }
