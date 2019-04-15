@@ -19,9 +19,9 @@ const phraseBalance = (user, groupId) => {
   if (balance === 0) {
     return 'is settled up'
   } else if (balance < 0) {
-    return `owes ${Math.abs(balance)} ${currency}`
+    return `owes ${Math.abs(balance.toFixed(2))} ${currency}`
   } else {
-    return `gets back ${balance} ${currency}`
+    return `gets back ${balance.toFixed(2)} ${currency}`
   }
 }
 

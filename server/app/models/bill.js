@@ -12,6 +12,7 @@ const BillSchema = new Schema({
   addedBy: ObjectId,
   groupId: ObjectId,
   participants: [ObjectId],
+  fromBigData: Boolean,
 })
 
 BillSchema.method({})

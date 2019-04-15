@@ -2,7 +2,6 @@ import mongoose from 'mongoose'
 const { ObjectId } = mongoose.Types
 
 const all = async (req, res) => {
-  console.log('chuuuj')
   const Bill = mongoose.model('Bill')
   const bills = await Bill.find({ groupId: req.params.groupId }).sort({
     date: -1,
