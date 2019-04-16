@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../store/actions'
 import styles from './CurrentUserHandler.module.scss'
 import { getAvatar } from '../utils'
-
 const CurrentUserHandler = ({ currentUser, dispatch }) => {
   if (!currentUser) return null
   return (
