@@ -12,14 +12,14 @@ const create = (req, res) => {
     if (err) console.log(err)
   })
 
-  res.status(200).json({})
+  res.status(200).json({ data: bill })
 }
 
 const read = async (req, res) => {
   const Bill = mongoose.model('Bill')
   try {
     const bill = await Bill.findById(req.params.id)
-    res.status(200).json({ bill })
+    res.status(200).json({ data: bill })
   } catch (error) {
     res.status(500).json({ error: error })
   }
@@ -33,7 +33,7 @@ const update = async (req, res) => {
       amount: req.body.addedBy,
       participants: req.body.participants,
     })
-    res.status(200).json({ bill })
+    res.status(200).json({ data: bill })
   } catch (error) {
     res.status(500).json({ error: error })
   }

@@ -11,6 +11,10 @@ export const REJECT_SIGN_IN = 'REJECT_SIGN_IN'
 export const REQUEST_SIGN_OUT = 'REQUEST_SIGN_OUT'
 export const RECEIVE_SIGN_OUT = 'RECEIVE_SIGN_OUT'
 
+export const REQUEST_USER = 'REQUEST_USER'
+export const RECEIVE_USER = 'RECEIVE_USER'
+export const REJECT_USER = 'REJECT_USER'
+
 export const REQUEST_ALL_USERS = 'REQUEST_ALL_USERS'
 export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
 export const REJECT_ALL_USERS = 'REJECT_ALL_USERS'
@@ -39,6 +43,10 @@ export default {
   requestAddBill: params => ({ type: REQUEST_ADD_BILL, params }),
   receiveAddBill: bill => ({ type: RECEIVE_ADD_BILL, bill }),
   rejectAddBill: () => ({ type: REJECT_ADD_BILL }),
+
+  requestUser: () => ({ type: REQUEST_USER }),
+  receiveUser: user => ({ type: RECEIVE_USER, user }),
+  rejectUser: () => ({ type: REJECT_USER }),
 
   requestAllUsers: () => ({ type: REQUEST_ALL_USERS }),
   receiveAllUsers: users => ({ type: RECEIVE_ALL_USERS, users }),
