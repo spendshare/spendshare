@@ -1,6 +1,7 @@
 import group from '../app/controllers/group'
 import member from '../app/controllers/member'
 import bill from '../app/controllers/bill'
+import user from '../app/controllers/user'
 
 import passport from 'passport'
 import express from 'express'
@@ -18,11 +19,16 @@ const crud = (app, object, name) => {
 
 export default app => {
   const router = express.Router()
-  crud(app, member, 'member')
   crud(app, group, 'group')
+  crud(app, user, 'user')
   crud(app, bill, 'bill')
-  app.get('/api/v1/me', me)
 
+  app.get(`/api/v1/member/:groupId/all`, member.all)
+  app.post(`/api/v1/member/:groupId/:id`, member.create)
+  app.get(`/api/v1/member/:groupId/:id`, member.read)
+  app.put(`/api/v1/member/:groupId/:id`, member.update)
+  app.delete(`/api/v1/member/:groupId/:id`, member.destroy)
+  app.get('/api/v1/me', me)
   app.post('/api/v1/group/:id/join', member.createWithGroup)
 
   app.get('/api/v1/sign-out', (req, res) => {

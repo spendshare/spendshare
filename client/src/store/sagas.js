@@ -1,5 +1,5 @@
 import api from '../api'
-import { call, fork, put, takeEvery } from 'redux-saga/effects'
+import { call, fork, take, put, takeEvery } from 'redux-saga/effects'
 import actions, {
   REQUEST_SIGN_IN,
   REQUEST_SIGN_OUT,
@@ -9,6 +9,7 @@ import actions, {
   REQUEST_ALL_GROUPS,
   REQUEST_GROUP_MEMBERS,
   REQUEST_CURRENT_USER,
+  RECEIVE_ALL_USERS,
   REQUEST_SIGN_UP_TO_GROUP,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
@@ -40,48 +41,60 @@ function* processSignIn() {
 }
 
 function* processSignOut() {
-  const response = yield call(api.fetch, api.endpoints.signOut)
+  const response = yield call(api.fetch, api.endpoints.signOut())
   if (response.error) console.error(response.error)
   yield put(actions.receiveSignOut())
   redirectToMainPageIfNeeded()
 }
 
 function* processAddBill(action) {
-  const bill = yield call(api.fetch, api.endpoints.addBill(action.params))
-  if (bill && !bill.error) {
-    yield put(actions.receiveAddBill(bill))
+  const { data, error } = yield call(
+    api.fetch,
+    api.endpoints.addBill(action.params)
+  )
+  if (!error) {
+    yield put(actions.receiveAddBill(data))
   } else {
-    yield put(actions.rejectAddBill())
+    yield put(actions.rejectAddBill(error))
   }
 }
 
 function* fetchAllUsers() {
-  const users = yield call(api.fetch, api.endpoints.allUsers)
-  if (users && !users.error) {
-    // FIXME
-    yield put(
-      actions.receiveAllUsers(users.data.map(u => ({ ...u, balance: 0 })))
-    )
+  const { data, error } = yield call(api.fetch, api.endpoints.allUsers())
+  if (!error) {
+    yield put(actions.receiveAllUsers(data))
   } else {
-    yield put(actions.rejectAllUsers)
+    yield put(actions.rejectAllUsers(error))
+  }
+}
+
+function* fetchUser(id) {
+  const { data, error } = yield call(api.fetch, api.endpoints.fetchUser(id))
+  if (!error) {
+    yield put(actions.receiveUser(data))
+  } else {
+    yield put(actions.rejectUser(error))
   }
 }
 
 function* fetchAllGroups() {
-  const groups = yield call(api.fetch, api.endpoints.allGroups)
-  if (groups && !groups.error) {
-    yield put(actions.receiveAllGroups(groups))
+  const { data, error } = yield call(api.fetch, api.endpoints.allGroups())
+  if (!error) {
+    yield put(actions.receiveAllGroups(data))
   } else {
-    yield put(actions.rejectAllGroups())
+    yield put(actions.rejectAllGroups(error))
   }
 }
 
 function* createNewGroup({ name }) {
-  const group = yield call(api.fetch, api.endpoints.createGroup({ name }))
-  if (group && !group.error) {
-     yield put(actions.receiveNewGroup(group.group))
+  const { data, error } = yield call(
+    api.fetch,
+    api.endpoints.createGroup({ name })
+  )
+  if (!error) {
+    yield put(actions.receiveNewGroup(data))
   } else {
-    //yield put(actions.rejectAllUsers)
+    yield put(actions.rejectAllUsers(error))
   }
 }
 
@@ -91,6 +104,9 @@ function* fetchGroupMembers({ id }) {
     api.endpoints.fetchGroupMembers(id)
   )
   if (!error) {
+    for (let i = 0; i < data.length; i++) {
+      yield fetchUser(data[i].userId)
+    }
     yield put(actions.receiveGroupMembers(id, data))
   } else {
     yield put(actions.rejectGroupMembers(id, error))
@@ -98,10 +114,7 @@ function* fetchGroupMembers({ id }) {
 }
 
 function* fetchCurrentUser() {
-  const data = yield call(
-    api.fetch,
-    api.endpoints.fetchCurrentUser()
-  )
+  const data = yield call(api.fetch, api.endpoints.fetchCurrentUser())
   if (data && !data.error) {
     yield put(actions.receiveCurrentUser(data.user, data.groups))
   } else {
