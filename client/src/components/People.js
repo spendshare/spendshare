@@ -11,7 +11,7 @@ const mapStateToProps = (state, props) => ({
 const People = ({ users }) => (
   <div className={styles.people}>
     {users.map(u => (
-      <User key={`user-${u._id}`} user={u} />
+      <User key={u._id} user={u} />
     ))}
   </div>
 )
