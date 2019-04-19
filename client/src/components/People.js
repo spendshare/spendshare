@@ -8,10 +8,10 @@ const mapStateToProps = (state, props) => ({
   users: getGroupUsers(state, props.groupId),
 })
 
-const People = ({ users }) => (
+const People = ({ users, groupId }) => (
   <div className={styles.people}>
     {users.map(u => (
-      <User key={u._id} user={u} />
+      <User key={u._id} groupId={groupId} user={u} />
     ))}
   </div>
 )

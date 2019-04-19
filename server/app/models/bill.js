@@ -15,5 +15,10 @@ const BillSchema = new Schema({
 })
 
 BillSchema.method({})
-BillSchema.static({})
+BillSchema.static({
+  findByParticipant: async id => {
+    const Bill = mongoose.model('Bill')
+    return await Bill.find({ participants: id })
+  },
+})
 mongoose.model('Bill', BillSchema)

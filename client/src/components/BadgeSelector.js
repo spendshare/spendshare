@@ -6,7 +6,7 @@ import MiniBadge from './MiniBadge'
 import Suggestion from './Suggestion'
 import TextSuggestion from './TextSuggestion'
 
-export default ({ suggested, selected, select, deselect }) => {
+const BadgeSelector = ({ suggested, selected, select, deselect }) => {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [value, setValue] = useState('')
 
@@ -44,11 +44,7 @@ export default ({ suggested, selected, select, deselect }) => {
       </span>
       <div className={styles['selected-people']}>
         {selected.map(s => (
-          <MiniBadge
-            user={s}
-            key={`selected-${s.id}`}
-            handleClick={() => deselect(s)}
-          />
+          <MiniBadge user={s} key={s.id} handleClick={() => deselect(s)} />
         ))}
       </div>
       <input
@@ -62,7 +58,7 @@ export default ({ suggested, selected, select, deselect }) => {
           {filteredSuggestions.length > 0 ? (
             filteredSuggestions.map(s => (
               <Suggestion
-                key={`suggested-${s.id}`}
+                key={s.id}
                 user={s}
                 onClick={() => {
                   setValue('')
@@ -79,3 +75,5 @@ export default ({ suggested, selected, select, deselect }) => {
     </div>
   )
 }
+
+export default BadgeSelector

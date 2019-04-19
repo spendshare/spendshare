@@ -46,7 +46,7 @@ export default {
       method: 'GET',
     }),
     addBill: params => ({
-      path: url('bill'),
+      path: url('bill/new'),
       method: 'POST',
       data: params,
     }),

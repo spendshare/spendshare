@@ -1,6 +1,18 @@
 import mongoose from 'mongoose'
 
-const all = async (req, res) => {
+const addBills = async user => {
+  const Bill = mongoose.model('Bill')
+  const bills = await Bill.findByParticipant(user._id)
+  return {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    googleId: user.googleId,
+    bills,
+  }
+}
+
+const all = async (_req, res) => {
   const User = mongoose.model('User')
   const users = await User.find({})
   res.json({ data: users })
@@ -25,7 +37,7 @@ const read = async (req, res) => {
   const User = mongoose.model('User')
   try {
     const user = await User.findById(req.params.id)
-    res.status(200).json({ data: user })
+    res.status(200).json({ data: await addBills(user) })
   } catch (error) {
     res.status(500).json({ error: error })
   }
@@ -37,7 +49,7 @@ const update = async (req, res) => {
     const user = await User.findByIdAndUpdate(req.params.id, {
       name: req.body.name,
     })
-    res.status(200).json({ data: user })
+    res.status(200).json({ data: await addBills(user) })
   } catch (error) {
     res.status(500).json({ error: error })
   }
