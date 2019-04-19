@@ -3,9 +3,14 @@ const Schema = mongoose.Schema
 const ObjectId = mongoose.Schema.Types.ObjectId
 
 const BillSchema = new Schema({
+  date: Date,
   title: String,
-  amount: Number,
+  paid: {
+    amount: Number,
+    userId: ObjectId,
+  },
   addedBy: ObjectId,
+  groupId: ObjectId,
   participants: [ObjectId],
 })
 

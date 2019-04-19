@@ -1,5 +1,12 @@
 import mongoose from 'mongoose'
 
+const all = async (req, res) => {
+  console.log('chuuuj')
+  const Bill = mongoose.model('Bill')
+  const bills = await Bill.find({ groupId: req.params.groupId })
+  res.json({ data: bills })
+}
+
 const create = (req, res) => {
   const Bill = mongoose.model('Bill')
   const bill = new Bill({
@@ -49,9 +56,30 @@ const destroy = async (req, res) => {
   }
 }
 
-export default {
-  create,
-  read,
-  update,
-  destroy,
-}
+export default [
+  {
+    path: '/api/v1/group/:groupId/bill/all',
+    method: 'get',
+    callback: all,
+  },
+  {
+    path: '/api/v1/bill/new',
+    method: 'post',
+    callback: create,
+  },
+  {
+    path: '/api/v1/bill/:id',
+    method: 'get',
+    callback: read,
+  },
+  {
+    path: '/api/v1/bill/:id',
+    method: 'put',
+    callback: update,
+  },
+  {
+    path: '/api/v1/user/:id',
+    method: 'delete',
+    callback: destroy,
+  },
+]

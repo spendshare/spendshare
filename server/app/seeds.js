@@ -41,13 +41,16 @@ export default async () => {
   const m2 = { userId: u2._id, groupId: g._id }
   await Member.findOneAndUpdate(m2, m2, options)
 
-  const b = await Bill.findOneAndUpdate(
-    {
-      title: 'Za piwo',
+  const bill = {
+    date: new Date('2019-04-01 08:00:00'),
+    title: 'Za piwo',
+    paid: {
       amount: 5,
-      addedBy: u1._id,
-      participants: [u1._id, u2._id],
+      userId: u1._id,
     },
-    options
-  )
+    groupId: g._id,
+    participants: [u1._id, u2._id],
+  }
+
+  const b = await Bill.findOneAndUpdate(bill, bill, options)
 }

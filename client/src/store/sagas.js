@@ -11,6 +11,7 @@ import actions, {
   REQUEST_CURRENT_USER,
   RECEIVE_ALL_USERS,
   REQUEST_SIGN_UP_TO_GROUP,
+  REQUEST_GROUP_BILLS,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
@@ -113,6 +114,18 @@ function* fetchGroupMembers({ id }) {
   }
 }
 
+function* fetchGroupBills({ id }) {
+  const { data, error } = yield call(
+    api.fetch,
+    api.endpoints.fetchGroupBills(id)
+  )
+  if (!error) {
+    yield put(actions.receiveGroupBills(data))
+  } else {
+    yield put(actions.rejectGroupBills(error))
+  }
+}
+
 function* fetchCurrentUser() {
   const data = yield call(api.fetch, api.endpoints.fetchCurrentUser())
   if (data && !data.error) {
@@ -123,10 +136,7 @@ function* fetchCurrentUser() {
 }
 
 function* fetchSignUpToGroup({ group }) {
-  const data = yield call(
-    api.fetch,
-    api.endpoints.fetchSignUpToGroup(group)
-  )
+  const data = yield call(api.fetch, api.endpoints.fetchSignUpToGroup(group))
   if (data && !data.error) {
     yield put(actions.receiveSignUpToGroup(group))
   } else {
@@ -140,6 +150,7 @@ export default function*() {
   yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
   yield takeEvery(REQUEST_ADD_BILL, processAddBill)
   yield takeEvery(REQUEST_GROUP_MEMBERS, fetchGroupMembers)
+  yield takeEvery(REQUEST_GROUP_BILLS, fetchGroupBills)
   yield takeEvery(REQUEST_ALL_USERS, fetchAllUsers)
   yield takeEvery(REQUEST_ALL_GROUPS, fetchAllGroups)
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
