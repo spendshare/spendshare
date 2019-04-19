@@ -64,11 +64,35 @@ const createWithGroup = async (req, res) => {
   res.status(200).json({})
 }
 
-export default {
-  all,
-  create,
-  createWithGroup,
-  read,
-  update,
-  destroy,
-}
+export default [
+  {
+    path: '/api/v1/member/:groupId/all',
+    method: 'get',
+    callback: all,
+  },
+  {
+    path: '/api/v1/member/new',
+    method: 'post',
+    callback: create,
+  },
+  {
+    path: '/api/v1/member/:groupId/:id',
+    method: 'get',
+    callback: read,
+  },
+  {
+    path: '/api/v1/member/:groupId/:id',
+    method: 'put',
+    callback: update,
+  },
+  {
+    path: '/api/v1/member/:groupId/:id',
+    method: 'delete',
+    callback: destroy,
+  },
+  {
+    path: '/api/v1/group/:id/join',
+    method: 'post',
+    callback: createWithGroup,
+  },
+]
