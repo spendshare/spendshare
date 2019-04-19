@@ -32,5 +32,6 @@ module.exports = {
     'no-console': 0,
     'no-case-declarations': 0,
     'react-hooks/rules-of-hooks': 'error',
+    'react/jsx-no-bind': 0,
   },
 }

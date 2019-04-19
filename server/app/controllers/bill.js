@@ -1,19 +1,29 @@
 import mongoose from 'mongoose'
+const { ObjectId } = mongoose.Types
 
 const all = async (req, res) => {
   console.log('chuuuj')
   const Bill = mongoose.model('Bill')
-  const bills = await Bill.find({ groupId: req.params.groupId })
+  const bills = await Bill.find({ groupId: req.params.groupId }).sort({
+    date: -1,
+  })
   res.json({ data: bills })
 }
 
 const create = (req, res) => {
   const Bill = mongoose.model('Bill')
-  const bill = new Bill({
+  const params = {
+    date: req.body.date,
     title: req.body.title,
-    amount: req.body.addedBy,
-    participants: req.body.participants,
-  })
+    paid: {
+      amount: req.body.paid.amount,
+      userId: ObjectId(req.body.paid.userId),
+    },
+    addedBy: ObjectId(req.body.addedBy),
+    groupId: ObjectId(req.body.groupId),
+    participants: req.body.participants.map(ObjectId),
+  }
+  const bill = new Bill(params)
 
   bill.save(err => {
     if (err) console.log(err)
