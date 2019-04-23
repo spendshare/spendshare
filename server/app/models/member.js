@@ -5,6 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const MemberSchema = new Schema({
   userId: ObjectId,
   groupId: ObjectId,
+  fromBigData: Boolean,
 })
 
 MemberSchema.method({})

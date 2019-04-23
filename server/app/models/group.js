@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const GroupSchema = new Schema({
   name: String,
+  fromBigData: Boolean,
 })
 
 GroupSchema.method({})
