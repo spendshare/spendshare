@@ -6,6 +6,7 @@ const UserSchema = new Schema({
   name: String,
   email: String,
   googleId: String,
+  fromBigData: Boolean,
 })
 
 UserSchema.method({})
