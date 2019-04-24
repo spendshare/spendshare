@@ -59,7 +59,7 @@ export default {
       method: 'GET',
     }),
     createGroup: params => ({
-      path: url('group/create'),
+      path: url('group/new'),
       method: 'POST',
       data: params,
     }),
