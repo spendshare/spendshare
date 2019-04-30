@@ -1,5 +1,4 @@
-node_modules
-npm-debug.log
+node_modules/
 .env
-data
-.vscode
+data/
+.vscode/
