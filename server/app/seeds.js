@@ -64,7 +64,6 @@ export default async () => {
   if (process.env.BIG_DATA === 'YES') {
     const users = []
 
-
     for (let i = 0; i < 1000; i++) {
       const u = await User.create({
         name: faker.name.findName(),
@@ -89,7 +88,8 @@ export default async () => {
 
     const groupParticipants = {}
 
-    const randomFromArray = array => array[Math.round(Math.random() * (array.length - 1))]
+    const randomFromArray = array =>
+      array[Math.round(Math.random() * (array.length - 1))]
 
     for (let i = 0; i < 200; i++) {
       groupParticipants[groups[i]._id] = []
@@ -106,11 +106,15 @@ export default async () => {
       }
     }
 
+    const promises = []
     for (let i = 0; i < 200; i++) {
       for (let j = 0; j < 30; j++) {
         const p1 = randomFromArray(groupParticipants[groups[i]._id])
         const p2 = randomFromArray(groupParticipants[groups[i]._id])
         const p3 = randomFromArray(groupParticipants[groups[i]._id])
+
+        const ps = new Set([p1, p2, p3])
+
         const bill = {
           fromBigData: true,
           date: faker.date.past(),
@@ -120,10 +124,12 @@ export default async () => {
             userId: p1,
           },
           groupId: ObjectId(groups[i]._id),
-          participants: [p1, p2, p3],
+          participants: [...ps],
         }
-        await Bill.create(bill)
+        promises.push(Bill.create(bill))
       }
     }
+    await Promise.all(promises)
+    console.log('Seed applied')
   }
 }

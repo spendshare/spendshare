@@ -38,7 +38,7 @@ const Tooltip = ({ user, users, groupId }) => {
           <div key={`${d.whom}_${d.amount}`}>
             {d.amount < 0 ? 'gets back' : 'owes'}{' '}
             <span className={styles.highlight}>
-              {d.amount} {currency}
+              {d.amount.toFixed(2)} {currency}
             </span>{' '}
             {d.amount < 0 ? 'from' : 'to'} {shortenName(d.whom)}
           </div>
