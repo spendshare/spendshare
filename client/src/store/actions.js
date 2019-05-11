@@ -34,6 +34,10 @@ export const REQUEST_GROUP_MEMBERS = 'REQUEST_GROUP_MEMBERS'
 export const RECEIVE_GROUP_MEMBERS = 'RECEIVE_GROUP_MEMBERS'
 export const REJECT_GROUP_MEMBERS = 'REJECT_GROUP_MEMBERS'
 
+export const REQUEST_GROUP_DEBTS = 'REQUEST_GROUP_DEBTS'
+export const RECEIVE_GROUP_DEBTS = 'RECEIVE_GROUP_DEBTS'
+export const REJECT_GROUP_DEBTS = 'REJECT_GROUP_DEBTS'
+
 export const REQUEST_CURRENT_USER = 'REQUEST_CURRENT_USER'
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER'
 
@@ -67,6 +71,10 @@ export default {
   requestGroupBills: id => ({ type: REQUEST_GROUP_BILLS, id }),
   receiveGroupBills: bills => ({ type: RECEIVE_GROUP_BILLS, bills }),
   rejectGroupBills: error => ({ type: REJECT_GROUP_BILLS, error }),
+
+  requestGroupDebts: id => ({ type: REQUEST_GROUP_DEBTS, id }),
+  receiveGroupDebts: (debts, groupId) => ({ type: RECEIVE_GROUP_DEBTS, debts, groupId }),
+  rejectGroupDebts: error => ({ type: REJECT_GROUP_DEBTS, error }),
 
   requestSignUpToGroup: group => ({ type: REQUEST_SIGN_UP_TO_GROUP, group }),
   receiveSignUpToGroup: group => ({ type: RECEIVE_SIGN_UP_TO_GROUP, group }),

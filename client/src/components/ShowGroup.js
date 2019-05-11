@@ -8,20 +8,24 @@ import Spinner from './Spinner'
 
 const mapStateToProps = ({ groups }) => ({ groups })
 
-const mapDispatchToProps = dispatch => ({
-  requestGroupMembers: id => dispatch(actions.requestGroupMembers(id)),
-  requestGroupBills: id => dispatch(actions.requestGroupBills(id)),
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  requestGroupMembers: () => dispatch(actions.requestGroupMembers(ownProps.match.params.id)),
+  requestGroupBills: () => dispatch(actions.requestGroupBills(ownProps.match.params.id)),
+  requestGroupDebts: () => dispatch(actions.requestGroupDebts(ownProps.match.params.id)),
 })
 
 const ShowGroup = ({
   match,
   requestGroupMembers,
   requestGroupBills,
+  requestGroupDebts,
   groups,
+  debts,
 }) => {
   useEffect(() => {
-    requestGroupMembers(match.params.id)
-    requestGroupBills(match.params.id)
+    requestGroupMembers()
+    requestGroupBills()
+    requestGroupDebts()
   }, [])
 
   const group = groups[match.params.id]
