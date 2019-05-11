@@ -6,6 +6,7 @@ import user from '../app/controllers/user'
 import passport from 'passport'
 import express from 'express'
 import me from '../app/controllers/me'
+import debt from '../app/controllers/debt'
 
 const crud = (app, endpoints) => {
   endpoints.forEach(endpoint => {
@@ -19,6 +20,7 @@ export default app => {
   crud(app, user)
   crud(app, bill)
   crud(app, member)
+  crud(app, debt)
 
   app.get('/api/v1/me', me)
   app.get('/api/v1/sign-out', (req, res) => {

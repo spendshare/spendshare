@@ -4,43 +4,21 @@ import { shortenName } from '../utils'
 import { currency } from '../config'
 import { connect } from 'react-redux'
 
-const getDebts = (user, users, groupId) => {
-  const debts = {}
-  user.bills
-    .filter(bill => bill.groupId === groupId)
-    .forEach(bill => {
-      if (bill.paid.userId === user.id) return
-
-      const amount = bill.paid.amount / bill.participants.length
-      if (debts[bill.paid.userId]) {
-        debts[bill.paid.userId].amount += amount
-      } else {
-        debts[bill.paid.userId] = {
-          whom: users[bill.paid.userId].name,
-          amount: amount,
-        }
-      }
-    })
-
-  return Object.values(debts)
-}
-
 const mapStateToProps = state => ({ users: state.users.all })
 
-const Tooltip = ({ user, users, groupId }) => {
-  const debts = getDebts(user, users, groupId)
-  if (debts.length === 0) return null
+const Tooltip = ({ user, users, groupId, debts }) => {
+  if (!debts || debts.length === 0) return null
 
   return (
     <div className={styles.tooltip}>
       <div className={styles.content}>
         {debts.map(d => (
-          <div key={`${d.whom}_${d.amount}`}>
+          <div key={`${users[d.whom].name}_${d.amount}`}>
             {d.amount < 0 ? 'gets back' : 'owes'}{' '}
             <span className={styles.highlight}>
-              {d.amount.toFixed(2)} {currency}
+              {Math.abs(d.amount).toFixed(2)} {currency}
             </span>{' '}
-            {d.amount < 0 ? 'from' : 'to'} {shortenName(d.whom)}
+            {d.amount < 0 ? 'from' : 'to'} {shortenName(users[d.whom].name)}
           </div>
         ))}
       </div>
