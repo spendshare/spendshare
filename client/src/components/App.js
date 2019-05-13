@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom'
 import styles from './App.module.scss'
 import Button from './Button'
 import actions from '../store/actions'
 import GroupSelect from './GroupSelect'
 import ShowGroup from './ShowGroup'
 import CurrentUserHandler from './CurrentUserHandler'
+import { BACKEND_URL } from '../utils'
 
 const Index = ({ currentUser }) => {
   return (
     <div className={styles.center}>
-      {currentUser  && <Redirect to="/groups"/>}
+      {currentUser && <Redirect to="/groups" />}
       <Button
         light
         onClick={() => {
-          window.location.href = 'http://localhost:3000/auth/google'
+          window.location.href = `${BACKEND_URL}/auth/google`
         }}
         title="Sign in with Google"
       />
@@ -23,16 +29,11 @@ const Index = ({ currentUser }) => {
   )
 }
 
-const EnhancedLogin = connect(
-  ({ users: { currentUser } }) => ({ currentUser }),
-)(Index)
+const EnhancedLogin = connect(({ users: { currentUser } }) => ({
+  currentUser,
+}))(Index)
 
-const NoContentHere = () => (
-  <div>
-    No content here
-  </div>
-)
-
+const NoContentHere = () => <div>No content here</div>
 
 const App = ({ fetchCurrentUser }) => {
   useEffect(fetchCurrentUser, [])

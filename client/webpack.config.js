@@ -82,5 +82,11 @@ module.exports = {
     new webpack.ProvidePlugin({
       fetch: 'whatwg-fetch',
     }),
+    new webpack.DefinePlugin({
+      __BACKEND_URL:
+        JSON.stringify(process.env.BACKEND_URL) || 'http://localhost:3000',
+      __FRONTEND_URL:
+        JSON.stringify(process.env.BACKEND_URL) || 'http://localhost:3000',
+    }),
   ],
 }

@@ -12,7 +12,8 @@
     "start": "cross-env NODE_ENV=development nodemon server.js --exec babel-node --presets @babel/preset-env",
     "test": "cross-env NODE_ENV=test babel-tape-runner test/test-*.js",
     "pretest": "eslint .",
-    "prod": "pm2-runtime start ecosystem.config.js --env production"
+    "prod": "pm2-runtime start ecosystem.config.js --env production",
+    "server-prod": "export FRONTEND_URL=http://spendshare.ml; export BACKEND_URL=http://spendshare.ml; babel-node./server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
