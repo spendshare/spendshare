@@ -142,9 +142,8 @@ const bills = (state = {}, action) => {
       return { ...state }
 
     case RECEIVE_ADD_BILL:
-      state[action.bill._id] = action.bill
       action.bill.id = action.bill._id
-      return { ...state }
+      return { [action.bill.id]:action.bill, ...state }
     default:
       return state
   }
