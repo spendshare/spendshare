@@ -19,6 +19,7 @@ import {
   RECEIVE_SIGN_UP_TO_GROUP,
   RECEIVE_GROUP_BILLS,
   RECEIVE_ADD_BILL,
+  RECEIVE_GROUP_DEBTS,
 } from './actions'
 
 const session = (
@@ -194,10 +195,24 @@ const groups = (state = {}, action) => {
   }
 }
 
+const groupsDebts = (state = {}, action) => {
+  switch (action.type) {
+    case RECEIVE_GROUP_DEBTS:
+      return {
+        ...state,
+        [action.groupId]: action.debts
+      }
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   session,
   users,
   bills,
   members,
   groups,
+  groupsDebts,
 })

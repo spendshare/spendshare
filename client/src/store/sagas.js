@@ -10,6 +10,7 @@ import actions, {
   REQUEST_GROUP_MEMBERS,
   REQUEST_CURRENT_USER,
   RECEIVE_ALL_USERS,
+  REQUEST_GROUP_DEBTS,
   REQUEST_SIGN_UP_TO_GROUP,
   REQUEST_GROUP_BILLS,
 } from './actions'
@@ -126,6 +127,20 @@ function* fetchGroupBills({ id }) {
   }
 }
 
+
+function* fetchGroupDebts({ id }) {
+  const { data, error } = yield call(
+    api.fetch,
+    api.endpoints.fetchGroupDebts(id)
+  )
+  if (!error) {
+    yield put(actions.receiveGroupDebts(data, id))
+  } else {
+    yield put(actions.rejectGroupBills(error))
+  }
+}
+
+
 function* fetchCurrentUser() {
   const data = yield call(api.fetch, api.endpoints.fetchCurrentUser())
   if (data && !data.error) {
@@ -153,6 +168,7 @@ export default function*() {
   yield takeEvery(REQUEST_GROUP_BILLS, fetchGroupBills)
   yield takeEvery(REQUEST_ALL_USERS, fetchAllUsers)
   yield takeEvery(REQUEST_ALL_GROUPS, fetchAllGroups)
+  yield takeEvery(REQUEST_GROUP_DEBTS, fetchGroupDebts)
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
   yield takeEvery(REQUEST_CURRENT_USER, fetchCurrentUser)
   yield takeEvery(REQUEST_SIGN_UP_TO_GROUP, fetchSignUpToGroup)

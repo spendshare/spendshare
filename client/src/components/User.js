@@ -4,17 +4,9 @@ import { currency } from '../config'
 import { getAvatar } from '../utils'
 import Tooltip from './Tooltip'
 
-const phraseBalance = (user, groupId) => {
+const phraseBalance = (user, debts) => {
   let balance = 0
-  user.bills
-    .filter(bill => bill.groupId === groupId)
-    .forEach(bill => {
-      if (bill.paid.userId === user.id) {
-        balance += bill.paid.amount
-      } else {
-        balance -= bill.paid.amount / bill.participants.length
-      }
-    })
+  debts.forEach(d => balance += d.amount)
 
   if (balance === 0) {
     return 'is settled up'
@@ -25,17 +17,17 @@ const phraseBalance = (user, groupId) => {
   }
 }
 
-export default ({ user, groupId }) => (
+export default ({ user, groupId, debts }) => (
   <div className={styles.user}>
     <div className={styles.avatar}>
       <img src={getAvatar(user)} />
     </div>
     <div className={styles.content}>
       <div className={styles.name}>{user.name}</div>
-      <div className={styles.state}>{phraseBalance(user, groupId)}</div>
+      <div className={styles.state}>{phraseBalance(user, debts || [])}</div>
     </div>
     <div className={styles['tooltip-wrapper']}>
-      <Tooltip user={user} groupId={groupId} />
+      <Tooltip user={user} debts={debts} groupId={groupId} />
     </div>
   </div>
 )
