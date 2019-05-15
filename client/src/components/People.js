@@ -6,12 +6,13 @@ import { getGroupUsers } from '../store/selectors'
 
 const mapStateToProps = (state, props) => ({
   users: getGroupUsers(state, props.groupId),
+  debts: state.groupsDebts[props.groupId]
 })
 
-const People = ({ users, groupId }) => (
+const People = ({ users, groupId, debts }) => (
   <div className={styles.people}>
     {users.map(u => (
-      <User key={u._id} groupId={groupId} user={u} />
+      <User key={u._id} groupId={groupId} debts={debts[u._id]} user={u} />
     ))}
   </div>
 )
