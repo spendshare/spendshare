@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
 const additive = bills => {
-  console.log(bills)
   const balances = {}
   const add = (who, whom, amount) => {
     if (!balances[who]) {
@@ -14,7 +13,6 @@ const additive = bills => {
     balances[whom].push({ whom: who, amount: -amount })
   }
   bills.forEach(b => {
-    console.log(b)
     const pl = b.participants.length
     b.participants.forEach(p => {
       add(p, b.paid.userId, b.paid.amount / pl)
