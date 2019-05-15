@@ -17,7 +17,7 @@ const phraseBalance = (user, debts) => {
   }
 }
 
-export default ({ user, groupId, debts }) => console.log(debts) || (
+export default ({ user, groupId, debts }) => (
   <div className={styles.user}>
     <div className={styles.avatar}>
       <img src={getAvatar(user)} />
