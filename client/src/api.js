@@ -1,12 +1,9 @@
 import 'whatwg-fetch'
 import store from './store/store'
+import { BACKEND_URL } from './utils'
 
-const protocol = 'http'
-const host = 'localhost'
-const port = 3000
 const version = 'v1'
-const url = endpoint =>
-  `${protocol}://${host}:${port}/api/${version}/${endpoint}`
+const url = endpoint => `${BACKEND_URL}/api/${version}/${endpoint}`
 
 export default {
   fetch: async endpoint => {

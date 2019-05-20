@@ -6,6 +6,7 @@ import user from '../app/controllers/user'
 import passport from 'passport'
 import express from 'express'
 import me from '../app/controllers/me'
+import { FRONTEND_URL } from '../config/host'
 
 const crud = (app, endpoints) => {
   endpoints.forEach(endpoint => {
@@ -34,11 +35,11 @@ export default app => {
   app.get(
     '/oauth',
     passport.authenticate('login', {
-      failureRedirect: 'http://localhost:8000/shrug',
+      failureRedirect: `${FRONTEND_URL}/shrug`,
     }),
     (req, res) => {
       req.session.token = req.user.token
-      res.redirect('http://localhost:8000/groups')
+      res.redirect(`${FRONTEND_URL}/groups`)
     }
   )
 

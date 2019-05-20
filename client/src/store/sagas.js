@@ -1,5 +1,5 @@
 import api from '../api'
-import { call, fork, take, put, takeEvery } from 'redux-saga/effects'
+import { call, fork, put, takeEvery } from 'redux-saga/effects'
 import actions, {
   REQUEST_SIGN_IN,
   REQUEST_SIGN_OUT,
@@ -9,16 +9,15 @@ import actions, {
   REQUEST_ALL_GROUPS,
   REQUEST_GROUP_MEMBERS,
   REQUEST_CURRENT_USER,
-  RECEIVE_ALL_USERS,
   REQUEST_SIGN_UP_TO_GROUP,
   REQUEST_GROUP_BILLS,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
-import { getLocalStorage } from '../utils'
+import { getLocalStorage, FRONTEND_URL } from '../utils'
 
 function redirectToMainPageIfNeeded() {
-  if (window.location.href !== 'http://localhost:8000/') {
-    window.location.href = 'http://localhost:8000/'
+  if (window.location.href !== FRONTEND_URL) {
+    window.location.href = FRONTEND_URL
   }
 }
 

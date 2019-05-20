@@ -65,3 +65,6 @@ export const getAvatar = user =>
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 export const noop = () => {}
+
+export const FRONTEND_URL = __FRONTEND_URL || 'localhost:8000'
+export const BACKEND_URL = __BACKEND_URL || 'localhost:3000'

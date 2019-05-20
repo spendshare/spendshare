@@ -18,6 +18,7 @@ import winston from 'winston'
 import helpers from 'view-helpers'
 import config from './'
 import pkg from '../package.json'
+import { FRONTEND_URL } from '../config/host'
 
 const env = process.env.NODE_ENV || 'development'
 
@@ -32,7 +33,7 @@ export default function(app, passport) {
   )
 
   app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8000')
+    res.header('Access-Control-Allow-Origin', FRONTEND_URL)
     res.header(
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept, authorization'

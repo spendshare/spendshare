@@ -13,7 +13,7 @@ export default passport =>
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:3000/oauth',
+        callbackURL: `${BACKEND_URL}/oauth`,
       },
       (_accessToken, _refreshToken, profile, done) => {
         const User = mongoose.model('User')

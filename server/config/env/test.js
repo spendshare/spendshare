@@ -3,13 +3,13 @@ export default {
   facebook: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',
-    callbackURL: 'http://localhost:3000/auth/facebook/callback',
+    // callbackURL: `${BACKEND_URL}/auth/facebook/callback`,
     scope: ['email', 'user_about_me', 'user_friends'],
   },
   google: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',
-    callbackURL: 'http://localhost:3000/auth/google/callback',
+    // callbackURL: `${BACKEND_URL}/auth/google/callback`,
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const all = async (req, res) => {
+const all = async (_, res) => {
   const Group = mongoose.model('Group')
   const groups = await Group.find({})
   res.json({ data: groups })
