@@ -47,6 +47,10 @@ export default {
       method: 'POST',
       data: params,
     }),
+    fetchGroupDebts: groupId => ({
+      path: url(`group/${groupId}/debts/all`),
+      method: 'GET',
+    }),
     allGroups: () => ({
       path: url('group/all'),
       method: 'GET',
