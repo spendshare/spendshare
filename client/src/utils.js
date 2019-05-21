@@ -66,5 +66,11 @@ export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 export const noop = () => {}
 
-export const FRONTEND_URL = __FRONTEND_URL || 'localhost:8000'
-export const BACKEND_URL = __BACKEND_URL || 'localhost:3000'
+export const FRONTEND_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:8000'
+    : 'http://spendshare.ml'
+export const BACKEND_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'http://spendshare.ml'
