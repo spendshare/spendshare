@@ -47,7 +47,7 @@ export default app => {
   )
 
   app.use('/api/v1', router),
-    app.use((err, req, res, next) => {
+    app.use((err, _, res, next) => {
       // treat as 404
       if (
         err.message &&

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+import { BACKEND_URL } from '../host'
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 
 // Use the GoogleStrategy within Passport.

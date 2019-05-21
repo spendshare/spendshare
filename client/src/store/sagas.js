@@ -17,7 +17,7 @@ import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage, FRONTEND_URL } from '../utils'
 
 function redirectToMainPageIfNeeded() {
-  if (window.location.href !== FRONTEND_URL) {
+  if (!new RegExp(`^${FRONTEND_URL}/?$`).test(window.location.href)) {
     window.location.href = FRONTEND_URL
   }
 }
