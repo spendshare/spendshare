@@ -17,9 +17,13 @@ public final class Server
     public static void main(final String... args) throws Exception
     {
         int input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
-        int[][] result;
-        result = {};
-        result[0] = {};
+        int inputLength = input.length;
+        GRBEnv[][] result = new GRBEnv[inputLength][inputLength];
+        for (GRBEnv[] res: result) {
+            for (int i = 0; i < res.length; i++) {
+                res[i] = new GRBEnv();
+            }
+        }
 
         System.out.println("XXX");
         GRBEnv env = new GRBEnv();
