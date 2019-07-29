@@ -22,16 +22,23 @@ public final class Server
 
         int input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
         int inputLength = input.length;
+        GRBLinExpr[] eqExprs = new GRBLinExpr[inputLength];
         GRBVar[][] result = new GRBVar[inputLength][inputLength];
         GRBVar[][] isExisting = new GRBVar[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
+            eqExprs[i] = new GRBLinExpr();
             for (int j = 0; j < result[i].length; j++) {
-                result[i][j] = model.addVar(-100, 100, 0.0, GRB.CONTINUOUS, "res-" + i + "-" + j);
-                isExisting[i][j] = model.addVar(0.0, 1.0, 0.0, GRB.BINARY, "is-used-" + i + "-" + j);
+                GRBVar x = model.addVar(-100, 100, 0.0, GRB.CONTINUOUS, "res-" + i + "-" + j);
+                result[i][j] = x;
+                GRBVar isExistingVar = model.addVar(0.0, 1.0, 0.0, GRB.BINARY, "is-used-" + i + "-" + j);
+                isExisting[i][j] = isExistingVar;
+                eqExprs[i].addTerm(1.0, x);
             }
+            eqExprs[i] =
         }
 
-        expr = new GRBLinExpr();
+        GRBLinExpr expr = new GRBLinExpr();
+
         expr.addTerm(1.0, x); expr.addTerm(2.0, y); expr.addTerm(3.0, z);
         model.addConstr(expr, GRB.LESS_EQUAL, 4.0, "c0");
 
