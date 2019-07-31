@@ -19,13 +19,15 @@ public final class Server
         GRBEnv env = new GRBEnv();
         GRBModel model = new GRBModel(env);
 
-        int input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
+        double input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
         int inputLength = input.length;
         GRBLinExpr[] eqExprs = new GRBLinExpr[inputLength];
+        GRBQuadExpr[] eqExprs2 = new GRBQuadExpr[inputLength];
         GRBVar[][] result = new GRBVar[inputLength][inputLength];
         GRBVar[][] isExisting = new GRBVar[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
             eqExprs[i] = new GRBLinExpr();
+            eqExprs2[i] = new GRBQuadExpr();
             for (int j = 0; j < result[i].length; j++) {
                 GRBVar x = model.addVar(-100, 100, 0.0, GRB.CONTINUOUS, "res-" + i + "-" + j);
                 result[i][j] = x;
@@ -39,14 +41,26 @@ public final class Server
 
                 }
                 eqExprs[i].addTerm(1.0, x);
+                eqExprs2[i].addTerm(1.0, isExistingVar, x);
             }
             model.addConstr(eqExprs[i], GRB.EQUAL, input[i], "ea-user-" + i);
         }
 
+        GRBLinExpr minimize = new GRBLinExpr();
+
+        for (int i = 0; i < isExisting.length; i++) {
+            for (int j = 0; j < isExisting[i].length; j++) {
+                minimize.addTerm(1.0, isExisting[i][j]);
+            }
+        }
+        model.setObjective(minimize, GRB);
+
         model.optimize();
 
 
-          double[][] res = new double[inputLength][inputLength];
+
+
+        double[][] res = new double[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
                 res[i][j] = result[i][j].get(GRB.DoubleAttr.X);
@@ -55,7 +69,6 @@ public final class Server
 
         model.dispose();
         env.dispose();
-
 
         System.out.println("XX");
 
