@@ -44,6 +44,15 @@ public final class Server
         }
 
         model.optimize();
+
+
+          double[][] res = new double[inputLength][inputLength];
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                res[i][j] = result[i][j].get(GRB.DoubleAttr.X);
+            }
+        }
+
         model.dispose();
         env.dispose();
 
