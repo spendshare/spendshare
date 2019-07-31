@@ -17,8 +17,7 @@ public final class Server
     public static void main(final String... args) throws Exception
     {
         GRBEnv env = new GRBEnv();
-        GRBModel model = new GRBModel(env, args[0]);
-        model.optimize();
+        GRBModel model = new GRBModel(env);
 
         int input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
         int inputLength = input.length;
@@ -32,17 +31,24 @@ public final class Server
                 result[i][j] = x;
                 GRBVar isExistingVar = model.addVar(0.0, 1.0, 0.0, GRB.BINARY, "is-used-" + i + "-" + j);
                 isExisting[i][j] = isExistingVar;
+                if (result[j][i] != null) {
+                    GRBLinExpr eq = new GRBLinExpr();
+                    eq.addTerm(1.0, x);
+                    eq.addTerm(-1.0, result[j][i]);
+                    model.addConstr(eq, GRB.EQUAL, 0, "eq-array-" + i + '-' +'j');
+
+                }
                 eqExprs[i].addTerm(1.0, x);
             }
-            eqExprs[i] =
+            model.addConstr(eqExprs[i], GRB.EQUAL, input[i], "ea-user-" + i);
         }
 
-        GRBLinExpr expr = new GRBLinExpr();
+        model.optimize();
+        model.dispose();
+        env.dispose();
 
-        expr.addTerm(1.0, x); expr.addTerm(2.0, y); expr.addTerm(3.0, z);
-        model.addConstr(expr, GRB.LESS_EQUAL, 4.0, "c0");
 
-
+        System.out.println("XX");
 
 
 
