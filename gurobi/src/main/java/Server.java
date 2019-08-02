@@ -44,6 +44,7 @@ public final class Server
                 eqExprs2[i].addTerm(1.0, isExistingVar, x);
             }
             model.addConstr(eqExprs[i], GRB.EQUAL, input[i], "ea-user-" + i);
+            model.addQConstr()
         }
 
         GRBLinExpr minimize = new GRBLinExpr();
@@ -53,7 +54,7 @@ public final class Server
                 minimize.addTerm(1.0, isExisting[i][j]);
             }
         }
-        model.setObjective(minimize, GRB);
+        model.setObjective(minimize, GRB.MINIMIZE);
 
         model.optimize();
 
@@ -63,7 +64,7 @@ public final class Server
         double[][] res = new double[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
-                res[i][j] = result[i][j].get(GRB.DoubleAttr.X);
+                res[i][j] = result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X);
             }
         }
 
