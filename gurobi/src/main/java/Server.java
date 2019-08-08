@@ -29,6 +29,9 @@ public final class Server
             eqExprs[i] = new GRBLinExpr();
             eqExprs2[i] = new GRBQuadExpr();
             for (int j = 0; j < result[i].length; j++) {
+                if(i == j) {
+                    continue;
+                }
                 GRBVar x = model.addVar(-100, 100, 0.0, GRB.CONTINUOUS, "res-" + i + "-" + j);
                 result[i][j] = x;
                 GRBVar isExistingVar = model.addVar(0.0, 1.0, 0.0, GRB.BINARY, "is-used-" + i + "-" + j);
@@ -38,19 +41,26 @@ public final class Server
                     eq.addTerm(1.0, x);
                     eq.addTerm(-1.0, result[j][i]);
                     model.addConstr(eq, GRB.EQUAL, 0, "eq-array-" + i + '-' +'j');
+                    GRBLinExpr eqi = new GRBLinExpr();
+                    eqi.addTerm(1.0, isExistingVar);
+                    eqi.addTerm(-1.0, isExisting[j][i]);
+                    model.addConstr(eqi, GRB.EQUAL, 0, "eq-ex-array-" + i + '-' +'j');
 
                 }
                 eqExprs[i].addTerm(1.0, x);
                 eqExprs2[i].addTerm(1.0, isExistingVar, x);
             }
-            model.addConstr(eqExprs[i], GRB.EQUAL, input[i], "ea-user-" + i);
-            model.addQConstr()
+            //model.addConstr(eqExprs[i], GRB.EQUAL, input[i], "ea-user-" + i);
+            model.addQConstr(eqExprs2[i], GRB.EQUAL, input[i], "ea-user-" + i);
         }
 
         GRBLinExpr minimize = new GRBLinExpr();
 
         for (int i = 0; i < isExisting.length; i++) {
             for (int j = 0; j < isExisting[i].length; j++) {
+                if(i == j) {
+                    continue;
+                }
                 minimize.addTerm(1.0, isExisting[i][j]);
             }
         }
@@ -64,6 +74,9 @@ public final class Server
         double[][] res = new double[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
+                if(i == j) {
+                    continue;
+                }
                 res[i][j] = result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X);
             }
         }
