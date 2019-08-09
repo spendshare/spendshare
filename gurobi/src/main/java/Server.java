@@ -39,7 +39,7 @@ public final class Server
                 if (result[j][i] != null) {
                     GRBLinExpr eq = new GRBLinExpr();
                     eq.addTerm(1.0, x);
-                    eq.addTerm(-1.0, result[j][i]);
+                    eq.addTerm(1.0, result[j][i]);
                     model.addConstr(eq, GRB.EQUAL, 0, "eq-array-" + i + '-' +'j');
                     GRBLinExpr eqi = new GRBLinExpr();
                     eqi.addTerm(1.0, isExistingVar);
@@ -78,6 +78,9 @@ public final class Server
                     continue;
                 }
                 res[i][j] = result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X);
+                if (res[i][j] > 0) {
+                    System.out.println(i + " needs to give " + j + " " + res[i][j]);
+                }
             }
         }
 
