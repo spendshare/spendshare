@@ -9,6 +9,7 @@ import actions, {
     REQUEST_SIGN_IN,
     REQUEST_SIGN_OUT,
     REQUEST_ADD_BILL,
+    REQUEST_ALL_USERS,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
 import { getLocalStorage } from '../utils'
@@ -33,7 +34,7 @@ function* processSignIn() {
 }
 
 function* processSignOut() {
-    const response = yield call(api.fetch, api.endpoints.signOut())
+    const response = yield call(api.fetch, api.endpoints.signOut)
     if (response.error) console.error(response.error)
     yield put(actions.receiveSignOut())
 }
@@ -47,9 +48,21 @@ function* processAddBill(action) {
     }
 }
 
+function* processFetchAllUsers() {
+    const users = yield call(api.fetch, api.endpoints.allUsers)
+    if (users && !users.error) {
+        // FIXME
+        yield put(actions.receiveAllUsers(users.data.map(u => ({ ...u, balance: 0 }))))
+    } else {
+        yield put(actions.rejectAllUsers)
+
+    }
+}
+
 export default function* () {
     yield fork(loadLocalStorage)
     yield takeEvery(REQUEST_SIGN_IN, processSignIn)
     yield takeEvery(REQUEST_SIGN_OUT, processSignOut)
     yield takeEvery(REQUEST_ADD_BILL, processAddBill)
+    yield takeEvery(REQUEST_ALL_USERS, processFetchAllUsers)
 }

@@ -31,14 +31,18 @@ export default {
             method: 'POST',
             data: token,
         }),
-        signOut: () => ({
+        signOut: {
             path: url('session'),
             method: 'DELETE',
-        }),
+        },
         addBill: params => ({
             path: url('bill'),
             method: 'POST',
             data: params,
-        })
+        }),
+        allUsers: {
+            path: url('users'),
+            method: 'GET',
+        }
     },
 }
