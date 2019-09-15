@@ -9,6 +9,7 @@ import org.takes.facets.fork.TkFork;
 import org.takes.rs.RsJson;
 import javax.json.Json;
 import java.io.IOException;
+import junit.framework.*;
 import java.util.ArrayList;
 
 public final class Server
@@ -114,5 +115,22 @@ class TkIndex implements Take {
             e.printStackTrace();
         }
         return null;
+    }
+}
+
+
+
+
+public class Test {
+
+    @Test
+    public void shouldHaveProperErrorMessage() {
+        try {
+            new Range(20, 10);
+            fail("Exception wasn't thrown!");
+        }
+        catch (IllegalArgumentException exception) {
+            assertEquals("lowerBound is bigger than upperBound!", exception.getMessage());
+        }
     }
 }
