@@ -11,16 +11,40 @@ import javax.json.Json;
 import java.io.IOException;
 import junit.framework.*;
 import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+class SolverTest {
+    private static double[][] safeCompute(double input[]) {
+        try {
+            return Server.compute(input);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Test
+    public void evaluatesSimpleExpression() {
+        double input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
+        double res[][] = safeCompute(input);
+        assertEquals(res, 6);
+    }
+}
 
 public final class Server
 {
 
-    public static void main(final String... args) throws Exception
+    public static void main(final String... args) throws Exception {
+
+
+    }
+
+    static double[][] compute(double input[]) throws Exception
     {
         GRBEnv env = new GRBEnv();
         GRBModel model = new GRBModel(env);
 
-        double input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
         int inputLength = input.length;
         GRBLinExpr[] eqExprs = new GRBLinExpr[inputLength];
         GRBQuadExpr[] eqExprs2 = new GRBQuadExpr[inputLength];
@@ -76,27 +100,16 @@ public final class Server
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
                 if(i == j) {
-                    continue;
+                    res[i][j] = 0;
                 }
                 res[i][j] = result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X);
-                if (res[i][j] > 0) {
-                    System.out.println(i + " needs to give " + j + " " + res[i][j]);
-                }
             }
         }
 
         model.dispose();
         env.dispose();
 
-        System.out.println("XX");
-
-
-
-//        System.out.println("XXX");
-//        GRBEnv env = new GRBEnv();
-//        new FtBasic(
-//                new TkFork(new FkRegex("/", new TkIndex())), 8080
-//        ).start(Exit.NEVER);
+        return res;
     }
 
 }
@@ -119,18 +132,3 @@ class TkIndex implements Take {
 }
 
 
-
-
-public class Test {
-
-    @Test
-    public void shouldHaveProperErrorMessage() {
-        try {
-            new Range(20, 10);
-            fail("Exception wasn't thrown!");
-        }
-        catch (IllegalArgumentException exception) {
-            assertEquals("lowerBound is bigger than upperBound!", exception.getMessage());
-        }
-    }
-}
