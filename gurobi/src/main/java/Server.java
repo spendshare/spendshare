@@ -2,41 +2,15 @@ import gurobi.*;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
-import org.takes.http.Exit;
-import org.takes.http.FtBasic;
-import org.takes.facets.fork.FkRegex;
-import org.takes.facets.fork.TkFork;
 import org.takes.rs.RsJson;
 import javax.json.Json;
 import java.io.IOException;
-import junit.framework.*;
-import java.util.ArrayList;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
-class SolverTest {
-//    private static double[][] safeCompute(double input[]) {
-//        try {
-//            return Server.compute(input);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
-    @Test
-    public void evaluatesSimpleExpression() {
-//        double input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
-//        double res[][] = safeCompute(input);
-        // assertEquals(res, 6);
-    }
-}
 
 public final class Server
 {
 
     public static void main(final String... args) throws Exception {
-
 
     }
 
@@ -75,7 +49,6 @@ public final class Server
                 eqExprs[i].addTerm(1.0, x);
                 eqExprs2[i].addTerm(1.0, isExistingVar, x);
             }
-            //model.addConstr(eqExprs[i], GRB.EQUAL, input[i], "ea-user-" + i);
             model.addQConstr(eqExprs2[i], GRB.EQUAL, input[i], "ea-user-" + i);
         }
 
@@ -99,10 +72,14 @@ public final class Server
         double[][] res = new double[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
-                if(i == j) {
+                if (i == j) {
                     res[i][j] = 0;
+                    continue;
                 }
                 res[i][j] = result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X);
+                if (res[i][j] == -0.0) {
+                    res[i][j] = 0.0;
+                }
             }
         }
 
