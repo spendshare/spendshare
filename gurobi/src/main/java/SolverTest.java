@@ -1,11 +1,13 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class SolverTest {
-    public SolverTest() { }
+    public SolverTest() {
 
-    private double[][] safeCompute(double input[]) {
+    }
+
+    private static double[][] safeCompute(double input[]) {
         try {
             return Server.compute(input);
         } catch (Exception e) {
@@ -15,23 +17,10 @@ public class SolverTest {
     }
 
     @Test
-    public void evaluatesSimpleExpression() {
-        double[] input = {10, 40, -30, 16, 45, -65, 56, -70, -2};
-        double[][] res = safeCompute(input);
-        System.out.println("{");
+    public void evaluatesSimpleExpression () {
+        double input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
+        double res[][] = safeCompute(input);
 
-        double[][] expected = {
-            {0.0, -40.0, 30.0, 0.0, 0.0, 20.0, 0.0, 0.0, 0.0,},
-            { 40.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,},
-            {-30.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,},
-            {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 16.0, 0.0,},
-            {0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0, 0.0, 0.0,},
-            {-20.0, 0.0, 0.0, 0.0, -45.0, 0.0, 0.0, 0.0, 0.0,},
-            {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 56.0,},
-            {0.0, 0.0, 0.0, -16.0, 0.0, 0.0, 0.0, 0.0, -54.0,},
-            {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -56.0, 54.0, 0.0,},
-        };
-
-        assertArrayEquals(res, expected);
+        assertEquals(res, 6);
     }
 }
