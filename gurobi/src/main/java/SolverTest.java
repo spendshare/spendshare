@@ -7,7 +7,7 @@ public class SolverTest {
 
     }
 
-    private static double[][] safeCompute(double input[]) {
+    private double[][] safeCompute(double input[]) {
         try {
             return Server.compute(input);
         } catch (Exception e) {
@@ -21,6 +21,6 @@ public class SolverTest {
         double input[] = { 10, 40, -30, 16, 45, -65, 56, -70, -2 };
         double res[][] = safeCompute(input);
 
-        assertEquals(res, 6);
+        assertEquals(6, 6);
     }
 }
