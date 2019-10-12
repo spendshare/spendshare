@@ -28,7 +28,7 @@ public final class Server
 
     }
 
-    static double[][] compute(double input[]) throws Exception
+    static long[][] compute(double input[]) throws Exception
     {
         GRBEnv env = new GRBEnv();
         GRBModel model = new GRBModel(env);
