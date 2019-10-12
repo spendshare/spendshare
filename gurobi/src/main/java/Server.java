@@ -91,9 +91,6 @@ public final class Server
                     continue;
                 }
                 res[i][j] = Math.round(result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X));
-                if (res[i][j] == -0) {
-                    res[i][j] = 0;
-                }
             }
         }
 
