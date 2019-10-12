@@ -1,0 +1,17 @@
+{
+  "apps": [
+    {
+      "name": "spendshare-server",
+      "script": "./server.js",
+      "exec_interpreter": "babel-node",
+      "env": {
+        "NODE_ENV": "production",
+        "FRONTEND_URL": "http://spendshare.ml",
+        "SERVER_URL": "http://spendshare.ml",
+        "BIG_DATA": "YES",
+	"GOOGLE_CLIENT_ID": null,
+	"GOOGLE_CLIENT_SECRET": null
+      }
+    }
+  ]
+}
