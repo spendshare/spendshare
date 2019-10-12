@@ -5,7 +5,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class SolverTest {
     public SolverTest() { }
 
-    private double[][] safeCompute(double input[]) {
+    private long[][] safeCompute(double input[]) {
         try {
             return Server.compute(input);
         } catch (Exception e) {
@@ -17,19 +17,27 @@ public class SolverTest {
     @Test
     public void evaluatesSimpleExpression() {
         double[] input = {10, 40, -30, 16, 45, -65, 56, -70, -2};
-        double[][] res = safeCompute(input);
-        System.out.println("{");
+        long[][] res = safeCompute(input);
+        for (long[] r1: res) {
+            System.out.println("{");
+            for (long r2: r1) {
+                System.out.print(r2);
+                System.out.print(", ");
 
-        double[][] expected = {
-                {0.0, -40.0, 30.0, 0.0, 0.0, 20.0, 0.0, 0.0, 0.0,},
-                { 40.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,},
-                {-30.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,},
-                {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 16.0, 0.0,},
-                {0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0, 0.0, 0.0,},
-                {-20.0, 0.0, 0.0, 0.0, -45.0, 0.0, 0.0, 0.0, 0.0,},
-                {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 56.0,},
-                {0.0, 0.0, 0.0, -16.0, 0.0, 0.0, 0.0, 0.0, -54.0,},
-                {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -56.0, 54.0, 0.0,},
+            }
+            System.out.println("},");
+        }
+
+        long[][] expected = {
+            {0, -40, 0, 0, -45, 95, 0, 0, 0,},
+            {40, 0, 0, 0, 0, 0, 0, 0, 0,},
+            {0, 0, 0, 0, 0, -30, 0, 0, 0,},
+            {0, 0, 0, 0, 0, 0, 0, 0, 16,},
+            {45, 0, 0, 0, 0, 0, 0, 0, 0,},
+            {-95, 0, 30, 0, 0, 0, 0, 0, 0,},
+            {0, 0, 0, 0, 0, 0, 0, 0, 56,},
+            {0, 0, 0, 0, 0, 0, 0, 0, -70,},
+            {0, 0, 0, -16, 0, 0, -56, 70, 0,}
         };
 
         assertArrayEquals(res, expected);
