@@ -45,7 +45,7 @@ public final class Server
                 if(i == j) {
                     continue;
                 }
-                GRBVar x = model.addVar(-100, 100, 0.0, GRB.CONTINUOUS, "res-" + i + "-" + j);
+                GRBVar x = model.addVar(-10000, 10000, 0.0, GRB.INTEGER, "res-" + i + "-" + j);
                 result[i][j] = x;
                 GRBVar isExistingVar = model.addVar(0.0, 1.0, 0.0, GRB.BINARY, "is-used-" + i + "-" + j);
                 isExisting[i][j] = isExistingVar;
