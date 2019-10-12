@@ -1,16 +1,30 @@
+import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import gurobi.*;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
+import org.takes.facets.fork.FkRegex;
+import org.takes.facets.fork.TkFork;
+import org.takes.http.Exit;
+import org.takes.http.FtBasic;
+import org.takes.rq.RqPrint;
 import org.takes.rs.RsJson;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public final class Server
 {
 
     public static void main(final String... args) throws Exception {
+        new FtBasic(
+                new TkFork(new FkRegex("/", new TkIndex())), 8080
+        ).start(Exit.NEVER);
 
     }
 
@@ -88,7 +102,58 @@ public final class Server
 
         return res;
     }
+}
 
+class Balance {
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("value")
+    @Expose
+    private double value;
+
+    public double getValue() {
+        return value;
+    }
+
+    public String getId() {
+        return id;
+    }
+}
+
+class Dislike {
+    @SerializedName("a")
+    @Expose
+    private String a;
+    @SerializedName("b")
+    @Expose
+    private double b;
+
+    public String getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+}
+
+class Req {
+    @SerializedName("balances")
+    @Expose
+    private Balance[] balances;
+
+    @SerializedName("dislikes")
+    @Expose
+    private Balance[] dislikes;
+
+    public Balance[] getBalances() {
+        return balances;
+    }
+
+    public Balance[] getDislikes() {
+        return dislikes;
+    }
 }
 
 
@@ -96,12 +161,37 @@ class TkIndex implements Take {
     @Override
     public Response act(final Request request) {
         try {
-            return new RsJson(
-                    Json.createObjectBuilder()
-                            .add("balance", "10")
-                            .build()
-            );
-        } catch (IOException e) {
+            final String body = new RqPrint(request).printBody();
+            Gson gson = new Gson();
+            Req req = gson.fromJson(body, Req.class);
+            Balance[] balances = req.getBalances();
+            double plainBalances[] = new double[balances.length];
+            for (int i = 0; i < balances.length; i++) {
+                plainBalances[i] = balances[i].getValue();
+            }
+
+            double[][] res = Server.compute(plainBalances);
+
+            JsonArrayBuilder jsonBuilder = Json.createArrayBuilder();
+
+            for (int i = 0; i < res.length; i++) {
+                for (int j = 0; j < res[i].length; j++) {
+                    if (res[i][j] > 0) {
+                        jsonBuilder.add(
+                                Json.createObjectBuilder()
+                                        .add("who", balances[i].getId())
+                                        .add("whom", balances[j].getId())
+                                        .add("what", res[i][j])
+                                        .build()
+                        );
+                    }
+                }
+            }
+
+
+
+            return new RsJson(jsonBuilder.build());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
