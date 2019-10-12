@@ -170,7 +170,7 @@ class TkIndex implements Take {
                 plainBalances[i] = balances[i].getValue();
             }
 
-            double[][] res = Server.compute(plainBalances);
+            long[][] res = Server.compute(plainBalances);
 
             JsonArrayBuilder jsonBuilder = Json.createArrayBuilder();
 
