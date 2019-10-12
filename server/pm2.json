@@ -9,8 +9,8 @@
         "FRONTEND_URL": "http://spendshare.ml",
         "SERVER_URL": "http://spendshare.ml",
         "BIG_DATA": "YES",
-	"GOOGLE_CLIENT_ID": null,
-	"GOOGLE_CLIENT_SECRET": null
+        "GOOGLE_CLIENT_ID": null,
+        "GOOGLE_CLIENT_SECRET": null
       }
     }
   ]
