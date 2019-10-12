@@ -3,6 +3,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 
 public class SolverTest {
+    public SolverTest() { }
+
     private double[][] safeCompute(double input[]) {
         try {
             return Server.compute(input);
