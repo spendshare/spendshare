@@ -83,16 +83,16 @@ public final class Server
 
 
 
-        double[][] res = new double[inputLength][inputLength];
+        long[][] res = new long[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
                 if (i == j) {
                     res[i][j] = 0;
                     continue;
                 }
-                res[i][j] = result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X);
-                if (res[i][j] == -0.0) {
-                    res[i][j] = 0.0;
+                res[i][j] = Math.round(result[i][j].get(GRB.DoubleAttr.X) * isExisting[i][j].get(GRB.DoubleAttr.X));
+                if (res[i][j] == -0) {
+                    res[i][j] = 0;
                 }
             }
         }
