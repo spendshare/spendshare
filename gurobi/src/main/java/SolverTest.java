@@ -18,15 +18,6 @@ public class SolverTest {
     public void evaluatesSimpleExpression() {
         double[] input = {10, 40, -30, 16, 45, -65, 56, -70, -2};
         long[][] res = safeCompute(input);
-        for (long[] r1: res) {
-            System.out.println("{");
-            for (long r2: r1) {
-                System.out.print(r2);
-                System.out.print(", ");
-
-            }
-            System.out.println("},");
-        }
 
         long[][] expected = {
             {0, -40, 0, 0, -45, 95, 0, 0, 0,},
