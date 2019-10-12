@@ -13,3 +13,7 @@
 `config.js` – all global constants
 
 `utils.js` – any handy functions, one liners etc. that don't belong anywhere else
+
+## Encountered problems
+
+[webpack#8641](https://github.com/webpack/webpack/issues/8641)
