@@ -61,10 +61,10 @@ public final class Server {
       model.addQConstr(eqExprs2[i], GRB.EQUAL, input[i], "ea-user-" + i);
     }
 
-    for (int i = 0; i < dislikes.length; i++) {
+    for (int[] dislike : dislikes) {
       GRBLinExpr expr = new GRBLinExpr();
-      expr.addTerm(1.0, isExisting[dislikes[i][0]][dislikes[i][1]]);
-      model.addConstr(expr, GRB.EQUAL, 0, "dislike" + dislikes[i][0] + '-' + dislikes[i][1]);
+      expr.addTerm(1.0, isExisting[dislike[0]][dislike[1]]);
+      model.addConstr(expr, GRB.EQUAL, 0, "dislike" + dislike[0] + '-' + dislike[1]);
     }
 
     GRBLinExpr minimize = new GRBLinExpr();
@@ -162,13 +162,13 @@ class TkIndex implements Take {
       Req req = gson.fromJson(body, Req.class);
       Balance[] balances = req.getBalances();
       Dislike[] dislikes = req.getDislikes();
-      double plainBalances[] = new double[balances.length];
+      double[] plainBalances = new double[balances.length];
       for (int i = 0; i < balances.length; i++) {
         plainBalances[i] = balances[i].getValue();
       }
 
 
-      int plainDislikes[][] = new int[dislikes.length][2];
+      int[][] plainDislikes = new int[dislikes.length][2];
 
       for (int i = 0; i < dislikes.length; i++) {
         int a = -1;
