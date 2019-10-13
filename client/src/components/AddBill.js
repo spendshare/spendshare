@@ -107,9 +107,6 @@ const AddBill = ({ users, dispatch, hide }) => {
                             />
                             {' '}and split{' '}
               equally
-                            {/* <DropdownSelector
-                title={splittingWay}
-              /> */}
                         </div>
                         <div className="descriptive">
               in group{' '}
