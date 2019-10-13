@@ -28,7 +28,7 @@ public final class Server
 
     }
 
-    static long[][] compute(double input[]) throws Exception
+    static long[][] compute(double[] input, int[][] dislikes) throws Exception
     {
         GRBEnv env = new GRBEnv();
         GRBModel model = new GRBModel(env);
@@ -66,11 +66,17 @@ public final class Server
             model.addQConstr(eqExprs2[i], GRB.EQUAL, input[i], "ea-user-" + i);
         }
 
+        for (int i = 0; i < dislikes.length; i++) {
+            GRBLinExpr expr = new GRBLinExpr();
+            expr.addTerm(1.0, isExisting[dislikes[i][0]][dislikes[i][1]]);
+            model.addConstr(expr, GRB.EQUAL, 0, "dislike" + dislikes[i][0] + '-' +  dislikes[i][1]);
+        }
+
         GRBLinExpr minimize = new GRBLinExpr();
 
         for (int i = 0; i < isExisting.length; i++) {
             for (int j = 0; j < isExisting[i].length; j++) {
-                if(i == j) {
+                if (i == j) {
                     continue;
                 }
                 minimize.addTerm(1.0, isExisting[i][j]);
@@ -124,13 +130,13 @@ class Dislike {
     private String a;
     @SerializedName("b")
     @Expose
-    private double b;
+    private String b;
 
     public String getA() {
         return a;
     }
 
-    public double getB() {
+    public String getB() {
         return b;
     }
 }
@@ -142,13 +148,13 @@ class Req {
 
     @SerializedName("dislikes")
     @Expose
-    private Balance[] dislikes;
+    private Dislike[] dislikes;
 
     public Balance[] getBalances() {
         return balances;
     }
 
-    public Balance[] getDislikes() {
+    public Dislike[] getDislikes() {
         return dislikes;
     }
 }
@@ -162,12 +168,37 @@ class TkIndex implements Take {
             Gson gson = new Gson();
             Req req = gson.fromJson(body, Req.class);
             Balance[] balances = req.getBalances();
+            Dislike[] dislikes = req.getDislikes();
             double plainBalances[] = new double[balances.length];
             for (int i = 0; i < balances.length; i++) {
                 plainBalances[i] = balances[i].getValue();
             }
 
-            long[][] res = Server.compute(plainBalances);
+
+            int plainDislikes[][] = new int[dislikes.length][2];
+
+            for (int i = 0; i < dislikes.length; i++) {
+                int a = -1;
+                for (int j = 0; j < balances.length; j++) {
+                    if (balances[j].getId().equals(dislikes[i].getA())) {
+                        a = j;
+                        break;
+                    }
+                }
+                int b = -1;
+                for (int j = 0; j < balances.length; j++) {
+                    if (balances[j].getId().equals(dislikes[i].getB())) {
+                        b = j;
+                        break;
+                    }
+                }
+                plainDislikes[i][0] = a;
+                plainDislikes[i][1] = b;
+            }
+
+            long[][] res = Server.compute(plainBalances, plainDislikes);
+
+
 
             JsonArrayBuilder jsonBuilder = Json.createArrayBuilder();
 
