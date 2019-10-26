@@ -31,7 +31,7 @@
     "faker": "^4.1.0",
     "helmet": "~3.16.0",
     "method-override": "~3.0.0",
-    "mongoose": "~5.4.19",
+    "mongoose": "~5.7.5",
     "morgan": "~1.9.1",
     "passport": "~0.4.0",
     "passport-google-oauth": "^2.0.0",
