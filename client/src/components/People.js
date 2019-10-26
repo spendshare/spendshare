@@ -11,7 +11,7 @@ const mapStateToProps = (state, props) => ({
 
 const People = ({ users, groupId, debts }) => (
   <div className={styles.people}>
-    {users.map(u => (
+    {debts && users.map(u => (
       <User key={u._id} groupId={groupId} debts={debts[u._id]} user={u} />
     ))}
   </div>
