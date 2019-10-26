@@ -6,7 +6,7 @@ import actions, {
   REQUEST_ADD_BILL,
   REQUEST_ALL_USERS,
   CREATE_NEW_GROUP,
-  REQUEST_ALL_GROUPS,
+  REQUEST_MY_GROUPS,
   REQUEST_GROUP_MEMBERS,
   REQUEST_CURRENT_USER,
   REQUEST_GROUP_DEBTS,
@@ -78,12 +78,12 @@ function* fetchUser(id) {
   }
 }
 
-function* fetchAllGroups() {
-  const { data, error } = yield call(api.fetch, api.endpoints.allGroups())
+function* fetchMyGroups() {
+  const { data, error } = yield call(api.fetch, api.endpoints.myGroups())
   if (!error) {
-    yield put(actions.receiveAllGroups(data))
+    yield put(actions.receiveMyGroups(data))
   } else {
-    yield put(actions.rejectAllGroups(error))
+    yield put(actions.rejectMyGroups(error))
   }
 }
 
@@ -150,9 +150,9 @@ function* fetchCurrentUser() {
 function* fetchSignUpToGroup({ group }) {
   const data = yield call(api.fetch, api.endpoints.fetchSignUpToGroup(group))
   if (data && !data.error) {
-    yield put(actions.receiveSignUpToGroup(group))
+    yield put(actions.receiveSignUpToGroup(group, data.group))
   } else {
-    actions.rejectSignUpToGroup(group)
+    alert('Cannot join this group')
   }
 }
 
@@ -164,7 +164,7 @@ export default function*() {
   yield takeEvery(REQUEST_GROUP_MEMBERS, fetchGroupMembers)
   yield takeEvery(REQUEST_GROUP_BILLS, fetchGroupBills)
   yield takeEvery(REQUEST_ALL_USERS, fetchAllUsers)
-  yield takeEvery(REQUEST_ALL_GROUPS, fetchAllGroups)
+  yield takeEvery(REQUEST_MY_GROUPS, fetchMyGroups)
   yield takeEvery(REQUEST_GROUP_DEBTS, fetchGroupDebts)
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
   yield takeEvery(REQUEST_CURRENT_USER, fetchCurrentUser)

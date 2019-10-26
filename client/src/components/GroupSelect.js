@@ -13,36 +13,65 @@ const mapStateToProps = ({ groups, users: { myGroups } }) => ({
 })
 const mapDispatchToProps = dispatch => ({
   createNewGroup: name => dispatch(actions.createNewGroup(name)),
-  fetchAllGroups: () => dispatch(actions.requestAllGroups()),
-  signUpToGroup: groupId => dispatch(actions.requestSignUpToGroup(groupId)),
+  fetchMyGroups: () => dispatch(actions.requestMyGroups()),
+  signUpToGroup: (groupName, groupPassword) => {
+    if (groupName !== groupPassword.split('').reverse().join('')) {
+      alert('Wrong password!')
+    }
+    dispatch(actions.requestSignUpToGroup(groupName))
+  },
 })
 
 function GroupSelect({
   createNewGroup,
-  fetchAllGroups,
+  fetchMyGroups,
   groups,
   myGroups,
   signUpToGroup,
 }) {
   const [newGroupName, setNewGroupName] = useState('')
-  useEffect(fetchAllGroups, [])
+  const [joinGroupName, setJoinGroupName] = useState('')
+  const [joinGroupPassword, setJoinGroupPassword] = useState('')
+  useEffect(fetchMyGroups, [])
 
   return (
     <div className={styles.center}>
       <div className={styles['create-group']}>
         <Input
-          autoFocus
-          className={styles.input}
-          label="Create new group"
-          onChange={({ target: { value } }) => setNewGroupName(value)}
-          placeholder="Enter a name..."
-          value={newGroupName}
+            autoFocus
+            className={styles.input}
+            label="Create new group"
+            onChange={({ target: { value } }) => setNewGroupName(value)}
+            placeholder="Enter a name..."
+            value={newGroupName}
         />
         <Button
-          title="Create"
-          className={styles.button}
-          onClick={() => createNewGroup(newGroupName)}
-          light
+            title="Create"
+            className={styles.button}
+            onClick={() => createNewGroup(newGroupName)}
+            light
+        />
+      </div>
+      <div className={styles['create-group']}>
+        <Input
+            className={styles.input}
+            label="Join group"
+            onChange={({ target: { value } }) => setJoinGroupName(value)}
+            placeholder="Enter a name..."
+            value={joinGroupName}
+        />
+        <Input
+            className={styles.input}
+            label="password"
+            onChange={({ target: { value } }) => setJoinGroupPassword(value)}
+            placeholder="Enter a password..."
+            value={joinGroupPassword}
+        />
+        <Button
+            title="Join"
+            className={styles.button}
+            onClick={() => signUpToGroup(joinGroupName, joinGroupPassword)}
+            light
         />
       </div>
       <div className={styles['groups-box']}>

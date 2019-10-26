@@ -19,9 +19,9 @@ export const REQUEST_ALL_USERS = 'REQUEST_ALL_USERS'
 export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
 export const REJECT_ALL_USERS = 'REJECT_ALL_USERS'
 
-export const REQUEST_ALL_GROUPS = 'REQUEST_ALL_GROUPS'
-export const RECEIVE_ALL_GROUPS = 'RECEIVE_ALL_GROUPS'
-export const REJECT_ALL_GROUPS = 'REJECT_ALL_GROUPS'
+export const REQUEST_MY_GROUPS = 'REQUEST_MY_GROUPS'
+export const RECEIVE_MY_GROUPS = 'RECEIVE_MY_GROUPS'
+export const REJECT_MY_GROUPS = 'REJECT_MY_GROUPS'
 
 export const REQUEST_GROUP_BILLS = 'REQUEST_GROUP_BILLS'
 export const RECEIVE_GROUP_BILLS = 'RECEIVE_GROUP_BILLS'
@@ -64,9 +64,9 @@ export default {
   receiveSignIn: session => ({ type: RECEIVE_SIGN_IN, session }),
   rejectSignIn: error => ({ type: REJECT_SIGN_IN, error }),
 
-  requestAllGroups: () => ({ type: REQUEST_ALL_GROUPS }),
-  receiveAllGroups: groups => ({ type: RECEIVE_ALL_GROUPS, groups }),
-  rejectAllGroups: error => ({ type: REJECT_ALL_GROUPS, error }),
+  requestMyGroups: () => ({ type: REQUEST_MY_GROUPS }),
+  receiveMyGroups: groups => ({ type: RECEIVE_MY_GROUPS, groups }),
+  rejectMyGroups: error => ({ type: REJECT_MY_GROUPS, error }),
 
   requestGroupBills: id => ({ type: REQUEST_GROUP_BILLS, id }),
   receiveGroupBills: bills => ({ type: RECEIVE_GROUP_BILLS, bills }),
@@ -77,7 +77,7 @@ export default {
   rejectGroupDebts: error => ({ type: REJECT_GROUP_DEBTS, error }),
 
   requestSignUpToGroup: group => ({ type: REQUEST_SIGN_UP_TO_GROUP, group }),
-  receiveSignUpToGroup: group => ({ type: RECEIVE_SIGN_UP_TO_GROUP, group }),
+  receiveSignUpToGroup: (group, data) => ({ type: RECEIVE_SIGN_UP_TO_GROUP, group, data }),
   rejectSignUpToGroup: group => ({ type: REJECT_SIGN_UP_TO_GROUP, group }),
 
   requestGroupMembers: id => ({ type: REQUEST_GROUP_MEMBERS, id }),
