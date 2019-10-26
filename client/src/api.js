@@ -51,8 +51,8 @@ export default {
       path: url(`group/${groupId}/debts/all`),
       method: 'GET',
     }),
-    allGroups: () => ({
-      path: url('group/all'),
+    myGroups: () => ({
+      path: url('group/allmy'),
       method: 'GET',
     }),
     allUsers: () => ({

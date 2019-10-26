@@ -56,12 +56,18 @@ const destroy = async (req, res) => {
 
 const createWithGroup = async (req, res) => {
   const Member = mongoose.model('Member')
+  const Group = mongoose.model('Group')
+  const group = (await Group.find({ name: req.params.id }))[0]
+  if (group === undefined) {
+    res.status(200).json({ error: 'no group' })
+  }
+  const groupId = group._id
   const member = new Member({
     userId: req.user._id,
-    groupId: req.params.id,
+    groupId,
   })
   await member.save()
-  res.status(200).json({})
+  res.status(200).json({ group })
 }
 
 export default [

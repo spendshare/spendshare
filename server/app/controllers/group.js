@@ -6,6 +6,23 @@ const all = async (_, res) => {
   res.json({ data: groups })
 }
 
+const allmy = async (req, res) => {
+  const Member = mongoose.model('Member')
+  const groups = (await Member.aggregate([
+    { $match: { userId: req.user._id } },
+    {
+      $lookup: {
+        from: 'groups',
+        localField: 'groupId',
+        foreignField: '_id',
+        as: 'group',
+      },
+    },
+  ])).map(g => g.group[0])
+
+  res.json({ data: groups })
+}
+
 const create = (req, res) => {
   const Group = mongoose.model('Group')
   const group = new Group({
@@ -56,6 +73,11 @@ export default [
     path: '/api/v1/group/all',
     method: 'get',
     callback: all,
+  },
+  {
+    path: '/api/v1/group/allmy',
+    method: 'get',
+    callback: allmy,
   },
   {
     path: '/api/v1/group/new',
