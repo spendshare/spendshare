@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import fetch from 'node-fetch'
 
 const additive = bills => {
   const balances = {}
@@ -19,6 +20,54 @@ const additive = bills => {
     })
   })
   return balances
+}
+
+const ILP = async bills => {
+  const balances = {}
+  const add = (who, amount) => {
+    if (!balances[who]) {
+      balances[who] = 0
+    }
+    balances[who] += amount
+  }
+
+  bills.forEach(b => {
+    //FIXME
+    const pl = b.participants.length
+    const amount = Math.round((b.paid.amount * 100) / pl)
+    add(b.paid.userId, amount * pl)
+
+    b.participants.forEach(p => {
+      add(p, -amount)
+    })
+  })
+
+  const config = {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    body: JSON.stringify({
+      balances: Object.keys(balances).map(key => ({
+        id: key,
+        value: balances[key],
+      })),
+      dislikes: [],
+    }),
+  }
+  const response = await fetch('http://localhost:1234', config)
+
+  const data = await response.json()
+  const res = data.reduce((prev, curr) => {
+    if (!prev[curr.who]) {
+      prev[curr.who] = []
+    }
+    if (!prev[curr.whom]) {
+      prev[curr.whom] = []
+    }
+    prev[curr.who].push({ whom: curr.whom, amount: curr.what / 100 })
+    prev[curr.whom].push({ whom: curr.who, amount: -curr.what / 100 })
+    return prev
+  }, {})
+  return res
 }
 
 const splitwise = bills => {
@@ -92,6 +141,7 @@ const splitwise = bills => {
 const strategies = {
   additive,
   splitwise,
+  ILP,
 }
 
 const all = async (req, res) => {
@@ -100,7 +150,7 @@ const all = async (req, res) => {
     date: -1,
   })
 
-  res.json({ data: strategies.splitwise(bills) })
+  res.json({ data: await strategies.ILP(bills) })
 }
 
 export default [

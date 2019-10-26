@@ -19,7 +19,7 @@ public final class Server {
 
   public static void main(final String... args) throws Exception {
     new FtBasic(
-      new TkFork(new FkRegex("/", new TkIndex())), 8080
+      new TkFork(new FkRegex("/", new TkIndex())), 1234
     ).start(Exit.NEVER);
 
   }
@@ -79,6 +79,7 @@ public final class Server {
     }
     model.setObjective(minimize, GRB.MINIMIZE);
 
+    model.set(GRB.DoubleParam.TimeLimit, 5);
     model.optimize();
 
 
