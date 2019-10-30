@@ -85,7 +85,7 @@ export default {
       method: 'POST',
     }),
     fetchIgnoredUsersByMe: () => ({
-      path: url(`ignored/me`),
+      path: url('ignored/me'),
       method: 'GET',
     }),
     addToIgnored: id => ({
