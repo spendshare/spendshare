@@ -20,6 +20,12 @@ import {
   RECEIVE_GROUP_BILLS,
   RECEIVE_ADD_BILL,
   RECEIVE_GROUP_DEBTS,
+  REQUEST_IGNORE_USER,
+  RECEIVE_IGNORE_USER,
+  REJECT_IGNORE_USER,
+  REQUEST_IGNORED_USERS_BY_ME,
+  REJECT_IGNORED_USERS_BY_ME,
+  RECEIVE_IGNORED_USERS_BY_ME,
 } from './actions'
 
 const session = (
@@ -120,6 +126,37 @@ const users = (
   }
 }
 
+const ignored = (state = {}, action) => {
+  switch (action.type) {
+    case REQUEST_IGNORE_USER:
+      return { ...state }
+
+    case RECEIVE_IGNORE_USER:
+      const { id } = action
+      state[id] = true
+      return { ...state }
+
+    case REJECT_IGNORE_USER:
+      return { ...state }
+
+    case REQUEST_IGNORED_USERS_BY_ME:
+      return { ...state }
+
+    case RECEIVE_IGNORED_USERS_BY_ME:
+      state = {}
+      action.ignored.forEach(ignored => {
+        state[ignored.secondUserId] = true
+      })
+      return { ...state }
+
+    case REJECT_IGNORED_USERS_BY_ME:
+      return { ...state }
+
+    default:
+      return state
+  }
+}
+
 const members = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_GROUP_MEMBERS:
@@ -204,7 +241,7 @@ const groupsDebts = (state = {}, action) => {
     case RECEIVE_GROUP_DEBTS:
       return {
         ...state,
-        [action.groupId]: action.debts
+        [action.groupId]: action.debts,
       }
 
     default:
@@ -215,6 +252,7 @@ const groupsDebts = (state = {}, action) => {
 export default combineReducers({
   session,
   users,
+  ignored,
   bills,
   members,
   groups,

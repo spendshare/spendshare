@@ -11,6 +11,7 @@ import Button from './Button'
 import actions from '../store/actions'
 import GroupSelect from './GroupSelect'
 import ShowGroup from './ShowGroup'
+import Profile from './Profile'
 import CurrentUserHandler from './CurrentUserHandler'
 import { BACKEND_URL } from '../utils'
 
@@ -43,6 +44,7 @@ const App = ({ fetchCurrentUser }) => {
         <CurrentUserHandler />
         <Switch>
           <Route path="/" exact component={EnhancedLogin} />
+          <Route path="/profile" exact component={Profile} />
           <Route path="/groups" component={GroupSelect} />
           <Route path="/group/:id" component={ShowGroup} />
           <Route path="/" component={NoContentHere} />

@@ -45,6 +45,14 @@ export const REQUEST_SIGN_UP_TO_GROUP = 'REQUEST_SIGN_UP_TO_GROUP'
 export const RECEIVE_SIGN_UP_TO_GROUP = 'RECEIVE_SIGN_UP_TO_GROUP'
 export const REJECT_SIGN_UP_TO_GROUP = 'REJECT_SIGN_UP_TO_GROUP'
 
+export const REQUEST_IGNORED_USERS_BY_ME = 'REQUEST_IGNORED_USERS_BY_ME'
+export const RECEIVE_IGNORED_USERS_BY_ME = 'RECEIVE_IGNORED_USERS_BY_ME'
+export const REJECT_IGNORED_USERS_BY_ME = 'REJECT_IGNORED_USERS_BY_ME'
+
+export const REQUEST_IGNORE_USER = 'REQUEST_IGNORE_USER'
+export const RECEIVE_IGNORE_USER = 'RECEIVE_IGNORE_USER'
+export const REJECT_IGNORE_USER = 'REJECT_IGNORE_USER'
+
 export default {
   loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
@@ -73,7 +81,11 @@ export default {
   rejectGroupBills: error => ({ type: REJECT_GROUP_BILLS, error }),
 
   requestGroupDebts: id => ({ type: REQUEST_GROUP_DEBTS, id }),
-  receiveGroupDebts: (debts, groupId) => ({ type: RECEIVE_GROUP_DEBTS, debts, groupId }),
+  receiveGroupDebts: (debts, groupId) => ({
+    type: RECEIVE_GROUP_DEBTS,
+    debts,
+    groupId,
+  }),
   rejectGroupDebts: error => ({ type: REJECT_GROUP_DEBTS, error }),
 
   requestSignUpToGroup: group => ({ type: REQUEST_SIGN_UP_TO_GROUP, group }),
@@ -104,4 +116,15 @@ export default {
     user,
     groups,
   }),
+
+  requestIgnoredUsersByMe: () => ({ type: REQUEST_IGNORED_USERS_BY_ME }),
+  receiveIgnoredUsersByMe: ignored => ({
+    type: RECEIVE_IGNORED_USERS_BY_ME,
+    ignored,
+  }),
+  rejectIgnoredUsersByMe: () => ({ type: REJECT_IGNORED_USERS_BY_ME }),
+
+  requestIgnoreUser: id => ({ type: REQUEST_IGNORE_USER, id }),
+  receiveIgnoreUser: id => ({ type: RECEIVE_IGNORE_USER, id }),
+  rejectIgnoreUser: id => ({ type: REJECT_IGNORE_USER, id }),
 }

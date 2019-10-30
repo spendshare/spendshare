@@ -7,6 +7,7 @@ export default async () => {
   const Bill = mongoose.model('Bill')
   const Group = mongoose.model('Group')
   const Member = mongoose.model('Member')
+  const Ignored = mongoose.model('Ignored')
 
   await User.deleteMany({ fromBigData: true })
   await Group.deleteMany({ fromBigData: true })
@@ -86,13 +87,17 @@ export default async () => {
 
     const members = []
 
+    const ignored = []
+
     const groupParticipants = {}
 
     const randomFromArray = array =>
       array[Math.round(Math.random() * (array.length - 1))]
 
+    // Create 200 groups.
     for (let i = 0; i < 200; i++) {
       groupParticipants[groups[i]._id] = []
+      // Iterate over all 1000 users.
       for (let j = 0; j < 1000; j++) {
         if (Math.random() < 0.02) {
           const m = await Member.create({
@@ -101,6 +106,20 @@ export default async () => {
             fromBigData: true,
           })
           members.push(m)
+
+          // It is important this step is done before adding current member
+          if (Math.random() < 0.08) {
+            const blockedUserId = randomFromArray(
+              groupParticipants[groups[i]._id]
+            )
+            const ig = await Ignored.create({
+              firstUserId: users[j]._id,
+              secondUserId: blockedUserId,
+              fromBigData: true,
+            })
+            ignored.push(ig)
+          }
+
           groupParticipants[groups[i]._id].push(users[j]._id) // FIXME
         }
       }

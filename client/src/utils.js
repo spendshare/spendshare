@@ -60,7 +60,7 @@ export const arrayToHash = array =>
   )
 
 export const getAvatar = user =>
-  `https://api.adorable.io/avatars/${(user.id ? hash(user.id) : 0) % 5000}`
+  `https://api.adorable.io/avatars/${hash(user.id || user._id || 0) % 5000}`
 
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
