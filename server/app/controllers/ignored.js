@@ -24,7 +24,6 @@ const read = async (req, res) => {
   const Ignored = mongoose.model('Ignored')
   try {
     const ignored = await Ignored.find({ firstUserId: req.user._id })
-    console.log(ignored)
     res.status(200).json({ data: ignored })
   } catch (error) {
     res.status(500).json({ error: error })
