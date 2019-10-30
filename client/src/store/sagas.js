@@ -1,5 +1,5 @@
 import api from '../api'
-import { call, fork, put, takeEvery } from 'redux-saga/effects'
+import { call, fork, put, takeEvery, select } from 'redux-saga/effects'
 import actions, {
   REQUEST_SIGN_IN,
   REQUEST_SIGN_OUT,
@@ -12,8 +12,11 @@ import actions, {
   REQUEST_GROUP_DEBTS,
   REQUEST_SIGN_UP_TO_GROUP,
   REQUEST_GROUP_BILLS,
+  REQUEST_IGNORED_USERS_BY_ME,
+  REQUEST_IGNORE_USER,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
+import { selectSession } from './selectors'
 import { getLocalStorage, FRONTEND_URL } from '../utils'
 
 function redirectToMainPageIfNeeded() {
@@ -84,6 +87,27 @@ function* fetchMyGroups() {
     yield put(actions.receiveMyGroups(data))
   } else {
     yield put(actions.rejectMyGroups(error))
+  }
+}
+
+function* fetchIgnoredUsersByMe() {
+  const { data, error } = yield call(
+    api.fetch,
+    api.endpoints.fetchIgnoredUsersByMe()
+  )
+  if (!error) {
+    yield put(actions.receiveIgnoredUsersByMe(data))
+  } else {
+    yield put(actions.rejectIgnoredUsersByMe(error))
+  }
+}
+
+function* ignoreUser({ id }) {
+  const { error } = yield call(api.fetch, api.endpoints.addToIgnored(id))
+  if (!error) {
+    yield put(actions.receiveIgnoreUser(id))
+  } else {
+    yield put(actions.rejectIgnoreUser(id))
   }
 }
 
@@ -169,4 +193,6 @@ export default function*() {
   yield takeEvery(CREATE_NEW_GROUP, createNewGroup)
   yield takeEvery(REQUEST_CURRENT_USER, fetchCurrentUser)
   yield takeEvery(REQUEST_SIGN_UP_TO_GROUP, fetchSignUpToGroup)
+  yield takeEvery(REQUEST_IGNORED_USERS_BY_ME, fetchIgnoredUsersByMe)
+  yield takeEvery(REQUEST_IGNORE_USER, ignoreUser)
 }

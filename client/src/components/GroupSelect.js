@@ -11,6 +11,7 @@ const mapStateToProps = ({ groups, users: { myGroups } }) => ({
   groups,
   myGroups,
 })
+
 const mapDispatchToProps = dispatch => ({
   createNewGroup: name => dispatch(actions.createNewGroup(name)),
   fetchMyGroups: () => dispatch(actions.requestMyGroups()),

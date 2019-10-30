@@ -84,5 +84,13 @@ export default {
       path: url(`group/${group}/join`),
       method: 'POST',
     }),
+    fetchIgnoredUsersByMe: () => ({
+      path: url('ignored/me'),
+      method: 'GET',
+    }),
+    addToIgnored: id => ({
+      path: url(`ignored/create/${id}`),
+      method: 'POST',
+    }),
   },
 }

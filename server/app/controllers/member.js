@@ -10,7 +10,7 @@ const all = async (req, res) => {
 const create = (req, res) => {
   const Member = mongoose.model('Member')
   const member = new Member({
-    userId: ObjectId(req.body.userId),
+    userId: ObjectId(req.body.id),
     groupId: ObjectId(req.body.groupId),
   })
 
@@ -25,8 +25,8 @@ const read = async (req, res) => {
   const Member = mongoose.model('Member')
   try {
     const members = await Member.find({
+      userId: ObjectId(req.params.id),
       groupId: ObjectId(req.params.groupId),
-      userId: ObjectId(req.params.userId),
     })
     res.status(200).json({ data: members })
   } catch (error) {
@@ -45,8 +45,8 @@ const destroy = async (req, res) => {
   const Member = mongoose.model('Member')
   try {
     await Member.remove({
+      userId: ObjectId(req.params.id),
       groupId: ObjectId(req.params.groupId),
-      userId: ObjectId(req.params.userId),
     })
     res.status(200).json({})
   } catch (error) {

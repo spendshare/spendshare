@@ -6,7 +6,7 @@ import Tooltip from './Tooltip'
 
 const phraseBalance = (user, debts) => {
   let balance = 0
-  debts.forEach(d => balance += d.amount)
+  debts.forEach(d => (balance += d.amount))
 
   if (balance === 0) {
     return 'is settled up'

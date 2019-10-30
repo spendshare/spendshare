@@ -1,0 +1,35 @@
+.profile {
+}
+
+.input {
+  font-family: Work Sans, sans-serif;
+  font-size: 14px;
+  border: none;
+  margin-top: 5px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.user {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.badge-section {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
