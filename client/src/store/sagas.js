@@ -1,5 +1,5 @@
 import api from '../api'
-import { call, fork, put, takeEvery, select } from 'redux-saga/effects'
+import { call, fork, put, takeEvery, select, delay } from 'redux-saga/effects'
 import actions, {
   REQUEST_SIGN_IN,
   REQUEST_SIGN_OUT,
@@ -112,14 +112,23 @@ function* ignoreUser({ id }) {
 }
 
 function* createNewGroup({ name }) {
-  const { data, error } = yield call(
+  const newGroup = yield call(api.fetch, api.endpoints.createGroup({ name }))
+  if (newGroup.error) {
+    yield put(actions.rejectNewGroup(newGroup.data))
+    return
+  }
+
+  yield put(actions.receiveNewGroup({ group: newGroup.data }))
+
+  const data = yield call(
     api.fetch,
-    api.endpoints.createGroup({ name })
+    api.endpoints.fetchSignUpToGroup(newGroup.data.name)
   )
-  if (!error) {
-    yield put(actions.receiveNewGroup(data))
+
+  if (data && !data.error) {
+    yield put(actions.receiveSignUpToGroup(data.group._id, data.group))
   } else {
-    yield put(actions.rejectAllUsers(error))
+    alert('Cannot join this group')
   }
 }
 

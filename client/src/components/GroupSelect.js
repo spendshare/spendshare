@@ -16,7 +16,13 @@ const mapDispatchToProps = dispatch => ({
   createNewGroup: name => dispatch(actions.createNewGroup(name)),
   fetchMyGroups: () => dispatch(actions.requestMyGroups()),
   signUpToGroup: (groupName, groupPassword) => {
-    if (groupName !== groupPassword.split('').reverse().join('')) {
+    if (
+      groupName !==
+      groupPassword
+        .split('')
+        .reverse()
+        .join('')
+    ) {
       alert('Wrong password!')
     }
     dispatch(actions.requestSignUpToGroup(groupName))
@@ -39,40 +45,40 @@ function GroupSelect({
     <div className={styles.center}>
       <div className={styles['create-group']}>
         <Input
-            autoFocus
-            className={styles.input}
-            label="Create new group"
-            onChange={({ target: { value } }) => setNewGroupName(value)}
-            placeholder="Enter a name..."
-            value={newGroupName}
+          autoFocus
+          className={styles.input}
+          label="Create new group"
+          onChange={({ target: { value } }) => setNewGroupName(value)}
+          placeholder="Enter a name..."
+          value={newGroupName}
         />
         <Button
-            title="Create"
-            className={styles.button}
-            onClick={() => createNewGroup(newGroupName)}
-            light
+          title="Create"
+          className={styles.button}
+          onClick={async () => createNewGroup(newGroupName)}
+          light
         />
       </div>
       <div className={styles['create-group']}>
         <Input
-            className={styles.input}
-            label="Join group"
-            onChange={({ target: { value } }) => setJoinGroupName(value)}
-            placeholder="Enter a name..."
-            value={joinGroupName}
+          className={styles.input}
+          label="Join group"
+          onChange={({ target: { value } }) => setJoinGroupName(value)}
+          placeholder="Enter a name..."
+          value={joinGroupName}
         />
         <Input
-            className={styles.input}
-            label="password"
-            onChange={({ target: { value } }) => setJoinGroupPassword(value)}
-            placeholder="Enter a password..."
-            value={joinGroupPassword}
+          className={styles.input}
+          label="password"
+          onChange={({ target: { value } }) => setJoinGroupPassword(value)}
+          placeholder="Enter a password..."
+          value={joinGroupPassword}
         />
         <Button
-            title="Join"
-            className={styles.button}
-            onClick={() => signUpToGroup(joinGroupName, joinGroupPassword)}
-            light
+          title="Join"
+          className={styles.button}
+          onClick={() => signUpToGroup(joinGroupName, joinGroupPassword)}
+          light
         />
       </div>
       <div className={styles['groups-box']}>

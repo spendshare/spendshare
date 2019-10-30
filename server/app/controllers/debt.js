@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 import fetch from 'node-fetch'
 
+const { ObjectId } = mongoose.Types
+
 const additive = bills => {
   const balances = {}
   const add = (who, whom, amount) => {
@@ -24,6 +26,10 @@ const additive = bills => {
 
 const ILP = async bills => {
   const balances = {}
+  if (bills.length === 0) {
+    return balances
+  }
+
   const add = (who, amount) => {
     if (!balances[who]) {
       balances[who] = 0
@@ -42,15 +48,37 @@ const ILP = async bills => {
     })
   })
 
+  const Group = mongoose.model('Group')
+  const Member = mongoose.model('Member')
+
+  const group = await Group.find({ _id: bills[0].groupId })
+  if (!group) {
+    throw new Error('Bill attached to non-existent group')
+  }
+
+  const members = await Member.find({ groupId: ObjectId(group[0]._id) })
+  const userIds = members.map(m => m.userId)
+
+  const Ignored = mongoose.model('Ignored')
+  const ignored = await Ignored.find({
+    firstUserId: { $in: userIds },
+    secondUserId: { $in: userIds },
+  })
+
   const config = {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     method: 'POST',
     body: JSON.stringify({
       balances: Object.keys(balances).map(key => ({
         id: key,
         value: balances[key],
       })),
-      dislikes: [],
+      dislikes: ignored.map(ignored => ({
+        a: ignored.firstUserId,
+        b: ignored.secondUserId,
+      })),
     }),
   }
   const response = await fetch('http://localhost:1234', config)
@@ -63,8 +91,14 @@ const ILP = async bills => {
     if (!prev[curr.whom]) {
       prev[curr.whom] = []
     }
-    prev[curr.who].push({ whom: curr.whom, amount: curr.what / 100 })
-    prev[curr.whom].push({ whom: curr.who, amount: -curr.what / 100 })
+    prev[curr.who].push({
+      whom: curr.whom,
+      amount: curr.what / 100,
+    })
+    prev[curr.whom].push({
+      whom: curr.who,
+      amount: -curr.what / 100,
+    })
     return prev
   }, {})
   return res
@@ -159,9 +193,4 @@ export default [
     method: 'get',
     callback: all,
   },
-  /*  {
-    path: '/api/v1/bill/:id',
-    method: 'get',
-    callback: read,
-  },*/
 ]
