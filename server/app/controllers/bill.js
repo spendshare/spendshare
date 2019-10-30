@@ -25,7 +25,7 @@ const create = (req, res) => {
   const bill = new Bill(params)
 
   bill.save(err => {
-    if (err) console.log(err)
+    if (error) console.log(error)
   })
 
   res.status(200).json({ data: bill })
