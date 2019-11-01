@@ -55,7 +55,7 @@ function GroupSelect({
         <Button
           title="Create"
           className={styles.button}
-          onClick={async () => createNewGroup(newGroupName)}
+          onClick={() => createNewGroup(newGroupName)}
           light
         />
       </div>
