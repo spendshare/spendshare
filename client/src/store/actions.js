@@ -29,6 +29,7 @@ export const REJECT_GROUP_BILLS = 'REJECT_GROUP_BILLS'
 
 export const CREATE_NEW_GROUP = 'CREATE_NEW_GROUP'
 export const RECEIVE_NEW_GROUP = 'RECEIVE_NEW_GROUP'
+export const REJECT_NEW_GROUP = 'REJECT_NEW_GROUP'
 
 export const REQUEST_GROUP_MEMBERS = 'REQUEST_GROUP_MEMBERS'
 export const RECEIVE_GROUP_MEMBERS = 'RECEIVE_GROUP_MEMBERS'
@@ -89,7 +90,11 @@ export default {
   rejectGroupDebts: error => ({ type: REJECT_GROUP_DEBTS, error }),
 
   requestSignUpToGroup: group => ({ type: REQUEST_SIGN_UP_TO_GROUP, group }),
-  receiveSignUpToGroup: (group, data) => ({ type: RECEIVE_SIGN_UP_TO_GROUP, group, data }),
+  receiveSignUpToGroup: (group, data) => ({
+    type: RECEIVE_SIGN_UP_TO_GROUP,
+    group,
+    data,
+  }),
   rejectSignUpToGroup: group => ({ type: REJECT_SIGN_UP_TO_GROUP, group }),
 
   requestGroupMembers: id => ({ type: REQUEST_GROUP_MEMBERS, id }),
@@ -109,6 +114,7 @@ export default {
 
   createNewGroup: name => ({ type: CREATE_NEW_GROUP, name }),
   receiveNewGroup: group => ({ type: RECEIVE_NEW_GROUP, group }),
+  rejectNewGroup: group => ({ type: REJECT_NEW_GROUP, group }),
 
   requestCurrentUser: () => ({ type: REQUEST_CURRENT_USER }),
   receiveCurrentUser: (user, groups) => ({

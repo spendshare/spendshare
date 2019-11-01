@@ -57,10 +57,12 @@ const destroy = async (req, res) => {
 const createWithGroup = async (req, res) => {
   const Member = mongoose.model('Member')
   const Group = mongoose.model('Group')
-  const group = (await Group.find({ name: req.params.id }))[0]
+  const group = (await Group.find({ name: req.params.name }))[0]
+
   if (group === undefined) {
     res.status(200).json({ error: 'no group' })
   }
+
   const groupId = group._id
   const member = new Member({
     userId: req.user._id,
@@ -97,7 +99,7 @@ export default [
     callback: destroy,
   },
   {
-    path: '/api/v1/group/:id/join',
+    path: '/api/v1/group/:name/join',
     method: 'post',
     callback: createWithGroup,
   },

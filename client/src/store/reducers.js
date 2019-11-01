@@ -191,7 +191,7 @@ const groups = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_MY_GROUPS:
       const receivedGroups = {}
-      action.groups.forEach(group => {
+      action.groups.filter(Boolean).forEach(group => {
         receivedGroups[group._id] = group
       })
       return receivedGroups
