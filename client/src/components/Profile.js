@@ -34,6 +34,8 @@ const Profile = ({
     return <Spinner />
   }
 
+  const unique = (value, index, self) => self.indexOf(value) === index
+
   const data = Object.values(groups)
     .flatMap(group =>
       members
@@ -47,6 +49,7 @@ const Profile = ({
           }
         })
     )
+    .filter(unique)
     .filter(user => user._id !== users.currentUser._id)
 
   return (
