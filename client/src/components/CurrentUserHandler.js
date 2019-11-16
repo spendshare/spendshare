@@ -9,6 +9,14 @@ const CurrentUserHandler = ({ currentUser, dispatch }) => {
   if (!currentUser) return null
   return (
     <div className={styles.navigation}>
+      <div className={styles.links}>
+        <Link className={styles['menu-link']} to="/">
+          Homepage
+        </Link>
+        <Link className={styles['menu-link']} to="/profile">
+          Ignored
+        </Link>
+      </div>
       <div className={styles.avatar}>
         <img src={getAvatar(currentUser)} />
       </div>
