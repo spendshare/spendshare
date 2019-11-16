@@ -26,8 +26,8 @@ const create = (req, res) => {
     googleId: req.body.googleId,
   })
 
-  user.save(err => {
-    if (err) console.log(err)
+  user.save(error => {
+    if (error) console.log(error)
   })
 
   res.status(200).json({ data: user })

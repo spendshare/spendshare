@@ -54,6 +54,10 @@ export const REQUEST_IGNORE_USER = 'REQUEST_IGNORE_USER'
 export const RECEIVE_IGNORE_USER = 'RECEIVE_IGNORE_USER'
 export const REJECT_IGNORE_USER = 'REJECT_IGNORE_USER'
 
+export const REQUEST_IGNORED_PAGE = 'REQUEST_IGNORED_PAGE'
+export const RECEIVE_IGNORED_PAGE = 'RECEIVE_IGNORED_PAGE'
+export const REJECT_IGNORED_PAGE = 'REJECT_IGNORED_PAGE'
+
 export default {
   loadLocalStorage: session => ({ type: LOAD_LOCAL_STORAGE, session }),
 
@@ -133,4 +137,8 @@ export default {
   requestIgnoreUser: id => ({ type: REQUEST_IGNORE_USER, id }),
   receiveIgnoreUser: id => ({ type: RECEIVE_IGNORE_USER, id }),
   rejectIgnoreUser: id => ({ type: REJECT_IGNORE_USER, id }),
+
+  requestIgnoredPage: () => ({ type: REQUEST_IGNORED_PAGE }),
+  receiveIgnoredPage: () => ({ type: RECEIVE_IGNORED_PAGE }),
+  rejectIgnoredPage: () => ({ type: REJECT_IGNORED_PAGE }),
 }

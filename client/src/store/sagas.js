@@ -14,9 +14,10 @@ import actions, {
   REQUEST_GROUP_BILLS,
   REQUEST_IGNORED_USERS_BY_ME,
   REQUEST_IGNORE_USER,
+  REQUEST_IGNORED_PAGE,
 } from './actions'
 import { callSignIn } from '../GoogleAuth'
-import { selectSession } from './selectors'
+import { selectSession, selectGroups } from './selectors'
 import { getLocalStorage, FRONTEND_URL } from '../utils'
 
 function redirectToMainPageIfNeeded() {
@@ -190,6 +191,15 @@ function* fetchSignUpToGroup({ group }) {
   }
 }
 
+function* ignoredPage() {
+  yield fetchMyGroups()
+  yield fetchIgnoredUsersByMe()
+  const groups = yield select(selectGroups)
+  for (let i = 0; i < groups.length; i++) {
+    yield fetchGroupMembers({ id: groups[i]._id })
+  }
+}
+
 export default function*() {
   yield fork(loadLocalStorage)
   yield takeEvery(REQUEST_SIGN_IN, processSignIn)
@@ -205,4 +215,5 @@ export default function*() {
   yield takeEvery(REQUEST_SIGN_UP_TO_GROUP, fetchSignUpToGroup)
   yield takeEvery(REQUEST_IGNORED_USERS_BY_ME, fetchIgnoredUsersByMe)
   yield takeEvery(REQUEST_IGNORE_USER, ignoreUser)
+  yield takeEvery(REQUEST_IGNORED_PAGE, ignoredPage)
 }
