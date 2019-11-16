@@ -2,67 +2,74 @@ import mongoose from 'mongoose'
 const { ObjectId } = mongoose.Types
 
 import faker from 'faker'
-export default async () => {
-  const User = mongoose.model('User')
-  const Bill = mongoose.model('Bill')
-  const Group = mongoose.model('Group')
-  const Member = mongoose.model('Member')
-  const Ignored = mongoose.model('Ignored')
+export default async function seeds() {
+  const optionsm = { keepAlive: 1, useNewUrlParser: true }
+  mongoose.connect('mongodb://localhost/my_app_development', optionsm)
+  mongoose.connection.once('open', async () => {
+    require('./models/user')
+    require('./models/bill')
+    require('./models/group')
+    require('./models/member')
+    require('./models/ignored')
+    const User = mongoose.model('User')
+    const Bill = mongoose.model('Bill')
+    const Group = mongoose.model('Group')
+    const Member = mongoose.model('Member')
+    const Ignored = mongoose.model('Ignored')
 
-  await User.deleteMany({ fromBigData: true })
-  await Group.deleteMany({ fromBigData: true })
-  await Member.deleteMany({ fromBigData: true })
-  await Bill.deleteMany({ fromBigData: true })
+    await User.deleteMany({ fromBigData: true })
+    await Group.deleteMany({ fromBigData: true })
+    await Member.deleteMany({ fromBigData: true })
+    await Bill.deleteMany({ fromBigData: true })
+    console.log('deleted old')
 
-  const kowalski = {
-    name: 'Marian Kowalski',
-    email: 'kowalski15@gmail.com',
-    googleId: '--placeholder--',
-  }
+    const kowalski = {
+      name: 'Marian Kowalski',
+      email: 'kowalski15@gmail.com',
+      googleId: '--placeholder--',
+    }
 
-  const bubak = {
-    name: 'Stefan Bubak',
-    email: 'bubak16@gmail.com',
-    googleId: '--placeholder--',
-  }
+    const bubak = {
+      name: 'Stefan Bubak',
+      email: 'bubak16@gmail.com',
+      googleId: '--placeholder--',
+    }
 
-  const options = { upsert: true, new: true }
+    const options = { upsert: true, new: true }
 
-  const u1 = await User.findOneAndUpdate(
-    { name: 'Marian Kowalski' },
-    kowalski,
-    options
-  )
+    const u1 = await User.findOneAndUpdate(
+      { name: 'Marian Kowalski' },
+      kowalski,
+      options
+    )
 
-  const u2 = await User.findOneAndUpdate(
-    { name: 'Stefan Bubak' },
-    bubak,
-    options
-  )
+    const u2 = await User.findOneAndUpdate(
+      { name: 'Stefan Bubak' },
+      bubak,
+      options
+    )
 
-  const chinczyk = { name: 'Chińczyk' }
-  const g = await Group.findOneAndUpdate(chinczyk, chinczyk, options)
+    const chinczyk = { name: 'Chińczyk' }
+    const g = await Group.findOneAndUpdate(chinczyk, chinczyk, options)
 
-  const m1 = { userId: u1._id, groupId: g._id }
-  await Member.findOneAndUpdate(m1, m1, options)
+    const m1 = { userId: u1._id, groupId: g._id }
+    await Member.findOneAndUpdate(m1, m1, options)
 
-  const m2 = { userId: u2._id, groupId: g._id }
-  await Member.findOneAndUpdate(m2, m2, options)
+    const m2 = { userId: u2._id, groupId: g._id }
+    await Member.findOneAndUpdate(m2, m2, options)
 
-  const bill = {
-    date: new Date('2019-04-01 08:00:00'),
-    title: 'Za piwo',
-    paid: {
-      amount: 5,
-      userId: u1._id,
-    },
-    groupId: g._id,
-    participants: [u1._id, u2._id],
-  }
+    // const bill = {
+    //   date: new Date('2019-04-01 08:00:00'),
+    //   title: 'Za piwo',
+    //   paid: {
+    //     amount: 5,
+    //     userId: u1._id,
+    //   },
+    //   groupId: g._id,
+    //   participants: [u1._id, u2._id],
+    // }
 
-  const b = await Bill.findOneAndUpdate(bill, bill, options)
-
-  if (process.env.BIG_DATA === 'YES') {
+    //if (process.env.BIG_DATA === 'YES') {
     const users = []
 
     for (let i = 0; i < 1000; i++) {
@@ -82,6 +89,7 @@ export default async () => {
         name: faker.random.word(),
         fromBigData: true,
       })
+      console.log(u.name)
       groups.push(u)
     }
 
@@ -150,5 +158,8 @@ export default async () => {
     }
     await Promise.all(promises)
     console.log('Seed applied')
-  }
+    //}
+  })
 }
+
+seeds()

@@ -9,6 +9,7 @@ import {
   RECEIVE_SIGN_OUT,
   RECEIVE_ALL_USERS,
   RECEIVE_MY_GROUPS,
+  REQUEST_GROUP_DEBTS,
   REQUEST_GROUP_MEMBERS,
   RECEIVE_GROUP_MEMBERS,
   REJECT_GROUP_MEMBERS,
@@ -26,6 +27,7 @@ import {
   REQUEST_IGNORED_USERS_BY_ME,
   REJECT_IGNORED_USERS_BY_ME,
   RECEIVE_IGNORED_USERS_BY_ME,
+  REQUEST_ADD_BILL,
 } from './actions'
 
 const session = (
@@ -200,6 +202,25 @@ const groups = (state = {}, action) => {
       state[action.group._id] = action.group
       return {
         ...state,
+      }
+
+    case REQUEST_GROUP_DEBTS:
+      state[action.id].fetching = true
+        return {
+          ...state
+        }
+
+      case REQUEST_ADD_BILL:
+      state[action.params.groupId].fetching = true
+      return {
+        ...state
+      }
+
+    case RECEIVE_GROUP_DEBTS:
+      state[action.groupId].fetching = false
+
+      return {
+        ...state
       }
 
     case RECEIVE_SIGN_UP_TO_GROUP:

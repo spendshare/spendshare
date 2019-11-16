@@ -37,6 +37,7 @@ const ShowGroup = ({
     <div className={styles.container}>
       <Bills groupId={match.params.id} />
       <People groupId={match.params.id} />
+      { group.fetching ? <Spinner/> : null }
     </div>
   )
 }
