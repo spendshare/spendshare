@@ -14,8 +14,8 @@ const create = (req, res) => {
     groupId: ObjectId(req.body.groupId),
   })
 
-  member.save(err => {
-    if (err) console.log(err)
+  member.save(error => {
+    if (error) console.log(error)
   })
 
   res.status(200).json({ data: member })

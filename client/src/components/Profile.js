@@ -2,56 +2,73 @@ import React, { useEffect, useState } from 'react'
 import actions from '../store/actions'
 import connect from 'react-redux/es/connect/connect'
 import styles from './Profile.module.scss'
-import DropdownSelector from './DropdownSelector'
 import { getAvatar } from '../utils'
 import Button from './Button'
 import Spinner from './Spinner'
 
-const mapStateToProps = ({ ignored, users }) => ({ ignored, users })
+const mapStateToProps = ({ ignored, users, groups, members }) => ({
+  ignored,
+  users,
+  groups,
+  members,
+})
 
 const mapDispatchToProps = dispatch => ({
-  fetchIgnoredUsersByMe: () => dispatch(actions.requestIgnoredUsersByMe()),
-  fetchAllUsers: () => dispatch(actions.requestAllUsers()),
+  fetchIgnoredPage: () => dispatch(actions.requestIgnoredPage()),
   requestIgnoreUser: id => dispatch(actions.requestIgnoreUser(id)),
 })
 
 const Profile = ({
-  ignored = [],
-  users,
-  fetchIgnoredUsersByMe,
-  fetchAllUsers,
+  ignored,
   requestIgnoreUser,
+  fetchIgnoredPage,
+  users,
+  groups,
+  members,
 }) => {
   useEffect(() => {
-    fetchIgnoredUsersByMe()
-    fetchAllUsers()
+    fetchIgnoredPage()
   }, [])
 
-  if (!users || !users.currentUser || !ignored) {
+  if (!users || !users.currentUser || !ignored || !groups || !members) {
     return <Spinner />
   }
+
+  const data = Object.values(groups)
+    .flatMap(group =>
+      members
+        .filter(member => member.groupId === group._id)
+        .map(member => {
+          const user = users.all[member.userId]
+          return {
+            _id: user._id,
+            name: user.name,
+            ignored: !!ignored[member.userId],
+          }
+        })
+    )
+    .filter(user => user._id !== users.currentUser._id)
+
   return (
     <div>
       <h1>Ignored</h1>
-      {Object.values(users.all)
-        .filter(user => user.id !== users.currentUser.id)
-        .map(user => (
-          <div key={user._id} className={styles.user}>
-            <div className={styles['badge-section']}>
-              <div className={styles.avatar}>
-                <img src={getAvatar(user)} />
-              </div>
-              <span className={styles.name}>{user.name}</span>
+      {data.map(user => (
+        <div key={user._id} className={styles.user}>
+          <div className={styles['badge-section']}>
+            <div className={styles.avatar}>
+              <img src={getAvatar(user)} />
             </div>
-            {!ignored[user._id] && (
-              <Button
-                light
-                title="Ignore"
-                onClick={() => requestIgnoreUser(user._id)}
-              />
-            )}
+            <span className={styles.name}>{user.name}</span>
           </div>
-        ))}
+          {!user.ignored && (
+            <Button
+              light
+              title="Ignore"
+              onClick={() => requestIgnoreUser(user._id)}
+            />
+          )}
+        </div>
+      ))}
     </div>
   )
 }

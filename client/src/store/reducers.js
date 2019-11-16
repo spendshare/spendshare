@@ -200,28 +200,20 @@ const groups = (state = {}, action) => {
 
     case RECEIVE_NEW_GROUP:
       state[action.group._id] = action.group
-      return {
-        ...state,
-      }
+      return { ...state }
 
     case REQUEST_GROUP_DEBTS:
       state[action.id].fetching = true
-        return {
-          ...state
-        }
+      return { ...state }
 
-      case REQUEST_ADD_BILL:
+    case REQUEST_ADD_BILL:
       state[action.params.groupId].fetching = true
-      return {
-        ...state
-      }
+      return { ...state }
 
     case RECEIVE_GROUP_DEBTS:
       state[action.groupId].fetching = false
 
-      return {
-        ...state
-      }
+      return { ...state }
 
     case RECEIVE_SIGN_UP_TO_GROUP:
       state[action.data._id] = action.data
