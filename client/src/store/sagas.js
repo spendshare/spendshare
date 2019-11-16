@@ -57,6 +57,7 @@ function* processAddBill(action) {
     api.endpoints.addBill(action.params)
   )
   if (!error) {
+    yield fetchGroupDebts({ id: action.params.groupId })
     yield put(actions.receiveAddBill(data))
   } else {
     yield put(actions.rejectAddBill(error))

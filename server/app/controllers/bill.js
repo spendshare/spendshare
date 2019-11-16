@@ -24,7 +24,7 @@ const create = (req, res) => {
   }
   const bill = new Bill(params)
 
-  bill.save(err => {
+  bill.save(error => {
     if (error) console.log(error)
   })
 
