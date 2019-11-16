@@ -17,10 +17,11 @@ export default async function seeds() {
     const Member = mongoose.model('Member')
     const Ignored = mongoose.model('Ignored')
 
-    await User.deleteMany({ fromBigData: true })
-    await Group.deleteMany({ fromBigData: true })
-    await Member.deleteMany({ fromBigData: true })
-    await Bill.deleteMany({ fromBigData: true })
+    await User.deleteMany({})
+    await Group.deleteMany({})
+    await Member.deleteMany({})
+    await Bill.deleteMany({})
+    await Ignored.deleteMany({})
     console.log('deleted old')
 
     const kowalski = {
