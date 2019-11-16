@@ -29,7 +29,14 @@ const Bill = ({ bill, users }) => {
           </div>
         </div>
       </div>
-      {expanded && <div className={styles.expanded}>Nothing to show</div>}
+      {expanded && (
+        <div className={styles.expanded}>
+          <div className={styles.smallBlackText}>Took part:</div>
+          {bill.participants.map(participantId => (
+            <div key={participantId}>{users[participantId].name}</div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
