@@ -59,18 +59,6 @@ export default async function seeds() {
     const m2 = { userId: u2._id, groupId: g._id }
     await Member.findOneAndUpdate(m2, m2, options)
 
-    // const bill = {
-    //   date: new Date('2019-04-01 08:00:00'),
-    //   title: 'Za piwo',
-    //   paid: {
-    //     amount: 5,
-    //     userId: u1._id,
-    //   },
-    //   groupId: g._id,
-    //   participants: [u1._id, u2._id],
-    // }
-
-    //if (process.env.BIG_DATA === 'YES') {
     const users = []
 
     for (let i = 0; i < 1000; i++) {
@@ -159,7 +147,6 @@ export default async function seeds() {
     }
     await Promise.all(promises)
     console.log('Seed applied')
-    //}
   })
 }
 

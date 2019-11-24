@@ -5,24 +5,23 @@ import { join } from 'path'
 import express from 'express'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import config from './config'
 import expressConfig from './config/express'
 import passportConfig from './config/passport'
 import routesConfig from './config/routes'
-// import seeds from './app/seeds'
 const models = join(__dirname, 'app/models')
-const port = process.env.PORT || 3000
+const port = 3000
 
 const listen = () => {
+  console.log('listen()')
   if (app.get('env') === 'test') return
-  // seeds()
   app.listen(port)
   console.log('Express app started on port ' + port)
 }
 
 const connect = () => {
+  console.log('connect()')
   const options = { keepAlive: 1, useNewUrlParser: true }
-  mongoose.connect(config.db, options)
+  mongoose.connect('mongodb://mongo:27017/my_app_development', options)
   return mongoose.connection
 }
 
