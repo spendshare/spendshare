@@ -11,6 +11,7 @@ services:
       - server/.env
     links:
       - mongo
+      - gurobi
   gurobi:
     container_name: gurobi
     build:

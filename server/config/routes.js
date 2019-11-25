@@ -43,6 +43,7 @@ export default app => {
       failureRedirect: `${FRONTEND_URL}/shrug`,
     }),
     (req, res) => {
+      console.log(`Redirecting to frontend url ${FRONTEND_URL}`)
       req.session.token = req.user.token
       res.redirect(`${FRONTEND_URL}/groups`)
     }

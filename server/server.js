@@ -28,10 +28,7 @@ const connect = () => {
 const app = express()
 const connection = connect()
 
-export default {
-  app,
-  connection,
-}
+export default { app, connection }
 
 // Bootstrap models
 fs.readdirSync(models)

@@ -81,7 +81,7 @@ const ILP = async bills => {
       })),
     }),
   }
-  const response = await fetch('http://localhost:1234', config)
+  const response = await fetch('http://gurobi:1234', config)
 
   const data = await response.json()
   const res = data.reduce((prev, curr) => {

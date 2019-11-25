@@ -1,9 +1,8 @@
 FROM node:latest
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app/
+WORKDIR /usr/spendshare
+COPY package.json /usr/spendshare/
 RUN npm install
-COPY . /usr/src/app
+COPY . /usr/spendshare
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
 RUN chmod +x /wait
 EXPOSE 3000
