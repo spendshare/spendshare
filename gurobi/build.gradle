@@ -1,6 +1,4 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
 
 group 'GurobiServer'
 version '1.0-SNAPSHOT'
@@ -20,6 +18,7 @@ dependencies {
     compile group: 'javax.json', name: 'javax.json-api', version: '1.1.4'
     compile files('../../../../../Library/gurobi811/mac64/lib/gurobi.jar')
 }
+
 sourceSets {
     main {
         java {
@@ -31,4 +30,15 @@ sourceSets {
             srcDir 'src'
         }
     }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'Server'
+    }
+    archiveFileName = 'gurobi-solver.jar'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
