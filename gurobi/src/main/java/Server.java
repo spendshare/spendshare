@@ -11,12 +11,10 @@ import org.takes.http.Exit;
 import org.takes.http.FtBasic;
 import org.takes.rq.RqPrint;
 import org.takes.rs.RsJson;
-
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 
 public final class Server {
-
     public static void main(final String... args) throws Exception {
         new FtBasic(
             new TkFork(new FkRegex("/", new TkIndex())), 1234
@@ -208,8 +206,6 @@ class TkIndex implements Take {
                     }
                 }
             }
-
-
             return new RsJson(jsonBuilder.build());
         } catch (Exception e) {
             e.printStackTrace();
