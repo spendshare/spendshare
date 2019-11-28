@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 const { ObjectId } = mongoose.Types
+import config from '../config'
 
 import faker from 'faker'
 import config from '../config'

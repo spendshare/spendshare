@@ -15,6 +15,7 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 
 public final class Server {
+    public static int T = 1000000000; // INF
     public static void main(final String... args) throws Exception {
         new FtBasic(
             new TkFork(new FkRegex("/", new TkIndex())), 4000
@@ -27,13 +28,11 @@ public final class Server {
         GRBModel model = new GRBModel(env);
 
         int inputLength = input.length;
-        GRBLinExpr[] eqExprs = new GRBLinExpr[inputLength];
-        GRBQuadExpr[] eqExprs2 = new GRBQuadExpr[inputLength];
+        GRBLinExpr[] eqExprs2 = new GRBLinExpr[inputLength];
         GRBVar[][] result = new GRBVar[inputLength][inputLength];
         GRBVar[][] isExisting = new GRBVar[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
-            eqExprs[i] = new GRBLinExpr();
-            eqExprs2[i] = new GRBQuadExpr();
+            eqExprs2[i] = new GRBLinExpr();
             for (int j = 0; j < result[i].length; j++) {
                 if (i == j) {
                     continue;
@@ -53,10 +52,21 @@ public final class Server {
                     model.addConstr(eqi, GRB.EQUAL, 0, "eq-ex-array-" + i + '-' + 'j');
 
                 }
-                eqExprs[i].addTerm(1.0, x);
-                eqExprs2[i].addTerm(1.0, isExistingVar, x);
+                GRBLinExpr satmax = new GRBLinExpr();
+                satmax.addTerm(T, isExistingVar);
+                GRBVar MaxE = model.addVar(-T, T, 0.0, GRB.INTEGER, "maxE-" + i + "-" + j);
+                model.addConstr(satmax, GRB.EQUAL, MaxE, "eq-ex-max-e-array-" + i + '-' + 'j');
+                model.addConstr(x , GRB.LESS_EQUAL, MaxE , "res-" + i + "-" + j + "traverse-satmax");
+
+                GRBLinExpr satmin = new GRBLinExpr();
+                satmin.addTerm(-T, isExistingVar);
+                GRBVar MinE = model.addVar(-T, T, 0.0, GRB.INTEGER, "minE-" + i + "-" + j);
+                model.addConstr(satmin, GRB.EQUAL, MinE, "eq-ex-min-e-array-" + i + '-' + 'j');
+                model.addConstr(x , GRB.GREATER_EQUAL, MinE , "res-" + i + "-" + j + "traverse-satmin");
+
+                eqExprs2[i].addTerm(1.0, x);
             }
-            model.addQConstr(eqExprs2[i], GRB.EQUAL, input[i], "ea-user-" + i);
+            model.addConstr(eqExprs2[i], GRB.EQUAL, input[i], "ea-user-" + i);
         }
 
         for (int[] dislike : dislikes) {
