@@ -28,12 +28,10 @@ public final class Server {
         GRBModel model = new GRBModel(env);
 
         int inputLength = input.length;
-        //GRBLinExpr[] eqExprs = new GRBLinExpr[inputLength];
-      GRBLinExpr[] eqExprs2 = new GRBLinExpr[inputLength];
+        GRBLinExpr[] eqExprs2 = new GRBLinExpr[inputLength];
         GRBVar[][] result = new GRBVar[inputLength][inputLength];
         GRBVar[][] isExisting = new GRBVar[inputLength][inputLength];
         for (int i = 0; i < result.length; i++) {
-            //eqExprs[i] = new GRBLinExpr();
             eqExprs2[i] = new GRBLinExpr();
             for (int j = 0; j < result[i].length; j++) {
                 if (i == j) {
