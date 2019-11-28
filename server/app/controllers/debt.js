@@ -82,9 +82,19 @@ const ILP = async bills => {
       })),
     }),
   }
-  const response = await fetch(config.gurobiPath, fetchConfig)
+  console.log(JSON.stringify(fetchConfig))
 
-  const data = await response.json()
+  let response = null
+  try {
+    response = await fetch(config.gurobiPath, fetchConfig)
+  } catch (error) {
+    console.log(error)
+  }
+
+  const asText = await response.text()
+  console.log('Solver response: ', asText)
+
+  const data = JSON.parse(asText)
   const res = data.reduce((prev, curr) => {
     if (!prev[curr.who]) {
       prev[curr.who] = []
@@ -185,7 +195,8 @@ const all = async (req, res) => {
     date: -1,
   })
 
-  res.json({ data: await strategies.ILP(bills) })
+  const strategy = process.env.IS_PRODUCTION ? 'splitwise' : 'ILP'
+  res.json({ data: await strategies[strategy](bills) })
 }
 
 export default [

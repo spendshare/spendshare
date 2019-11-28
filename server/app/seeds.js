@@ -1,9 +1,8 @@
 import mongoose from 'mongoose'
 const { ObjectId } = mongoose.Types
 import config from '../config'
-
 import faker from 'faker'
-import config from '../config'
+
 export default async function seeds() {
   const optionsm = { keepAlive: 1, useNewUrlParser: true }
   mongoose.connect(config.mongoPath, optionsm)
