@@ -78,9 +78,5 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/',
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      fetch: 'whatwg-fetch',
-    }),
-  ],
+  plugins: [new webpack.ProvidePlugin({ fetch: 'whatwg-fetch' })],
 }
