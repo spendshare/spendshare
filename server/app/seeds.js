@@ -1,10 +1,11 @@
 import mongoose from 'mongoose'
 const { ObjectId } = mongoose.Types
+import config from '../config'
 
 import faker from 'faker'
 export default async function seeds() {
   const optionsm = { keepAlive: 1, useNewUrlParser: true }
-  mongoose.connect('mongodb://localhost/my_app_development', optionsm)
+  mongoose.connect(config.mongoPath, optionsm)
   mongoose.connection.once('open', async () => {
     require('./models/user')
     require('./models/bill')
