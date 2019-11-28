@@ -24,10 +24,14 @@ export default ({ user, groupId, debts }) => (
     </div>
     <div className={styles.content}>
       <div className={styles.name}>{user.name}</div>
-      <div className={styles.state}>{phraseBalance(user, debts || [])}</div>
+      {debts && (
+        <div className={styles.state}>{phraseBalance(user, debts || [])}</div>
+      )}
     </div>
-    <div className={styles['tooltip-wrapper']}>
-      <Tooltip user={user} debts={debts} groupId={groupId} />
-    </div>
+    {debts && (
+      <div className={styles['tooltip-wrapper']}>
+        <Tooltip user={user} debts={debts} groupId={groupId} />
+      </div>
+    )}
   </div>
 )

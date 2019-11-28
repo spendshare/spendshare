@@ -9,9 +9,12 @@ import Spinner from './Spinner'
 const mapStateToProps = ({ groups }) => ({ groups })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  requestGroupMembers: () => dispatch(actions.requestGroupMembers(ownProps.match.params.id)),
-  requestGroupBills: () => dispatch(actions.requestGroupBills(ownProps.match.params.id)),
-  requestGroupDebts: () => dispatch(actions.requestGroupDebts(ownProps.match.params.id)),
+  requestGroupMembers: () =>
+    dispatch(actions.requestGroupMembers(ownProps.match.params.id)),
+  requestGroupBills: () =>
+    dispatch(actions.requestGroupBills(ownProps.match.params.id)),
+  requestGroupDebts: () =>
+    dispatch(actions.requestGroupDebts(ownProps.match.params.id)),
 })
 
 const ShowGroup = ({
@@ -36,8 +39,14 @@ const ShowGroup = ({
   return (
     <div className={styles.container}>
       <Bills groupId={match.params.id} />
-      <People groupId={match.params.id} />
-      { group.fetching ? <Spinner/> : null }
+      <div className={styles.right}>
+        {group.fetching && (
+          <div className={styles.spinner}>
+            <Spinner />
+          </div>
+        )}
+        <People groupId={match.params.id} faded={group.fetching} />
+      </div>
     </div>
   )
 }
