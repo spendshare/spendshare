@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import fetch from 'node-fetch'
+import config from '../../config'
 
 const { ObjectId } = mongoose.Types
 
@@ -65,7 +66,7 @@ const ILP = async bills => {
     secondUserId: { $in: userIds },
   })
 
-  const config = {
+  const fetchConfig = {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -81,7 +82,7 @@ const ILP = async bills => {
       })),
     }),
   }
-  const response = await fetch('http://gurobi:1234', config)
+  const response = await fetch(config.gurobiPath, fetchConfig)
 
   const data = await response.json()
   const res = data.reduce((prev, curr) => {

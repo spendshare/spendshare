@@ -1,14 +1,6 @@
-import path from 'path'
-
-import development from './env/development'
-import test from './env/test'
-import production from './env/production'
-const defaults = {
-  root: path.normalize(__dirname + '/..'),
-}
-
 export default {
-  development: Object.assign({}, development, defaults),
-  test: Object.assign({}, test, defaults),
-  production: Object.assign({}, production, defaults),
-}[process.env.NODE_ENV || 'development']
+  mongoPath: process.env.IS_PRODUCTION
+    ? 'mongodb://mongo:27017/spendshare'
+    : 'mongodb://localhost:27017/spendshare',
+  gurobiPath: 'http://gurobi:4000',
+}
