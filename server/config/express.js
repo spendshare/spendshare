@@ -110,7 +110,7 @@ export default function(app, passport) {
       resave: true,
       saveUninitialized: true,
       store: new mongoStore({
-        url: 'mongodb://mongo:27017/myappdevelopment',
+        url: config.mongoPath,
         collection: 'sessions',
       }),
     })

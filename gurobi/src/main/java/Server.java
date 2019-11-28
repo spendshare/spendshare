@@ -17,7 +17,7 @@ import javax.json.JsonArrayBuilder;
 public final class Server {
     public static void main(final String... args) throws Exception {
         new FtBasic(
-            new TkFork(new FkRegex("/", new TkIndex())), 1234
+            new TkFork(new FkRegex("/", new TkIndex())), 4000
         ).start(Exit.NEVER);
 
     }

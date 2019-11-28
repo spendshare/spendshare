@@ -8,6 +8,7 @@ import passport from 'passport'
 import expressConfig from './config/express'
 import passportConfig from './config/passport'
 import routesConfig from './config/routes'
+import config from './config'
 const models = join(__dirname, 'app/models')
 const port = 3000
 
@@ -21,7 +22,7 @@ const listen = () => {
 const connect = () => {
   console.log('connect()')
   const options = { keepAlive: 1, useNewUrlParser: true }
-  mongoose.connect('mongodb://mongo:27017/my_app_development', options)
+  mongoose.connect(config.mongoPath, options)
   return mongoose.connection
 }
 
