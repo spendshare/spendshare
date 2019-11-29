@@ -6,7 +6,6 @@ import { currency } from '../config'
 import BadgeSelector from './BadgeSelector'
 import Button from './Button'
 import Input from './Input'
-import Suggestion from './Suggestion'
 import { getGroupUsers } from '../store/selectors'
 
 const mapStateToProps = (state, props) => ({
