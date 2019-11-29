@@ -6,7 +6,13 @@ import MiniBadge from './MiniBadge'
 import Suggestion from './Suggestion'
 import TextSuggestion from './TextSuggestion'
 
-const BadgeSelector = ({ suggested, selected, select, deselect }) => {
+const BadgeSelector = ({
+  isSettling,
+  suggested,
+  selected,
+  select,
+  deselect,
+}) => {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [value, setValue] = useState('')
 
@@ -40,19 +46,28 @@ const BadgeSelector = ({ suggested, selected, select, deselect }) => {
   return (
     <div className={styles['badge-selector']}>
       <span className={styles['badge-selector-title']}>
-        With <span className={styles.highlight}>you</span> and:
+        With
+        {!isSettling && (
+          <>
+            {' '}
+            <span className={styles.highlight}>you</span> and
+          </>
+        )}
+        :
       </span>
       <div className={styles['selected-people']}>
         {selected.map(s => (
           <MiniBadge user={s} key={s.id} handleClick={() => deselect(s)} />
         ))}
       </div>
-      <input
-        className={styles['badge-input']}
-        placeholder="Enter a name..."
-        value={value}
-        onChange={handleChange}
-      />
+      {(!isSettling || selected.length < 1) && (
+        <input
+          className={styles['badge-input']}
+          placeholder="Enter a name..."
+          value={value}
+          onChange={handleChange}
+        />
+      )}
       {showSuggestions && (
         <div className={styles.suggestions}>
           {filteredSuggestions.length > 0 ? (
