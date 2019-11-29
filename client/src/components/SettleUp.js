@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import styles from './AddBill.module.scss'
-import { shortenName } from '../utils'
 import actions from '../store/actions'
 import { currency } from '../config'
 import BadgeSelector from './BadgeSelector'
 import Button from './Button'
-import DropdownSelector from './DropdownSelector'
 import Input from './Input'
 import Suggestion from './Suggestion'
 import { getGroupUsers } from '../store/selectors'
@@ -22,13 +20,11 @@ const mapDispatchToProps = dispatch => ({
   requestAddBill: params => dispatch(actions.requestAddBill(params)),
 })
 
-const AddBill = ({ users, requestAddBill, currentUser, hide, groupId }) => {
-  const [title, setTitle] = useState('')
+const SettleUp = ({ users, requestAddBill, currentUser, hide, groupId }) => {
   const [amount, setAmount] = useState('')
   const [selected, setSelected] = useState([])
-  const [payer, setPayer] = useState({ id: currentUser.id, name: 'You' })
+  const [payer] = useState({ id: currentUser.id, name: 'You' })
 
-  const handleChangeTitle = event => setTitle(event.target.value)
   const handleChangeAmount = event => setAmount(event.target.value)
 
   useEffect(() => {
@@ -42,7 +38,7 @@ const AddBill = ({ users, requestAddBill, currentUser, hide, groupId }) => {
   const save = async () => {
     requestAddBill({
       date: new Date(),
-      title,
+      title: 'Settle up',
       paid: {
         amount: Number(amount),
         userId: payer.id,
@@ -63,18 +59,15 @@ const AddBill = ({ users, requestAddBill, currentUser, hide, groupId }) => {
     setSelected(selected.filter(u => u.id !== person.id))
   }
 
-  const renderPerson = option => <Suggestion user={option} />
-
-  const selectPayer = option => setPayer(option)
-
   return (
     <div className={styles['add-bill']}>
       <div className={styles.box}>
         <div className={styles.cross} onClick={hide}>
           ✕
         </div>
-        <div className={styles.title}>Add a bill</div>
+        <div className={styles.title}>Settle up</div>
         <BadgeSelector
+          isSettling
           suggested={users}
           selected={selected}
           select={select}
@@ -82,14 +75,6 @@ const AddBill = ({ users, requestAddBill, currentUser, hide, groupId }) => {
         />
         <div className={styles.content}>
           <div className={styles.column}>
-            <Input
-              autoFocus
-              className={styles.input}
-              label="Title"
-              onChange={handleChangeTitle}
-              placeholder="Enter a description..."
-              value={title}
-            />
             <Input
               biggerText
               className={styles.input}
@@ -99,17 +84,6 @@ const AddBill = ({ users, requestAddBill, currentUser, hide, groupId }) => {
               right={currency}
               value={amount}
             />
-            <div className={styles.descriptive}>
-              Paid by{' '}
-              <DropdownSelector
-                title={payer.name !== 'You' ? shortenName(payer.name) : 'You'}
-                options={[{ name: 'You' }, ...selected]}
-                renderOption={renderPerson}
-                select={selectPayer}
-                searchKeys={['name']}
-              />{' '}
-              and split equally
-            </div>
           </div>
         </div>
         <div className={styles.buttons}>
@@ -128,4 +102,4 @@ const AddBill = ({ users, requestAddBill, currentUser, hide, groupId }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddBill)
+)(SettleUp)
