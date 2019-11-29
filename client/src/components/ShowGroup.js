@@ -33,7 +33,7 @@ const ShowGroup = ({
 
   const group = groups[match.params.id]
 
-  if (!group || group.loading) return <Spinner />
+  if (!group) return <Spinner />
   if (group.error) return <div>error</div>
 
   return (
