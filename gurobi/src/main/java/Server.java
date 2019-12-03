@@ -11,11 +11,13 @@ import org.takes.http.Exit;
 import org.takes.http.FtBasic;
 import org.takes.rq.RqPrint;
 import org.takes.rs.RsJson;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 
 public final class Server {
     public static int T = 1000000000; // INF
+
     public static void main(final String... args) throws Exception {
         new FtBasic(
             new TkFork(new FkRegex("/", new TkIndex())), 4000
@@ -56,13 +58,13 @@ public final class Server {
                 satmax.addTerm(T, isExistingVar);
                 GRBVar MaxE = model.addVar(-T, T, 0.0, GRB.INTEGER, "maxE-" + i + "-" + j);
                 model.addConstr(satmax, GRB.EQUAL, MaxE, "eq-ex-max-e-array-" + i + '-' + 'j');
-                model.addConstr(x , GRB.LESS_EQUAL, MaxE , "res-" + i + "-" + j + "traverse-satmax");
+                model.addConstr(x, GRB.LESS_EQUAL, MaxE, "res-" + i + "-" + j + "traverse-satmax");
 
                 GRBLinExpr satmin = new GRBLinExpr();
                 satmin.addTerm(-T, isExistingVar);
                 GRBVar MinE = model.addVar(-T, T, 0.0, GRB.INTEGER, "minE-" + i + "-" + j);
                 model.addConstr(satmin, GRB.EQUAL, MinE, "eq-ex-min-e-array-" + i + '-' + 'j');
-                model.addConstr(x , GRB.GREATER_EQUAL, MinE , "res-" + i + "-" + j + "traverse-satmin");
+                model.addConstr(x, GRB.GREATER_EQUAL, MinE, "res-" + i + "-" + j + "traverse-satmin");
 
                 eqExprs2[i].addTerm(1.0, x);
             }
@@ -87,7 +89,9 @@ public final class Server {
         }
         model.setObjective(minimize, GRB.MINIMIZE);
 
-        model.set(GRB.DoubleParam.TimeLimit, 5);
+        model.set(GRB.DoubleParam.TimeLimit, 2);
+//        model.set(GRB.IntParam.SolutionLimit, 100);
+//        model.set(GRB.DoubleParam.BestObjStop, 2.4e+1);
         model.optimize();
 
 

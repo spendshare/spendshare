@@ -1,8 +1,9 @@
-version: "2"
+version: "3.4"
 services:
   server:
     container_name: server
     build:
+      network: host
       context: server
       dockerfile: Dockerfile
     ports:
@@ -11,17 +12,10 @@ services:
       - server/.env
     links:
       - mongo
-      - gurobi
-  gurobi:
-    container_name: gurobi
-    build:
-      context: gurobi
-      dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
   client:
     container_name: client
     build:
+      network: host
       context: client
       dockerfile: Dockerfile
     ports:

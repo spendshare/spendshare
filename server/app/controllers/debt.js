@@ -39,7 +39,6 @@ const ILP = async bills => {
   }
 
   bills.forEach(b => {
-    //FIXME
     const pl = b.participants.length
     const amount = Math.round((b.paid.amount * 100) / pl)
     add(b.paid.userId, amount * pl)
@@ -195,7 +194,7 @@ const all = async (req, res) => {
     date: -1,
   })
 
-  const strategy = process.env.IS_PRODUCTION ? 'splitwise' : 'ILP'
+  const strategy = 'ILP'
   res.json({ data: await strategies[strategy](bills) })
 }
 
