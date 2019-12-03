@@ -2,16 +2,6 @@
 
 ![](./screenshot.png)
 
-## Installing Gurobi
-
-- visit `https://www.gurobi.com/downloads/licenses`
-- enter your license key's page
-- copy command displayed at the bottom
-- download installer for your platform:
-  [MacOS](https://packages.gurobi.com/8.1/gurobi8.1.1_mac64.pkg) or
-  [Linux 64 bit](https://packages.gurobi.com/8.1/gurobi8.1.1_linux64.tar.gz) or
-  [Windows 64 bit](https://packages.gurobi.com/8.1/Gurobi-8.1.1-win64.msi)
-
 ## Running in development mode
 
 ### Requirements
@@ -20,7 +10,9 @@
 - `yarn` tool installed
 - `MongoDB` installed
 
-### Termminal #1
+Open 3 separate terminal windows/tabs:
+
+### Terminal #1
 
 - `cd server`
 - `yarn`
@@ -38,7 +30,17 @@
 
 ### IntelliJ
 
-Make sure you have installed Gurobi as described above. Open `gurobi` directory as a project. Run server.
+Make sure you have installed Gurobi as described below. Open `gurobi` directory as a project. Run server.
+
+## Installing Gurobi
+
+- visit `https://www.gurobi.com/downloads/licenses`
+- enter your license key's page
+- copy command displayed at the bottom
+- download installer for your platform:
+  [MacOS](https://packages.gurobi.com/8.1/gurobi8.1.1_mac64.pkg) or
+  [Linux 64 bit](https://packages.gurobi.com/8.1/gurobi8.1.1_linux64.tar.gz) or
+  [Windows 64 bit](https://packages.gurobi.com/8.1/Gurobi-8.1.1-win64.msi)
 
 ## Running using docker images
 
